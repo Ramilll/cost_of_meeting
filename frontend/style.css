@@ -22,21 +22,17 @@ body{
 	position: relative;
 	left: 40%;
 }
-.currentUsers{
+/*.currentUsers{
 	display: grid;
 	position: relative;
 	grid-template-columns: 60% 25% 10%;
 	grid-gap: 5px;
-}
+}*/
 .user{
 	display: grid;
 	position: relative;
 	grid-template-columns: 60% 25% 10%;
 	grid-gap: 5px;
-}
-.name{
-	height: 10%;
-	width: 10%;
 }
 .button{
 	position: relative;

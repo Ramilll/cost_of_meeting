@@ -6,7 +6,6 @@
 </head>
 <body>
 	<script src="index.js"></script>
-	<input type="file" onchange="test(this)">
 	<div class="box-1">
 		<div class="meetings">
 			<h1 id="meetings">Names Meetings</h1>
@@ -18,6 +17,11 @@
 			<h2>1000</h2>
 		</div>
 		<div class="currentUsers" id="currentUsers">
+			<div class="user" id="12">
+				<div class="name">Max</div>
+				<div class="salary">100</div>
+				<input type="checkbox" name="" class="checkbox">
+			</div>
 			<div class="user" id="12">
 				<div class="name">Max</div>
 				<div class="salary">100</div>
@@ -43,7 +47,7 @@
 			</div>
 		</div>
 		<form>
-			<input type="button" value="save" class="button" onclick="nreadystatechange()">
+			<input type="button" value="save" class="button" onclick="addUser()">
 		</form>
 	</div>
 </body>
