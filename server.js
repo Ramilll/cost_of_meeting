@@ -1,3 +1,20 @@
+// берём Express
+var express = require('express');
+
+// создаём Express-приложение
+var app = express();
+
+// создаём маршрут для главной страницы
+// http://localhost:8080/
+app.get('/', function(req, res) {
+    res.send('hi')
+});
+
+// запускаем сервер на порту 3000
+app.listen(3000);
+// отправляем сообщение
+console.log('Сервер стартовал!');
+
 let data = {
     meetings: [{id: 141, currentUsers: [1, 3, 8]}, {id: 229, currentUsers: [2, 4, 5, 6]},
         {id: 357, currentUsers: [7, 9, 10]}, {id: 404, currentUsers: [11, 12]}],
@@ -11,12 +28,7 @@ let data = {
         {wageId: 3, salary:300}, {wageId: 4, salary:400}],
 }
 
-let jsonData = JSON.stringify(data)
 
-let fs = require('fs')
-fs.writeFile('jsonData.json', jsonData, (err) => {
-    if (err) throw err
-    console.log('The file has been saved!')
-});
-
-export {data};
+app.get('/meeting/:meetingId',function(req,res) {
+    res.send(data.meetings.find(item => item.id == req.params.meetingId))
+})
