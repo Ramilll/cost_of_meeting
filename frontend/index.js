@@ -37,6 +37,7 @@
     function test(){
       start = !start;
       timer();
+      cost();
       if(!start){
         button.value = 'stop';
       }
@@ -74,18 +75,50 @@
       }
     }
 
-function addUser(id) {
-	var user = document.getElementById("1");
-	var cln = user.cloneNode(true);
-	document.getElementById("currentUsers").appendChild(cln);
+function addCurrentUser() {// add user in current user list
+  var user = document.getElementById("423").;
+  var cln = user.cloneNode(true);
+
+  document.getElementById("currentUsers").appendChild(cln); //add
 }
 
-fetch('http://localhost:3000',{mode: 'no-cors'})
+function addUser() { // add user in selection
+	var user = document.getElementById("423");
+	var cln = user.cloneNode(true);
+  alert(cln.option.selected);
+
+  cln.value = 'Max';
+  cln.innerHTML = 'Max';
+	document.getElementById("users").appendChild(cln); //add
+}
+
+fetch('http://localhost:3000',{mode: 'no-cors',method: 'GET',})
   .then((response) => {
     console.log(response);})
   .then((data) => {
     console.log(data);
-  });
+  })
+
+greed = 60000;
+function cost(){
+  if(start){
+    var n = document.getElementById('users').size;
+    document.getElementById('cost').innerHTML = n*greed*1/160*1/3600*seconds;
+    setTimeout(cost,1000);
+  }
+}
+// fetch('http://localhost:3000/admin', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//         user: {
+//             name: "John",
+//             email: "john@example.com"
+//         }
+//     })
+// });
 
 // const url = 'http://localhost:3000';
 // const data = { username: 'example' };

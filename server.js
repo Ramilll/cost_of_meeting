@@ -41,3 +41,12 @@ app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
 
+// const bodyParser = require("body-parser");
+// const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
+
+// app.post("/admin", urlencodedParser, function (request, response) {
+//     if(!request.body) return response.sendStatus(400);
+//     console.log(request.body);
+//     response.send(request.body);
+// });
+
