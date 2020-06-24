@@ -76,7 +76,7 @@
     }
 
 function addCurrentUser() {// add user in current user list
-  var user = document.getElementById("423").;
+  var user = document.getElementById("423");
   var cln = user.cloneNode(true);
 
   document.getElementById("currentUsers").appendChild(cln); //add
@@ -85,14 +85,15 @@ function addCurrentUser() {// add user in current user list
 function addUser() { // add user in selection
 	var user = document.getElementById("423");
 	var cln = user.cloneNode(true);
-  alert(cln.option.selected);
 
   cln.value = 'Max';
   cln.innerHTML = 'Max';
 	document.getElementById("users").appendChild(cln); //add
 }
+const myHeaders = new Headers();
+myHeaders.append('Content-Type', 'text/plain');
 
-fetch('http://localhost:3000',{mode: 'no-cors',method: 'GET',})
+fetch('http://localhost:3000',{mode: 'no-cors'})
   .then((response) => {
     console.log(response);})
   .then((data) => {
