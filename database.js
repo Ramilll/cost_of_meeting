@@ -18,5 +18,3 @@ fs.writeFile('jsonData.json', jsonData, (err) => {
     if (err) throw err
     console.log('The file has been saved!')
 });
-
-export {data};
