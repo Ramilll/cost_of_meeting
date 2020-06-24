@@ -67,7 +67,7 @@
         h = '';
       }
       else h ='0';
-      
+
         time = h+hour+':'+m+min+':'+s+second;
         document.getElementById('timer').innerHTML = time;
         setTimeout(timer,1000);
@@ -79,14 +79,14 @@ function addUser(id) {
 	var cln = user.cloneNode(true);
 	document.getElementById("currentUsers").appendChild(cln);
 }
-
+/*
 fetch('http://localhost:3000',{mode: 'no-cors'})
   .then((response) => {
     console.log(response);})
   .then((data) => {
     console.log(data);
   });
-
+*/
 // const url = 'http://localhost:3000';
 // const data = { username: 'example' };
 

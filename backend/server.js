@@ -1,3 +1,4 @@
+let dirname = '/Users/ramilnazmeev/WebstormProjects/costOfMeeting/frontend'
 // берём Express
 var express = require('express');
 
@@ -5,9 +6,9 @@ var express = require('express');
 var app = express();
 
 // создаём маршрут для главной страницы
-// http://localhost:8080/
+// http://localhost:3080/
 app.get('/', function(req, res) {
-    res.send('hi')
+    res.sendFile(dirname + "/admin.html");
 });
 
 // запускаем сервер на порту 3000
@@ -33,10 +34,9 @@ app.get('/user/all',function(req,res) {
     res.send(data.users)
 })
 
-app.get('/meeting/create',function(req,res) {
+app.get('/meeting/:meetingId/create',function(req,res) {
     let start = new Date()
-    res.send("Встреча создана" + start)
-    console.log(start)
+    res.send("Встреча " + req.params.meetingId + " была создана " + start)
 })
 
 app.get('/meeting/:meetingId/stop',function(req,res) {
@@ -51,4 +51,3 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
-
