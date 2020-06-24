@@ -32,3 +32,7 @@ let data = {
 app.get('/meeting/:meetingId',function(req,res) {
     res.send(data.meetings.find(item => item.id == req.params.meetingId))
 })
+
+app.get('/user/:userId',function(req,res) {
+    res.send(data.users.find(item => item.id == req.params.userId))
+})
