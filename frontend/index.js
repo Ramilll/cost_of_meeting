@@ -37,6 +37,7 @@
     function test(){
       start = !start;
       timer();
+      cost();
       if(!start){
         button.value = 'stop';
       }
@@ -74,19 +75,61 @@
       }
     }
 
-function addUser(id) {
-	var user = document.getElementById("1");
-	var cln = user.cloneNode(true);
-	document.getElementById("currentUsers").appendChild(cln);
+function addCurrentUser() {// add user in current user list
+  var user = document.getElementById("423");
+  var cln = user.cloneNode(true);
+
+  document.getElementById("currentUsers").appendChild(cln); //add
 }
+
+function addUser() { // add user in selection
+	var user = document.getElementById("423");
+	var cln = user.cloneNode(true);
+
+  cln.value = 'Max';
+  cln.innerHTML = 'Max';
+	document.getElementById("users").appendChild(cln); //add
+}
+<<<<<<< HEAD
 /*
+=======
+const myHeaders = new Headers();
+myHeaders.append('Content-Type', 'text/plain');
+
+>>>>>>> df6b00f6f38f1aae497791348eba93b05dc8a648
 fetch('http://localhost:3000',{mode: 'no-cors'})
   .then((response) => {
     console.log(response);})
   .then((data) => {
     console.log(data);
+<<<<<<< HEAD
   });
 */
+=======
+  })
+
+greed = 60000;
+function cost(){
+  if(start){
+    var n = document.getElementById('users').size;
+    document.getElementById('cost').innerHTML = n*greed*1/160*1/3600*seconds;
+    setTimeout(cost,1000);
+  }
+}
+// fetch('http://localhost:3000/admin', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//         user: {
+//             name: "John",
+//             email: "john@example.com"
+//         }
+//     })
+// });
+
+>>>>>>> df6b00f6f38f1aae497791348eba93b05dc8a648
 // const url = 'http://localhost:3000';
 // const data = { username: 'example' };
 
