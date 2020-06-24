@@ -33,6 +33,17 @@ app.get('/user/all',function(req,res) {
     res.send(data.users)
 })
 
+app.get('/meeting/create',function(req,res) {
+    let start = new Date()
+    res.send("Встреча создана" + start)
+    console.log(start)
+})
+
+app.get('/meeting/:meetingId/stop',function(req,res) {
+    let end = new Date()
+    res.send("Встреча " + req.params.meetingId + " была завершена " + end)
+})
+
 app.get('/meeting/:meetingId',function(req,res) {
     res.send(data.meetings.find(item => item.id == req.params.meetingId))
 })
