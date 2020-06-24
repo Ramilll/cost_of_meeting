@@ -90,25 +90,8 @@ function addUser() { // add user in selection
   cln.innerHTML = 'Max';
 	document.getElementById("users").appendChild(cln); //add
 }
-<<<<<<< HEAD
-/*
-=======
-const myHeaders = new Headers();
-myHeaders.append('Content-Type', 'text/plain');
 
->>>>>>> df6b00f6f38f1aae497791348eba93b05dc8a648
-fetch('http://localhost:3000',{mode: 'no-cors'})
-  .then((response) => {
-    console.log(response);})
-  .then((data) => {
-    console.log(data);
-<<<<<<< HEAD
-  });
-*/
-=======
-  })
-
-greed = 60000;
+var greed = 60000;
 function cost(){
   if(start){
     var n = document.getElementById('users').size;
@@ -128,8 +111,15 @@ function cost(){
 //         }
 //     })
 // });
+const url = 'https://jsonplaceholder.typicode.com/users'; //url place holder
+let body = null;
+fetch(url) //method: 'GET'
+  .then((response) => {
+    console.log(response.json());})
+  // .then((data) => {
+  //   console.log(data);
+  // });
 
->>>>>>> df6b00f6f38f1aae497791348eba93b05dc8a648
 // const url = 'http://localhost:3000';
 // const data = { username: 'example' };
 

@@ -51,8 +51,6 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
-<<<<<<< HEAD
-=======
 
 // const bodyParser = require("body-parser");
 // const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
@@ -62,5 +60,3 @@ app.get('/user/:userId',function(req,res) {
 //     console.log(request.body);
 //     response.send(request.body);
 // });
-
->>>>>>> df6b00f6f38f1aae497791348eba93b05dc8a648
