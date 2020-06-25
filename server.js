@@ -1,16 +1,15 @@
-let dirname = '/front/costOfMeeting/js_and_html'
 // берём Express
+
+let dirname = '/Users/ramilnazmeev/WebstormProjects/costOfMeeting/public'
 var express = require('express');
 
-// создаём Express-приложение
 var app = express();
 
-// создаём маршрут для главной страницы
-// http://localhost:3080/
-app.get('/', function(req, res) {
-    res.sendFile(dirname + "/admin.html");
-});
+app.use(express.static(__dirname + 'public'))
 
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + "/public/admin.html");
+});
 // запускаем сервер на порту 3000
 app.listen(3000);
 // отправляем сообщение
