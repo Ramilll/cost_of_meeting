@@ -46,28 +46,28 @@
 
     function timer() {
       if(start){
-      second++;
-      seconds++;
-      if(second>=60){
-        min++;
-        second = 0;
-      }
-      if(min>=60){
-        hour++;
-        min = 0;
-      }
-      if(second>=10){
-        s = '';
-      }
-      else s ='0';
-      if(min>=10){
-        m = '';
-      }
-      else m ='0';
-      if(hour>=10){
-        h = '';
-      }
-      else h ='0';
+       second++;
+       seconds++;
+        if(second>=60){
+          min++;
+          second = 0;
+        }
+        if(min>=60){
+          hour++;
+          min = 0;
+        }
+        if(second>=10){
+          s = '';
+        }
+        else s ='0';
+        if(min>=10){
+          m = '';
+        }
+        else m ='0';
+        if(hour>=10){
+          h = '';
+        }
+       else h ='0';
 
         time = h+hour+':'+m+min+':'+s+second;
         document.getElementById('timer').innerHTML = time;
@@ -118,24 +118,11 @@ const url = 'https://jsonplaceholder.typicode.com/users'; //url place holder
 let body = null;
 fetch(url) //method: 'GET'
   .then((response) => {
-    console.log(response.json());})
+    var res = response.json();
+    console.log(res.text);
+    console.log(res);})
+    // document.getElementById('meeting').innerHTML = JSON.parse(res);
+  // })
   // .then((data) => {
   //   console.log(data);
   // });
-
-// const url = 'http://localhost:3000';
-// const data = { username: 'example' };
-
-// try {
-//   const response = await fetch(url, {
-//     method: 'POST', // или 'PUT'
-//     body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   });
-//   const json = await response.json();
-//   console.log('Успех:', JSON.stringify(json));
-// } catch (error) {
-//   console.error('Ошибка:', error);
-// }
