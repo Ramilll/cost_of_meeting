@@ -1,4 +1,4 @@
-let dirname = '/Users/ramilnazmeev/WebstormProjects/costOfMeeting/frontend'
+let dirname = '/Users/ramilnazmeev/WebstormProjects/costOfMeeting/js_and_html'
 // берём Express
 var express = require('express');
 
