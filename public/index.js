@@ -95,9 +95,10 @@ function addUser() { // add user in selection
 }
 
 var greed = 60000;
+// money counter
 function cost(){
   if(start){
-    var n = document.getElementById('users').size;
+    var n = 30;
     document.getElementById('cost').innerHTML = n*greed*1/160*1/3600*seconds;
     setTimeout(cost,1000);
   }
@@ -114,7 +115,7 @@ function cost(){
 //         }
 //     })
 // });
-const url = 'https://jsonplaceholder.typicode.com/users'; //url place holder
+const url = 'http://localhost:3000/user/all'; //url place holder /user/all
 let body = null;
 fetch(url) //method: 'GET'
   .then((response) => {
