@@ -75,20 +75,23 @@
       }
     }
 
-function addCurrentUser() {// add user in current user list
-  var user = document.getElementById("423");
+// add user in current user list
+function addCurrentUser() {
+  var id = document.getElementById("users").value;
+  var user = document.getElementById(id);
   var cln = user.cloneNode(true);
 
   document.getElementById("currentUsers").appendChild(cln); //add
 }
 
 function addUser() { // add user in selection
-	var user = document.getElementById("423");
-	var cln = user.cloneNode(true);
+	var user = document.createElement("option");
+  var name = 'Max'
 
-  cln.value = 'Max';
-  cln.innerHTML = 'Max';
-	document.getElementById("users").appendChild(cln); //add
+  user.value = name;
+  user.id = name;
+  user.innerHTML = name;
+	document.getElementById("users").appendChild(user); //add
 }
 
 var greed = 60000;

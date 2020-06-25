@@ -2,16 +2,8 @@
 <html>
 <head>
 	<title></title>
-	<style type="text/css">
-		.users{
-			display: inline-block;
-  			width: 300px;
- 			height: 600px;
-  			line-height: 30px;
-  			font-size: 20px;
- 			position: relative;
-		}
-	</style>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./admin.css">
 </head>
 <body>
 	<h1 id="timer"></h1>
@@ -23,16 +15,19 @@
 		<input type="button" name="" id="button" value="start" onclick="test()">
 		<input type="button" name="" id="button" value="add" onclick="addUser()">
 		<input type="button" name="" id="button" value="addCurrentUser" onclick="addCurrentUser()">
-		<p><select size="30" multiple name="hero[]" multiple="multiple" id="users" class="users">
+
+		<!--выподяющи список    -->
+		<p><select size="10" multiple name="users[]" multiple="multiple" id="users" class="users">
     		<option disabled>Выберите героя</option>
-    		<option value="Чебурашка" id="423">Чебурашка</option>
-   	 		<option selected value="Крокодил Гена">Крокодил Гена</option>
-    		<option value="Шапокляк">Шапокляк</option>
-    		<option value="Крыса Лариса">Крыса Лариса</option>
+    		<option value="Чебурашка" id="Чебурашка">Чебурашка</option>
+   	 		<option selected value="Крокодил Гена" id="Крокодил Гена">Крокодил Гена</option>
+    		<option value="Шапокляк" id="Шапокляк">Шапокляк</option>
+    		<option value="Крыса Лариса" id="Крыса Лариса">Крыса Лариса</option>
   	 	</select></p>
-		<input type="submit" name="">
+
+<!-- 		<input type="submit" name=""> -->
 	</form>
-	<script src="index.js">
+	<script src="./index.js">
 	</script>
 </body>
 </html>
