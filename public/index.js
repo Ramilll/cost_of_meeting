@@ -1,44 +1,18 @@
-// function test(input) {
-// 	let file = input.files[0];
-
-//  	let reader = new FileReader();
-
-//  	reader.readAsText(file);
-
- 
-// 	reader.onload = function() {
-// 		var obj = JSON.parse(reader.result);
-//     	console.log(obj["meetings"]);
-//     	var r = obj["meetings"];
-//     	console.log(r['0']);
-//     	var d = r['0'];
-//     	var currentUsers = d['currentUsers']
-//     	document.getElementById('meetings').innerHTML = d["id"];
-
-//     	for (var i = 0; i < d['currentUsers'].length; i++) {
-//     		addUser(currentUsers[i])
-//     	}
-//   	};
-
-//   	reader.onerror = function() {
-//     console.log(reader.error);
-//   	};
-// }
-    var time = '';
-    var second = 0;
-    var seconds = 0;
-    var min = 0;
-    var hour = 0;
-    var s = '';
-    var m = '';
-    var h = '';
-    var start = false;
+var time = '';
+var second = 0;
+var seconds = 0;
+var min = 0;
+var hour = 0;
+var s = '';
+var m = '';
+var h = '';
+var start = false;
 
     function test(){
       start = !start;
       timer();
       cost();
-      if(!start){
+      if(start){
         button.value = 'stop';
       }
       else button.value = 'start'
@@ -84,14 +58,18 @@ function addCurrentUser() {
   document.getElementById("currentUsers").appendChild(cln); //add
 }
 
-function addUser() { // add user in selection
-	var user = document.createElement("option");
-  var name = 'Max'
+function addUser(array) { // add user in selection
+  for(var i = 0;i<array.length;i++){
+    console.log(array[i]);
+    var user = document.createElement("option");
+    var name = array[i].name
 
-  user.value = name;
-  user.id = name;
-  user.innerHTML = name;
-	document.getElementById("users").appendChild(user); //add
+    user.value = array[i].name; // users name
+    user.id = array[i].name; // users id 
+    user.innerHTML = array[i].name;
+    document.getElementById("users").appendChild(user); //add
+  }
+
 }
 
 var greed = 60000;
@@ -116,12 +94,23 @@ function cost(){
 //     })
 // });
 const url = 'http://localhost:3000/user/all'; //url place holder /user/all
-let body = null;
-fetch(url) //method: 'GET'
-  .then((response) => {
-    var res = response.json();
-    console.log(res.text);
-    console.log(res);})
+
+fetch(url).then(function(response) {
+  response.json().then(function(text) {
+    console.log(text);
+    addUser(text);
+  });
+});
+
+// fetch(url,{credentials: 'include'}) //method: 'GET'
+//   .then((response) => {
+//     var res = response.json();
+//     console.log(res);
+//     document.getElementById('meeting').innerHTML = res;
+//     return response;
+//     // console.log(dispatch(res));
+//   })
+
     // document.getElementById('meeting').innerHTML = JSON.parse(res);
   // })
   // .then((data) => {
