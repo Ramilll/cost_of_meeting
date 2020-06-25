@@ -58,12 +58,12 @@ function addCurrentUser() {
   document.getElementById("currentUsers").appendChild(cln); //add
 }
 
-function addUser(array) { // add user in selection
+function addUser(array,wage) { // add user in selection
   for(var i = 0;i<array.length;i++){
-    console.log(array[i]);
     var user = document.createElement("option");
     var name = array[i].name
 
+    user.wage = wage[0].salary; 
     user.value = array[i].name; // users name
     user.id = array[i].name; // users id 
     user.innerHTML = array[i].name;
@@ -76,43 +76,23 @@ var greed = 60000;
 // money counter
 function cost(){
   if(start){
-    var n = 30;
-    document.getElementById('cost').innerHTML = n*greed*1/160*1/3600*seconds;
+    var n = document.getElementById("currentUsers").childNodes.length - 1;
+    document.getElementById('cost').innerHTML = n*(greed*1/160*1/3600*seconds);
     setTimeout(cost,1000);
   }
 }
-// fetch('http://localhost:3000/admin', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//         user: {
-//             name: "John",
-//             email: "john@example.com"
-//         }
-//     })
-// });
-const url = 'http://localhost:3000/user/all'; //url place holder /user/all
 
-fetch(url).then(function(response) {
+const url = 'http://localhost:3000/'; //url place holder /user/all
+
+fetch(url+'all').then(function(response) { //gettingalle data
   response.json().then(function(text) {
     console.log(text);
-    addUser(text);
-  });
-});
+    addUser(text.users,text.wage);
+  })
+})
 
-// fetch(url,{credentials: 'include'}) //method: 'GET'
-//   .then((response) => {
-//     var res = response.json();
-//     console.log(res);
-//     document.getElementById('meeting').innerHTML = res;
-//     return response;
-//     // console.log(dispatch(res));
+// fetch(url+'user/all').then(function(response) {  //getting user data
+//   response.json().then(function(text) {
+//     addUser(text);
 //   })
-
-    // document.getElementById('meeting').innerHTML = JSON.parse(res);
-  // })
-  // .then((data) => {
-  //   console.log(data);
-  // });
+// })

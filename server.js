@@ -32,9 +32,20 @@ let data = {
         {wageId: 3, salary:300}, {wageId: 4, salary:400}],
 }
 
+app.get('/all',function(req,res) {
+    res.send(data)
+})
 
 app.get('/user/all',function(req,res) {
     res.send(data.users)
+})
+
+app.get('/wage/all',function(req,res) {
+    res.send(data.wage)
+})
+
+app.get('/meeting/all',function(req,res) {
+    res.send(data.meetings)
 })
 
 app.get('/meeting/:meetingId/create',function(req,res) {
