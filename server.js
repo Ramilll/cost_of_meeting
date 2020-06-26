@@ -27,7 +27,7 @@ let data = {
         {id: 9, name:'мидл2', wageId: 2}, {id: 10, name:'сениор1', wageId: 3},
         {id: 11, name:'сениор2', wageId: 3}, {id: 12, name:'тимлид', wageId: 4}],
     wage: [{wageId: 1, salary:100}, {wageId: 2, salary:200},
-        {wageId: 3, salary:300}, {wageId: 4, salary:400}],
+        {wageId: 3, salary:300}, {wageId: 4, salary:400},{wageId: 5, salary:500}],
 }
 
 app.get('/all',function(req,res) {
