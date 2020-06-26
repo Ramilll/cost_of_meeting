@@ -91,22 +91,21 @@ function addUser(array,wage) { // add user in selection
 
 }
 
-var greed = 60000;
 var value = 0; // money
 // money counter
 function cost(array){
   if(start){
-    var n = document.getElementById("currentUsers").childNodes.length;
-    var child = document.getElementById("currentUsers").childNodes;
-
-    // console.log(child[0]);
-    for(var i = 1;i < n;i++){
-      for(var s = 0; s < res.wage.length;s++){
-        if(usersData(child[i].value) == res.wage[i].wageId){
-          console.log(res.wage[i].salary);
-        }
+    var n = document.getElementById("currentUsers").childNodes.length-1;
+    var elem = document.getElementById("currentUsers").childNodes;
+    for(var i = 0; i < res.users.length; i++) {
+      
+    }
+    for(var i = 0;i < n;i++){
+      for(var s = 1; s < res.wage.length;s++){
+        var greed = (wawgeData(usersData(elem[s].value)))
       }
     }
+    value = n*greed*1/160*1/3600*seconds;
     document.getElementById('cost').innerHTML = value;//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
@@ -114,6 +113,14 @@ function cost(array){
 function usersData(element) {
   for(var i = 0;i<res.users.length;i++){
     if(element == res.users[i].name) return res.users[i].wageId;
+  }
+}
+function wawgeData(element) {
+  for(var i = 0;i<res.wage.length;i++){
+    if(element == res.wage[i].wageId){
+      console.log(res.wage[i].salary);
+      return res.wage[i].salary;
+    }
   }
 }
 // fetch(url+'user/all').then(function(response) {  //getting user data
