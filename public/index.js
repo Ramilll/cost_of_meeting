@@ -95,6 +95,8 @@ var value = 0; // money
 // money counter
 function cost(array){
   if(start){
+    var greed = 0;
+    var wage = [];
     var n = document.getElementById("currentUsers").childNodes.length-1;
     var elem = document.getElementById("currentUsers").childNodes;
     for(var i = 0; i < res.users.length; i++) {
@@ -102,9 +104,16 @@ function cost(array){
     }
     for(var i = 0;i < n;i++){
       for(var s = 1; s < res.wage.length;s++){
-        var greed = (wawgeData(usersData(elem[s].value)))
+       var sd = (wawgeData(usersData(elem[s].value)));
       }
+        wage.push(sd)
     }
+    // wage = unique(wage);
+    console.log(wage);
+    for (var d = 0; d < wage.length; d++) {
+        greed += wage[d];
+    }
+    console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*seconds;
     document.getElementById('cost').innerHTML = value;//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
@@ -118,10 +127,22 @@ function usersData(element) {
 function wawgeData(element) {
   for(var i = 0;i<res.wage.length;i++){
     if(element == res.wage[i].wageId){
-      console.log(res.wage[i].salary);
+      // console.log(res.wage[i].salary);
       return res.wage[i].salary;
     }
   }
+}
+
+function unique(arr) {
+  let result = [];
+
+  for (let str of arr) {
+    if (!result.includes(str)) {
+      result.push(str);
+    }
+  }
+
+  return result;
 }
 // fetch(url+'user/all').then(function(response) {  //getting user data
 //   response.json().then(function(text) {
