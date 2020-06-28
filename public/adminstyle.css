@@ -1,5 +1,5 @@
 body{
-	background: #5f34ee;
+	background: white;
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -9,12 +9,13 @@ body{
 	height: 100%;
 }
 .users{
-	background: #eec334;
+	background: #c9c9c9;
 	position: relative;
 	width: 30%;
 	height: 60%;
 	border: solid 2px;
-	border-color: #db8f00;
+	border-color: #c9c9c9;
+	border-radius: 4px;
 }
 #timer{
 	font-size: 40px;

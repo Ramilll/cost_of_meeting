@@ -17,6 +17,8 @@ result.then(function(response) {
 function test1(ar) {
   res = ar;
 }
+
+
 var time = '';
 var second = 0;
 var seconds = 0;
@@ -69,12 +71,15 @@ var start = false;
     }
 
 // add user in current user list
-function addCurrentUser() {
-  var id = document.getElementById("users").value;
-  var user = document.getElementById(id);
+function addCurrentUser(id,id1) {
+  var value = document.getElementById(id).value;
+  var user = document.getElementById(value);
   var cln = user.cloneNode(true);
+  var element = document.getElementById(id);
 
-  document.getElementById("currentUsers").appendChild(cln); //add
+  document.getElementById(id1).appendChild(cln); //add
+  user.remove();
+	// users.parentNode.removeChild(id);
 }
 
 var ar = [];
@@ -97,17 +102,24 @@ function cost(array){
   if(start){
     var greed = 0;
     var wage = [];
-    var n = document.getElementById("currentUsers").childNodes.length-1;
-    var elem = document.getElementById("currentUsers").childNodes;
-    for(var i = 0; i < res.users.length; i++) {
-      
+    var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
+    var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
+
+    for(var i = 1; i < n;i++){
+      	var sd = usersData(elem[i].value);
+		for(var f = 0; f < res.wage.length; f++) {
+  			if(sd == res.wage[f].wageId){
+  				wage.push(res.wage[f].salary);
+  			}
+  		}
     }
-    for(var i = 0;i < n;i++){
-      for(var s = 1; s < res.wage.length;s++){
-       var sd = (wawgeData(usersData(elem[s].value)));
-      }
-        wage.push(sd)
-    }
+    // wage = unique(wage); 
+    // for(var i = 0;i < n;i++){
+    //   for(var s = 1; s < res.wage.length;s++){
+    //    var sd = (wawgeData(usersData(elem[s].value)));
+    //   }
+    //     wage.push(sd)
+    // }
     // wage = unique(wage);
     console.log(wage);
     for (var d = 0; d < wage.length; d++) {
@@ -124,15 +136,14 @@ function usersData(element) {
     if(element == res.users[i].name) return res.users[i].wageId;
   }
 }
-function wawgeData(element) {
-  for(var i = 0;i<res.wage.length;i++){
-    if(element == res.wage[i].wageId){
-      // console.log(res.wage[i].salary);
-      return res.wage[i].salary;
-    }
-  }
-}
-
+// function wageData(element){
+//   sf = res.wage.length;
+//   for (var i = 0; i < sf; i++) {
+//   	if(element == res.wage[i].wageId){
+//   		return res.wage[i].salary;
+//   	}
+//   }
+// }
 function unique(arr) {
   let result = [];
 

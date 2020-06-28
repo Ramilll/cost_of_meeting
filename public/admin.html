@@ -10,15 +10,23 @@
 	<h1 id="timer"></h1>
 	<h2 id="cost">cost</h2>
 	<h1 id="1"></h1>
-	<div class="currentUsers" id="currentUsers">
+	<p><select required multiple name="currentusers[]" class="users" id="currentUsers" 
+		onchange="addCurrentUser('currentUsers','users')">
+		</select>
+	</p>
+	<div >
 	</div>
 	<form method="POST" id="form">
 		<input type="button" name="" id="button" value="start" onclick="test()">
 <!-- 		<input type="button" name="" id="button2" value="add" onclick="addUser()"> -->
-		<input type="button" name="" id="button3" value="addCurrentUser" onclick="addCurrentUser()">
+		<!-- <input type="button" name="" id="button3" value="addCurrentUser" onclick="addCurrentUser()"> -->
 
 		<!--выподяющи список    -->
-		<p><select required id="users" class="users"></select></p>
+		<p>
+			<select required multiple name="users[]" id="users" class="users" 
+			onchange="addCurrentUser('users','currentUsers')">
+			</select>
+		</p>
 	</form>
 	<script src= "./index.js"></script>
 </body>
