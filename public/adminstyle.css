@@ -11,16 +11,105 @@ body{
 .form{
 	position: absolute;
 	top: 80%;
-	width: 100%;
-	height: 100%;
 }
 .users{
-	background: #eec334;
+	font-size: 18px;
+	background: #C3CDCE;
+	position: absolute;
+	width: 44%;
+	height: 6%;
+	border: solid 0px;
+	border-color: none;
+	border-radius: 4px;
+	top: 20%;
+	left: 28%;
+}
+.nameMeeting{
+	font-size: 18px;
+	background: #C3CDCE;
 	position: relative;
+	width: 44%;
+	height: 6%;
+	border: solid 0px;
+	border-color: none;
+	border-radius: 4px;
+	top: 10%;
+	left: 28%;
+}
+.create{
+	position: absolute;
+	background: #7DDDD2;
+	color: white;
+	border: 0px;
+	border-radius: 4px;
+	font-size: 120%;
+	top: 30%;
+	left: 45%;
+	width: 10%;
+	height: 8%;
+}
+.box{
+	display: grid;
+	grid-template-columns: 25% 25%;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	height: 30%;
+	background: white;
+	left: 28%;
+	top: 42%;
+}
+.user-box{
+	text-align: center;
+	font-size: 130%;
+	border: solid 1px;
+	border-radius: 4px;
+	position: relative;
+	width: 75%;
+	height: 15%;
+	border-color: #C3CDCE;
+}
+.form{
+	position: absolute;
+	text-align: left;
+	width: 100%;
+	height: 80%;
+	top: 30%;
+}
+#nameUser{
+	position: absolute;
+	top: 0;
+	background: none;
+	font-size: 300%;
+	color: #306879;
+	position: absolute;
+	left: 45%;
+}
+#text{
+	font-family: Monotype Corsiva;
+	font-style: normal;
+	text-align: left;
+	color: black;
+	position: absolute;
+	left: 20%;
+	top: 25%;
 	width: 30%;
-	height: 60%;
-	border: solid 2px;
-	border-color: #db8f00;
+	font-size: 180%;
+	border-bottom: solid 3px;
+	border-color: #7DDDD2;
+}
+#enterToMeeting{
+	position: absolute;
+	left: 70%;
+	top: 25%;
+	font-size: 150%;
+	color: #7DDDD2;
+}
+#img{
+	position: absolute;
+	left: 25%;
+	width: 15%;
+	height: 20%;
 }
 .cost{
 	top: 33%;

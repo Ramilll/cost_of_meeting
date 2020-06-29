@@ -17,6 +17,8 @@ result.then(function(response) {
 function test1(ar) {
   res = ar;
 }
+
+
 var time = '';
 var second = 0;
 var seconds = 0;
@@ -69,12 +71,15 @@ var start = false;
     }
 
 // add user in current user list
-function addCurrentUser() {
-  var id = document.getElementById("users").value;
-  var user = document.getElementById(id);
+function addCurrentUser(id,id1) {
+  var value = document.getElementById(id).value;
+  var user = document.getElementById(value);
   var cln = user.cloneNode(true);
+  var element = document.getElementById(id);
 
-  document.getElementById("currentUsers").appendChild(cln); //add
+  document.getElementById(id1).appendChild(cln); //add
+  user.remove();
+	// users.parentNode.removeChild(id);
 }
 
 var ar = [];
@@ -108,6 +113,21 @@ function cost(array){
             }
         }
     }
+      	var sd = usersData(elem[i].value);
+		for(var f = 0; f < res.wage.length; f++) {
+  			if(sd == res.wage[f].wageId){
+  				wage.push(res.wage[f].salary);
+  			}
+  		}
+    }
+    // wage = unique(wage); 
+    // for(var i = 0;i < n;i++){
+    //   for(var s = 1; s < res.wage.length;s++){
+    //    var sd = (wawgeData(usersData(elem[s].value)));
+    //   }
+    //     wage.push(sd)
+    // }
+    // wage = unique(wage);
     console.log(wage);
     for (var d = 0; d < wage.length; d++) {
         greed += wage[d];
@@ -117,9 +137,32 @@ function cost(array){
     document.getElementById('cost').innerHTML =value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
-}
 function usersData(element) {
   for(var i = 0;i<res.users.length;i++){
     if(element == res.users[i].name) return res.users[i].wageId;
   }
 }
+// function wageData(element){
+//   sf = res.wage.length;
+//   for (var i = 0; i < sf; i++) {
+//   	if(element == res.wage[i].wageId){
+//   		return res.wage[i].salary;
+//   	}
+//   }
+// }
+function unique(arr) {
+  let result = [];
+
+  for (let str of arr) {
+    if (!result.includes(str)) {
+      result.push(str);
+    }
+  }
+
+  return result;
+}
+// fetch(url+'user/all').then(function(response) {  //getting user data
+//   response.json().then(function(text) {
+//     addUser(text);
+//   })
+// })
