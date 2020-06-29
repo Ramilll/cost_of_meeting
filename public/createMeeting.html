@@ -6,21 +6,26 @@
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
 </head>
 <body>
-	<div class="userEnter">
+	<form>
+		<div class="userEnter">
 		<div class="userName">
 			<h1>Иван Петр</h1>
 			<img src="userPhoto.jpg">
 		</div>
 		<div class="adminEnterMeeting-text">
-			<a href="css">Создать собрание</a>
+			<a href="meeting.html">Создать собрание</a>
 			<p>Войти в собрание</p>
 		</div>
-		<div class="refToMeeting">
-			<input type="text" name="ref" value="" placeholder="Сылка на собрание" required="">
+		<div class="createMeeting">
+			<input type="text" name="ref" value="" placeholder="Название" required="">
+			<select>
+				<option>Пётр</option>
+			</select>	
 		</div>
-		<div class="enterButton">
-			<input type="submit" name="enter" value="Войти">
+		<div class="createButton">
+			<input type="submit" name="enter" value="Создать">
 		</div>
 	</div>
+	</form>
 </body>
 </html>
