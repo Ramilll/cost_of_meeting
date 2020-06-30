@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/public/meeting.html");
+    res.sendFile(__dirname + "/public/register.html");
 });
 // запускаем сервер на порту 3000
 app.listen(3000);
@@ -80,3 +80,15 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
+<<<<<<< HEAD
+=======
+
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
+
+app.post("/", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    console.log(request.body);
+    response.send(request.body);
+});
+>>>>>>> ae7a67bb13cd040f5473008310c2ce87fa3b5164

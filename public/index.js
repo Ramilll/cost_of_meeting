@@ -7,15 +7,24 @@ const url = 'http://localhost:3000/'; //url place holder /user/all
 //   })
 // })
 let res = [];
-const result  = fetch(url+'all');
+let wageAr = [];
+const result  = fetch(url+'user/all');
 result.then(function(response) {
   response.json().then(function(text){
-    addUser(text.users,text.wage);
-    test1(text);
+    addUser(text);
+  })
+})
+const result1  = fetch(url+'wage/all');
+result1.then(function(response1) {
+  response1.json().then(function(text1){
+    console.log(text1);
   })
 })
 function test1(ar) {
   res = ar;
+}
+function test2(ar) {
+  console.log(ar);
 }
 
 
@@ -83,17 +92,15 @@ function addCurrentUser(id,id1) {
 }
 
 var ar = [];
-function addUser(array,wage) { // add user in selection
+function addUser(array) { // add user in selection
   for(var i = 0;i<array.length;i++){
     var user = document.createElement("option");
     var name = array[i].name;
 
-    if(user != null){
-        user.value = array[i].name; // users name
-        user.id = array[i].name; // users id 
-        user.innerHTML = array[i].name;
-        document.getElementById("users").appendChild(user); //add
-    }
+    user.value = array[i].name; // users name
+    user.id = array[i].name; // users id 
+    user.innerHTML = array[i].name;
+    document.getElementById("users").appendChild(user); //add
   }
 
 }
@@ -144,3 +151,4 @@ function usersData(element) {
     if(element == res.users[i].name) return res.users[i].wageId;
     }
 }
+// end
