@@ -8,11 +8,11 @@ const url = 'http://localhost:3000'; //url place holder /user/all
 // })
 // Пример отправки POST запроса:
 // const url =  'http://localhost:3000/registration'; //url place holder /user/all'
-var data = '42131'
-fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    body: data // body data type must match "Content-Type" header
- });
+// var data = '42131'
+// fetch(url, {
+//     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+//     body: data // body data type must match "Content-Type" header
+//  });
 // const data = { email: 'example', password: '1234567'};
 
 // try {
