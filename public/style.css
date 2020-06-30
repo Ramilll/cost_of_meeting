@@ -79,13 +79,15 @@ body{
 }
 .filter{
 	position: relative;
+	left: 10%;
+	text-align: left;
 	width: 30%;
 	height: 100%;
 }
 .grid-colums{
 	display: grid;
-	grid-template-columns: 49% 22% 22%;
-	grid-gap: 1%;
+	grid-template-columns: 48% 21% 21%;
+	grid-gap: 2%;
 	position: relative;
 	bottom: 400%;
 	left: 30%;
@@ -93,7 +95,6 @@ body{
 	height: 100%;
 }
 .colums{
-	height: 8%;
 	border-bottom: 1px solid;
 }
 .box-1, .box-2, .box-3{
@@ -106,7 +107,7 @@ body{
 	bottom: 100%;
 	width: 34%;
 	height: 100%;
-	background: rgb(125, 221, 210);
+	background: rgb(195, 205, 206);
 }
 .box-2{
 	position: relative;
@@ -122,5 +123,53 @@ body{
 	bottom: 300%;
 	width: 15%;
 	height: 100%;
-	background: rgb(125, 221, 210);
+	background: rgb(195, 205, 206);
 }
+.period{
+	font-size: 150%;
+	color: black;
+}
+.time, .cost{
+	height: 25%;
+	font-size: 150%;
+}
+.minutes, .rubles{
+	height: 40%;
+}
+.time b, .cost b{
+	font-size: 110%;
+	position: absolute;
+}
+.time input, .cost input{
+	border: 1px solid;
+	border-radius: 8px;
+	border-color: rgb(195, 205, 206);
+	width: 30%;
+	height: 60%;
+	background: white;
+	font-size: 110%;
+	text-align: right;
+}
+.time input[type="range"]{;
+	position: absolute;
+	z-index: 2;
+}
+#input-rigth{
+	left: 15%;
+	top: 30%;
+	width: 40%;
+}
+#input-left{
+	top: 30%;
+	width: 60%;
+}
+/*.time{
+	position: absolute;
+	top: 50%;
+	left: 10%;
+}
+.cost{
+	position: absolute;
+	top: 60%;
+	left: 10%;
+}*/
