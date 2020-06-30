@@ -10,7 +10,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/public/meeting.html");
+    res.sendFile(__dirname + "/public/createMeeting.html");
 });
 // запускаем сервер на порту 3000
 app.listen(3000);
@@ -67,7 +67,7 @@ app.get('/user/:userId',function(req,res) {
 // const bodyParser = require("body-parser");
 // const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
 
-// app.post("/admin", urlencodedParser, function (request, response) {
+// app.post("/registration", urlencodedParser, function (request, response) {
 //     if(!request.body) return response.sendStatus(400);
 //     console.log(request.body);
 //     response.send(request.body);
