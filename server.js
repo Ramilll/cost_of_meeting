@@ -1,7 +1,7 @@
 // берём Express
 
-let dirname = '/Users/ramilnazmeev/WebstormProjects/costOfMeeting/public'
 var express = require('express');
+const mysql = require('mysql');
 
 var app = express();
 
@@ -17,33 +17,40 @@ app.listen(3000);
 // отправляем сообщение
 console.log('Сервер стартовал!');
 
-let data = {
-    meetings: [{id: 141, currentUsers: [1, 3, 8]}, {id: 229, currentUsers: [2, 4, 5, 6]},
-        {id: 357, currentUsers: [7, 9, 10]}, {id: 404, currentUsers: [11, 12]}],
-    users: [{id: 1, name:'джун1', wageId: 1}, {id: 2, name:'джун2', wageId: 1},
-        {id: 3, name:'джун3', wageId: 1}, {id: 4, name:'джун4', wageId: 1},
-        {id: 5, name:'джун', wageId: 5}, {id: 6, name:'джун6', wageId: 1},
-        {id: 7, name:'джун7', wageId: 1}, {id: 8, name:'мидл1', wageId: 2},
-        {id: 9, name:'мидл2', wageId: 2}, {id: 10, name:'сениор1', wageId: 3},
-        {id: 11, name:'сениор2', wageId: 3}, {id: 12, name:'тимлид', wageId: 4}],
-    wage: [{wageId: 1, salary:10000}, {wageId: 2, salary:20000},
-        {wageId: 3, salary:30000}, {wageId: 4, salary:40000},{wageId: 5, salary:50000}],
-}
+const connection = mysql.createConnection({
+    host: '192.168.200.64',
+    port: 3306,
+    user: 'remoteUser',
+    password: 'remoteUser',
+    database: 'database'
+});
 
 app.get('/all',function(req,res) {
     res.send(data)
 })
 
 app.get('/user/all',function(req,res) {
-    res.send(data.users)
+    connection.query("SELECT * FROM users",
+        function(err, results, fields) {
+            if (err) console.log(err);
+            res.send(results); // собственно данные
+        });
 })
 
 app.get('/wage/all',function(req,res) {
-    res.send(data.wage)
+    connection.query("SELECT * FROM wages",
+        function(err, results, fields) {
+            if (err) console.log(err);
+            res.send(results); // собственно данные
+        });
 })
 
 app.get('/meeting/all',function(req,res) {
-    res.send(data.meetings)
+    connection.query("SELECT * FROM meetings",
+        function(err, results, fields) {
+            if (err) console.log(err);
+            res.send(results); // собственно данные
+        });
 })
 
 app.get('/meeting/:meetingId/create',function(req,res) {
