@@ -2,6 +2,8 @@
 
 var express = require('express');
 const mysql = require('mysql');
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
 
 var app = express();
 
@@ -25,9 +27,17 @@ const connection = mysql.createConnection({
     database: 'database'
 });
 
-app.get('/all',function(req,res) {
-    res.send(data)
-})
+
+app.get('/login', function(req, res) {
+    res.sendFile(__dirname + "/public/register.html");
+});
+
+app.post("/login", urlencodedParser, function (req, res) {
+    if(!req.body) return response.sendStatus(400);
+    var email = req.body.email
+    var password = req.body.password
+    console.log(email, password)
+});
 
 app.get('/user/all',function(req,res) {
     connection.query("SELECT * FROM users",
@@ -70,12 +80,3 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
-
-// const bodyParser = require("body-parser");
-// const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
-
-// app.post("/admin", urlencodedParser, function (request, response) {
-//     if(!request.body) return response.sendStatus(400);
-//     console.log(request.body);
-//     response.send(request.body);
-// });
