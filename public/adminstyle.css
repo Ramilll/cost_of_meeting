@@ -377,10 +377,10 @@ body{
 #enter{
 	text-decoration: none;
 	color: rgb(0,0,0);
-	position: relative;
-	width: 45%;
-	bottom: 10%;
-	left: 20%;
+	position: absolute;
+	width: 30%;
+	bottom: 0%;
+	left: 60%;
 	text-align: left;
 	border-bottom: solid 4px;
 	border-color: rgb(125, 221, 210);
