@@ -47,6 +47,14 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
     //res.send('Everything is good')
 });
 
+app.get('/direct',function(req,res) {
+    connection.query("SELECT name, meetingTime, costMeetingTime FROM users",
+        function(err, results, fields) {
+            if (err) console.log(err);
+            res.send(results); // собственно данные
+        });
+})
+
 app.get('/user/all',function(req,res) {
     connection.query("SELECT * FROM users",
         function(err, results, fields) {
