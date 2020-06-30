@@ -1,8 +1,16 @@
+/*rgb(48, 104, 141); цвет текста*/
+/*	background: rgb(225, 231, 231) серый фон*/
+
 body{
+	background-repeat: no-repeat;
 	background: white;
 	margin: 0;
 	padding: 0;
 	text-align: center;
+}
+.form{
+	position: absolute;
+	top: 80%;
 }
 .users{
 	font-size: 18px;
@@ -103,9 +111,235 @@ body{
 	width: 15%;
 	height: 20%;
 }
-#timer{
-	font-size: 40px;
+.cost{
+	top: 33%;
+	position: absolute;
+	border-radius: 8px;
+	left: 50%;
+	text-align: center;
+	width: 38%;
+	height: 25%;
+	color: rgb(48, 104, 141);
+	background: rgb(225, 231, 231);
+}
+.timer{
+	top: 33%;
+	position: absolute;
+	left: 10%;
+	border-radius: 8px;
+	text-align: center;
+	width: 38%;
+	height: 25%;
+	background: rgb(225, 231, 231);
+	color: rgb(48, 104, 141);
+}
+.cost-text, .timer-text{
+	font-size: 140%;
+}
+.link{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 23%;
+	top: 8%;
+}
+.copy{
+	position: relative;
+	background: rgb(125, 221, 210);
+	top: 30%;
+	font-size: 100%;
+	border: 0px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	height: 30%;
+	color: white;
+}
+.ref{
+	position: relative;
+	background: rgb(225, 231, 231);
+	top: 30%;
+	left: 2%;
+	width: 40%;
+	font-size: 100%;
+	border: 0px;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	height: 30%;
+	color: black;
+}
+#timer, #cost{
+	font-size: 300%;
 }
 #meeting{
+	top: 0;
+	position: absolute;
+	left: 38%;
+	color: rgb(48, 104, 141);
 	font-size: 30px;
+}
+.registration-box{
+	display: block;
+	outline: none;
+	text-decoration: none;
+	position: absolute;
+	align-items: center;
+	height: 70%;
+	width: 100%;
+	top: 20%;
+}
+.registration-box form{
+	display: block;
+	outline: none;
+	text-decoration: none;
+	align-items: center;
+	height: 50%;
+	width: 100%;
+}
+.registration-box input[type="password"], input[type="email"]{
+	background: rgb(195, 205, 206);
+	border: none; 
+	border-radius: 8px;
+	width: 40%;
+	height: 65%;
+	color: rgb(99,103,104);
+}
+.registration-box input[type="submit"]{
+	border: none;
+	border-radius: 8px;
+	position: absolute;
+	top: 48%;
+	left: 45%;
+	font-size: 150%;
+	color: white;
+	width: 10%;
+	height: 10%;
+	background: rgb(125, 221, 210);
+}
+.email, .password{
+	height: 15%;
+}
+.login{
+	width: 40%;
+	bottom: 25%;
+	height: 4%;
+	font-weight: 100;
+	position: relative;
+	left: 30%;
+	text-align: left;
+	font-size: 170%;
+	color: rgb(48, 104, 141);
+}
+.userEnter{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.userName{
+	color: rgb(48, 104, 141);
+	font-size: 150%;
+	position: relative;
+}
+.enterMeeting-text{
+	color: rgb(0,0,0);
+	font-size: 130%;
+	position: relative;
+	left: 15%;
+	width: 70%;
+	height: 4%;
+	border-bottom: solid 4px;
+	border-color: rgb(125, 221, 210);
+	margin-bottom: 5%;
+}
+.refToMeeting{
+	position: relative;
+	width: 100%;
+	height: 10%;
+	color: rgb(99,103,104);
+}
+.refToMeeting input{
+	background: rgb(195, 205, 206);
+	border: none; 
+	border-radius: 8px;
+	width: 70%;
+	height: 55%;
+	color: rgb(99,103,104);
+}
+.enterButton{
+	position: relative;
+	height: 20%;
+	width: 100%;
+}
+.enterButton input{
+	border: none;
+	border-radius: 8px; 
+	background: rgb(125, 221, 210);
+	width: 24%;
+	height: 34%;
+	font-size: 150%;
+	color: white;
+}
+.userEnter img{
+	position: absolute;
+	height: 120%;
+	width: 15%;
+	left: 10%;
+	top: 5%;
+}
+.adminEnterMeeting-text{
+	font-size: 130%;
+	position: relative;
+	width: 100%;
+	height: 4%;
+	margin-bottom: 5%;
+}
+.adminEnterMeeting-text p{
+	color: rgb(0,0,0);
+	position: relative;
+	width: 35%;
+	bottom: 10%;
+	left: 60%;
+	text-align: left;
+	border-bottom: solid 4px;
+	border-color: rgb(125, 221, 210);
+}
+.adminEnterMeeting-text a{
+	color: rgb(0,0,0);
+	left: 15%;
+	position: absolute;
+}
+.createMeeting{
+	position: relative;
+	width: 100%;
+	height: 10%;
+	color: rgb(99,103,104);
+}
+.createMeeting input, select{
+	background: rgb(195, 205, 206);
+	border: none; 
+	border-radius: 8px;
+	width: 70%;
+	height: 55%;
+	color: rgb(99,103,104);
+}
+.createMeeting select{
+	position: relative;
+	top: 20%;
+	left: 0;
+}
+.createButton{
+	position: relative;
+	top: 8%;
+	height: 20%;
+	width: 100%;
+}
+.createButton input{
+	border: none;
+	border-radius: 8px; 
+	background: rgb(125, 221, 210);
+	width: 24%;
+	height: 34%;
+	font-size: 150%;
+	color: white;
 }

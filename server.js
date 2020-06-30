@@ -10,7 +10,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/public/admin.html");
+    res.sendFile(__dirname + "/public/meeting.html");
 });
 // запускаем сервер на порту 3000
 app.listen(3000);

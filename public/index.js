@@ -106,6 +106,13 @@ function cost(array){
     var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
 
     for(var i = 1; i < n;i++){
+        var sd = usersData(elem[i].value);
+        for(var f = 0; f < res.wage.length; f++) {
+            if(sd == res.wage[f].wageId){
+                wage.push(res.wage[f].salary);
+            }
+        }
+    }
       	var sd = usersData(elem[i].value);
 		for(var f = 0; f < res.wage.length; f++) {
   			if(sd == res.wage[f].wageId){
@@ -127,10 +134,9 @@ function cost(array){
     }
     console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*seconds;
-    document.getElementById('cost').innerHTML = value;//n*(greed*1/160*1/3600*seconds)
+    document.getElementById('cost').innerHTML =value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
-}
 function usersData(element) {
   for(var i = 0;i<res.users.length;i++){
     if(element == res.users[i].name) return res.users[i].wageId;
