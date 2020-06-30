@@ -31,12 +31,20 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
 
-app.post("/login", urlencodedParser, function (req, res) {
+app.post(["/", "/login"] , urlencodedParser, function (req, res) {
     if(!req.body) return response.sendStatus(400);
     var email = req.body.email
     var password = req.body.password
     console.log(email, password)
-    res.send('Everything is good')
+    let sqlMessage = "SELECT * FROM authorization WHERE email = '"+ email + "' AND password = '" + password + "'"
+    connection.query(sqlMessage,
+        function(err, results, fields) {
+            if (err) console.log(err);
+            if (results.length == 0) res.send("This email and password was not found");
+            res.send(results); // собственно данные
+        });
+
+    //res.send('Everything is good')
 });
 
 app.get('/user/all',function(req,res) {
@@ -63,6 +71,8 @@ app.get('/meeting/all',function(req,res) {
         });
 })
 
+
+/*
 app.get('/meeting/:meetingId/create',function(req,res) {
     let start = new Date()
     res.send("Встреча " + req.params.meetingId + " была создана " + start)
@@ -80,3 +90,4 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
+*/
