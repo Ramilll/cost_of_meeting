@@ -27,7 +27,6 @@ const connection = mysql.createConnection({
     database: 'database'
 });
 
-
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
@@ -37,6 +36,7 @@ app.post("/login", urlencodedParser, function (req, res) {
     var email = req.body.email
     var password = req.body.password
     console.log(email, password)
+    res.send('Everything is good')
 });
 
 app.get('/user/all',function(req,res) {
@@ -80,15 +80,3 @@ app.get('/meeting/:meetingId',function(req,res) {
 app.get('/user/:userId',function(req,res) {
     res.send(data.users.find(item => item.id == req.params.userId))
 })
-<<<<<<< HEAD
-=======
-
-const bodyParser = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
-
-app.post("/", urlencodedParser, function (request, response) {
-    if(!request.body) return response.sendStatus(400);
-    console.log(request.body);
-    response.send(request.body);
-});
->>>>>>> ae7a67bb13cd040f5473008310c2ce87fa3b5164
