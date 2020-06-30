@@ -7,7 +7,7 @@
 </head>
 <body>
 	<script type="text/javascript" src="index.js"></script>
-	<form>
+	<form action="http://localhost:3000/" method="POST">
 		<div class="userEnter">
 		<div class="userName">
 			<h1>Иван Петр</h1>
@@ -21,8 +21,8 @@
 		</div>
 		<div class="createMeeting">
 			<input type="text" name="ref" value="" placeholder="Название" required="">
-			<select>
-				<option>Пётр</option>
+			<select id="users" onchange="test2('ghb')">
+				<option disabled>Пётр</option>
 			</select>	
 		</div>
 		<div class="createButton">
