@@ -36,11 +36,11 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
     var email = req.body.email
     var password = req.body.password
     console.log(email, password)
-    let sqlMessage = "SELECT * FROM authorization WHERE email = '"+ email + "' AND password = '" + password + "'"
+    let sqlMessage = "SELECT * FROM authorization WHERE email = '"+ email + "'"
     connection.query(sqlMessage,
         function(err, results, fields) {
             if (err) console.log(err);
-            if (results.length == 0) res.send("This email and password was not found");
+            if (results.length == 0) res.send("This email was not found");
             else if (results.find(el => el.password === password)) res.send(results);
             else console.log("Incorrect password");
         });
