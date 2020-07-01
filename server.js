@@ -32,7 +32,7 @@ app.get('/login', function(req, res) {
 });
 
 app.post(["/", "/login"] , urlencodedParser, function (req, res) {
-    if(!req.body) return response.sendStatus(400);
+    if(!req.body) return res.sendStatus(400);
     var email = req.body.email
     var password = req.body.password
     console.log(email, password)
@@ -41,6 +41,10 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
         function(err, results, fields) {
             if (err) console.log(err);
             if (results.length == 0) res.send("This email and password was not found");
+            else if (results.find(this => this.password === passowrd)) res.send(results);
+            else console.log("Incorrect password");
+
+
             else res.send(results); // собственно данные
         });
 
