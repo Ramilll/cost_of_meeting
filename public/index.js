@@ -42,7 +42,7 @@ var min = 0;
 var s = '';
 var m = '';
 // var h = '';
-var start = false;
+var start = true;
 
     function test(){
       start = !start;
