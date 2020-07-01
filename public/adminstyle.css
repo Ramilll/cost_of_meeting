@@ -151,7 +151,7 @@ body{
 .cost, .timer{
 	top: 43%;
 	position: absolute;
-	border-radius: 8px;
+	border-radius: 16px;
 	text-align: center;
 	color: rgb(48, 104, 141);
 	background: rgb(225, 231, 231);
@@ -306,36 +306,26 @@ body{
 .userName{
 	color: rgb(48, 104, 141);
 	font-size: 150%;
+	margin-bottom: 5%;
 	position: relative;
 }
 .enterMeeting-text {
 	text-decoration: none;
 	color: rgb(0,0,0);
-	font-size: 130%;
 	position: relative;
-	left: 15%;
-	width: 70%;
-	height: 4%;
 	border-bottom: solid 4px;
 	border-color: rgb(125, 221, 210);
 	margin-bottom: 5%;
 }
-.enterMeeting-text a{
-	text-decoration: none;
-	color: black;
-}
 .refToMeeting{
 	position: relative;
 	width: 100%;
-	height: 10%;
 	color: rgb(99,103,104);
 }
 .refToMeeting input{
 	background: rgb(195, 205, 206);
 	border: none; 
 	border-radius: 8px;
-	width: 70%;
-	height: 55%;
 	color: rgb(99,103,104);
 }
 .enterButton{
@@ -347,67 +337,215 @@ body{
 	border: none;
 	border-radius: 8px; 
 	background: rgb(125, 221, 210);
-	width: 24%;
-	height: 34%;
-	font-size: 150%;
 	color: white;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 600px) { /*pc*/
+	.userEnter{
+		top: 10%;
+	}
   	.userImg{
 		position: absolute;
-		left: 25%;
+		left: 33%;
 		top: 3%;
 	}
+	.enterButton input{
+		width: 8%;
+		height: 38%;
+		font-size: 150%;
+	}
+	.enterButton{
+		top: 8%;
+	}
+	.refToMeeting{
+		width: 100%;
+		top: 6%;
+		height: 12%;
+	}
+	.refToMeeting input{
+		width: 50%;
+		height: 55%;
+		color: rgb(99,103,104);
+	}
+	.enterMeeting-text {
+		font-size: 150%;
+		left: 25%;
+		width: 50%;
+		height: 4%;
+		top: 10%;
+	}
+
+	.adminEnterMeeting-text{
+		font-size: 150%;
+		left: 20%;
+		width: 60%;
+		height: 6%;
+		margin-bottom: 5%;
+	}
+	.adminEnterMeeting-text a{
+		left: 15%;
+	}
+	.adminEnterMeeting-text p{
+		width: 50%;
+		font-size: 120%;
+	}
+	#enter{
+		width: 30%;
+		bottom: 0%;
+		left: 75%;
+	}
+	.createMeeting{
+		width: 100%;
+		height: 10%;
+	}
+	.createMeeting input, select{
+		width: 50%;
+		height: 55%;
+	}
+	.createButton{
+		height: 20%;
+		top: 8%;
+	}
+	.createButton input{
+		width: 12%;
+		height: 34%;
+		font-size: 150%;
+	}
+	.currentUsers{
+		grid-template-columns: 49% 49%;
+		grid-gap: 5%;
+		left: 25%;
+		width: 50%;
+		height: 30%;
+		top: 6%;
+	}
+	.currentUser{
+		max-height: 40%; 
+	}
 }
-@media only screen and (max-width: 599px) {
+@media only screen and (max-width: 599px) {/*mobile*/
+  	.userEnter{
+		top: 5%;
+	}
   	.userImg{
 		position: absolute;
 		left: 5%;
-		top: 5%;
+		top: 0%;
+	}
+	.enterButton input{
+		width: 28%;
+		height: 44%;
+		font-size: 150%;
+	}
+	.enterButton{
+		top: 24%;
+	}
+	.refToMeeting{
+		width: 100%;
+		top: 8%;
+		height: 15%;
+	}
+	.refToMeeting input{
+		width: 80%;
+		height: 65%;
+		color: rgb(99,103,104);
+	}
+	.enterMeeting-text {
+		font-size: 150%;
+		left: 10%;
+		width: 80%;
+		height: 4%;
+		top: 3%;
+	}
+	.enterMeeting-text p{
+		position: relative;
+		left: 10%;
+		width: 80%;
+	}
+
+	.adminEnterMeeting-text{
+		font-size: 120%;
+		left: 10%;
+		width: 80%;
+		height: 16%;
+		margin-bottom: 1%;
+	}
+	.adminEnterMeeting-text a{
+		top: 0%;
+		font-size: 150%;
+		left: 15%;
+	}
+	.adminEnterMeeting-text p{
+		width: 60%;
+		font-size: 150%;
+	}
+	#enter{
+		width: 40%;
+		bottom: 0%;
+		left: 80%;
+	}
+	.createMeeting{
+		width: 100%;
+		height: 40%;
+	}
+	.createMeeting input, select{
+		width: 80%;
+		height: 25%;
+	}
+	.createButton{
+		height: 10%;
+		top: 15%;
+	}
+	.createButton input{
+		width: 28%;
+		height: 84%;
+		font-size: 150%;
+	}
+	.currentUsers{
+		grid-template-columns: 49% 49%;
+		grid-gap: 5%;
+		left: 10%;
+		width: 80%;
+		height: 30%;
+		top: 0%;
+	}
+	.currentUser{
+		max-height: 50%; 
 	}
 }
 .adminEnterMeeting-text{
 	text-decoration: none;
-	font-size: 130%;
 	position: relative;
-	width: 100%;
-	height: 4%;
-	margin-bottom: 5%;
 }
-#enter{
-	text-decoration: none;
-	color: rgb(0,0,0);
-	position: absolute;
-	width: 30%;
-	bottom: 0%;
-	left: 60%;
+.adminEnterMeeting-text p{
 	text-align: left;
 	border-bottom: solid 4px;
 	border-color: rgb(125, 221, 210);
 }
+#enter{
+	text-decoration: none;
+	color: rgb(125, 221, 210);
+	position: absolute;
+	font-size: 120%;
+	text-align: left;
+}
 .adminEnterMeeting-text a{
 	text-decoration: none;
 	color: rgb(0,0,0);
-	left: 15%;
 	position: absolute;
 }
 .createMeeting{
 	position: relative;
-	width: 100%;
-	height: 10%;
 	color: rgb(99,103,104);
 }
 .createMeeting input, select{
 	background: rgb(195, 205, 206);
 	border: none; 
 	border-radius: 8px;
-	width: 70%;
-	height: 55%;
 	color: rgb(99,103,104);
 }
 .userEnter{
 	position:absolute;
-	height: 100%;
+	height: 90%;
 	width: 100%;
 }
 .createMeeting select{
@@ -417,16 +555,29 @@ body{
 }
 .createButton{
 	position: relative;
-	top: 8%;
-	height: 20%;
 	width: 100%;
 }
 .createButton input{
 	border: none;
 	border-radius: 8px; 
 	background: rgb(125, 221, 210);
-	width: 24%;
-	height: 34%;
 	font-size: 150%;
 	color: white;
+}
+input:focus{
+	outline: none;
+}
+select:focus{
+	outline: none;
+}
+.currentUsers{
+	display: grid;
+	position: relative;
+}
+.currentUser{
+	color: black;
+	background: none;
+	border: 1px solid;
+	border-radius: 8px;
+	border-color: rgb(195,205,206);; 
 }

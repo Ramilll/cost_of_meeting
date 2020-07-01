@@ -8,24 +8,30 @@ const url = 'http://localhost:3000/'; //url place holder /user/all
 // })
 let res = [];
 let wageAr = [];
-const result  = fetch(url+'user/all');
-result.then(function(response) {
-  response.json().then(function(text){
-    addUser(text);
-  })
-})
-const result1  = fetch(url+'wage/all');
-result1.then(function(response1) {
-  response1.json().then(function(text1){
-    console.log(text1);
-  })
-})
-function test1(ar) {
-  res = ar;
+
+function fetchGet(argument) {
+   const result  = fetch(url+'user/all');
+    result.then(function(response) {
+    response.json().then(function(text){
+      addUser(text);
+    })
+    })
+    const result1  = fetch(url+'wage/all');
+    result1.then(function(response1) {
+     response1.json().then(function(text1){
+      console.log(text1);
+     })
+    })
+    console.log(result);
 }
-function test2(ar) {
-  console.log(ar);
-}
+
+
+// function test1(ar) {
+//   res = ar;
+// }
+// function test2(ar) {
+//   console.log(ar);
+// }
 
 
 var time = '';
@@ -151,4 +157,15 @@ function usersData(element) {
     if(element == res.users[i].name) return res.users[i].wageId;
     }
 }
-// end
+// function postMeeting() {
+//     var users = document.getElementById('currentUsers').childNodes;
+//     var nameMeeting = document.getElementById('nameMeeting').value;
+
+//     fetch(url, {
+//         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+//         body: [{email:'user@user.ru', password: 'user'}] // body data type must match "Content-Type" header
+//     });
+// }
+function maxMin(value,id) {
+    document.getElementById(id).value = value;
+}

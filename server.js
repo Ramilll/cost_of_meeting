@@ -14,6 +14,9 @@ app.use(express.static('public'));
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
+app.get('/createMeeting', function(req, res) {
+    res.sendFile(__dirname + "/public/createMeeting.html");
+});
 // запускаем сервер на порту 3000
 app.listen(3000);
 // отправляем сообщение
