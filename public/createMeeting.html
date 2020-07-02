@@ -21,14 +21,15 @@
 		</div>
 		<div class="createMeeting">
 			<input type="text" id="nameMeeting" name="nameMeeting" placeholder="Название" required="">
-			<select id="users" onchange="">
+			<select id="users" onchange="addCurrentUser(this.id,'currentUsers','currentUser')">
+				<option>   </option>
 			</select>	
 		</div>
 		<div class="currentUsers" id="currentUsers">
-			<div class="currentUser">Павел Егоров</div>
+<!-- 			<div class="currentUser">Павел Егоров</div>
 			<div class="currentUser" >Иван Иванов</div>
 			<div class="currentUser">Павел Егоров</div>
-			<div class="currentUser" >Иван Иванов</div>
+			<div class="currentUser" >Иван Иванов</div> -->
 		</div>
 		<div class="createButton">
 			<input type="button" name="enter" value="Создать" onclick="postMeeting()">

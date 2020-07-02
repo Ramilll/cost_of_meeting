@@ -94,10 +94,11 @@ var start = true;
     }
 
 // add user in current user list
-function addCurrentUser(id,id1) {
+function addCurrentUser(id,id1,classI) {
   var value = document.getElementById(id).value;
   var user = document.getElementById(value);
   var cln = user.cloneNode(true);
+  cln.classList.add(classI);
   var element = document.getElementById(id);
 
   document.getElementById(id1).appendChild(cln); //add
