@@ -33,7 +33,6 @@ function getDirect() {
     })
 }
 
-
 // function test1(ar) {
 //   res = ar;
 // }
@@ -166,15 +165,22 @@ function usersData(element) {
     if(element == res.users[i].name) return res.users[i].wageId;
     }
 }
-// function postMeeting() {
-//     var users = document.getElementById('currentUsers').childNodes;
-//     var nameMeeting = document.getElementById('nameMeeting').value;
+function postMeeting() {
+    var data = {
+        email:"user@user.ru",
+        password:"user"
+    };
+    var users = document.getElementById('currentUsers').childNodes;
+    var nameMeeting = document.getElementById('nameMeeting').value;
 
-//     fetch(url, {
-//         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-//         body: [{email:'user@user.ru', password: 'user'}] // body data type must match "Content-Type" header
-//     });
-// }
+    const res = fetch(url+'login', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+         },
+        body: JSON.stringify(data)
+    });
+}
 function addUserDirect(text) {
     console.log(text);
     var link = document.getElementById('grid-colums');

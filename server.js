@@ -33,11 +33,9 @@ const connection = mysql.createConnection({
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
-app.get('/director', function(req, res) {
-    res.sendFile(__dirname + "/public/director.html");
-});
 
 app.post(["/", "/login"] , urlencodedParser, function (req, res) {
+    console.log(req.body);
     if(!req.body) return res.sendStatus(400);
     var email = req.body.email
     var password = req.body.password
@@ -47,11 +45,7 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
         function(err, results, fields) {
             if (err) console.log(err);
             if (results.length == 0) res.send("This email was not found");
-            else if (results.find(el => el.password === password)){
-                if ((results.find(el => el.password === password).role == 'admin')) res.redirect('createMeeting.html')
-                else if (results.find(el => el.password === password).role == 'director') res.redirect('director.html')
-                else if (results.find(el => el.password === password).role == 'user') res.redirect('user.html')
-            }
+            else if (results.find(el => el.password === password)) res.send(results);
             else res.send("Incorrect password");
         });
 
