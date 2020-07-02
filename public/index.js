@@ -9,7 +9,7 @@ const url = 'http://localhost:3000/'; //url place holder /user/all
 let res = [];
 let wageAr = [];
 
-function fetchGet(argument) {
+function fetchGet() {
    const result  = fetch(url+'user/all');
     result.then(function(response) {
     response.json().then(function(text){
@@ -18,11 +18,19 @@ function fetchGet(argument) {
     })
     const result1  = fetch(url+'wage/all');
     result1.then(function(response1) {
-     response1.json().then(function(text1){
-      console.log(text1);
-     })
+        response1.json().then(function(text1){
+            console.log(text1);
+        })
     })
     console.log(result);
+}
+function getDirect() {
+    const result  = fetch(url+'direct');
+    result.then(function(response) {
+        response.json().then(function(text){
+            addUserDirect(text);
+        })
+    })
 }
 
 
@@ -166,11 +174,35 @@ function usersData(element) {
 //         body: [{email:'user@user.ru', password: 'user'}] // body data type must match "Content-Type" header
 //     });
 // }
+function addUserDirect(text) {
+    console.log(text);
+    var link = document.getElementById('grid-colums');
+    // var elem = document.createElement('div');
+    for (var i = 0; i < text.length; i++) {
+            var elem = document.createElement('div');
+            elem.classList.add('colums');
+            elem.innerHTML = text[i].name;
+            document.getElementById('grid-colums').appendChild(elem);
+
+            var elem1 = document.createElement('div');
+            elem1.classList.add('colums');
+            elem1.innerHTML = text[i].meetingTime;
+            document.getElementById('grid-colums').appendChild(elem1);
+
+            var elem2 = document.createElement('div');
+            elem2.classList.add('colums');;
+            elem2.innerHTML = text[i].costMeetingTime;
+            document.getElementById('grid-colums').appendChild(elem2);
+            // elem.innerHTML = text[i].meetingTime;
+            // elem.innerHTML = text[i].costMeetingTime;
+            // document.getElementById('grid-colums').appendChild(elem);
+    }
+}
+
 function maxMin(value,id) {
     document.getElementById(id).value = value;
 }
 function test13() {
-    console.log("yes");
     document.getElementById('filter').style.display = 'block';
     document.getElementById('grid-colums').style.display = 'none';
     document.getElementById('box-1').style.display = 'none';
@@ -180,7 +212,6 @@ function test13() {
 }
 
 function test14() {
-    console.log("yes");
     document.getElementById('filter').style.display = 'none';
     document.getElementById('grid-colums').style.display = 'grid';
     document.getElementById('box-1').style.display = 'block';
