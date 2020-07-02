@@ -44,7 +44,9 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
         function(err, results, fields) {
             if (err) console.log(err);
             if (results.length == 0) res.send("This email was not found");
-            else if (results.find(el => el.password === password)) res.send(results);
+            else if (results.find(el => el.password === password)){
+                if
+            } res.send(results);
             else res.send("Incorrect password");
         });
 
