@@ -113,8 +113,8 @@ body{
 	text-align: right;
 }
 .apply{
-	top: 90%;
-	left: 20%;
+	top: 88%;
+	left: 30%;
 	position: absolute;
 	border: none;
 	border-radius: 8px; 
@@ -202,10 +202,12 @@ body{
     	top: 5%;
 		left: 5%;
 		background: white;
-      	width: 90%;
-      	height: 90%;
+      	width: 70%;
+      	height: 80%;
       	position: absolute;
       	display: none;
+      	padding: 10%;
+      	padding-top: 0%;
 	}
 	.adminEnterMeeting-text b{
 		font-size: 120%;
@@ -253,6 +255,9 @@ body{
 	.adminEnterMeeting-text b{
 		left: 5%;
 		width: 40%;
+	}
+	.period b, #t1, #t2{
+		color: rgb(48, 104, 141);
 	}
 }
 /*.time input[type="range"]{;
