@@ -120,7 +120,6 @@ body{
 	border: 0px;
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
-	height: 30%;
 	color: white;
 }
 .ref{
@@ -141,7 +140,7 @@ body{
 	text-align: center;
 	color: rgb(48, 104, 141);
 }
-#complet{
+#complet,#complet-admin{
 	border: none;
 	border-radius: 8px;
 	background: rgb(125, 221, 210);
@@ -149,9 +148,15 @@ body{
 	position: absolute;
 }
 .cost, .timer{
-	top: 43%;
 	position: absolute;
-	border-radius: 16px;
+	border-radius: 8px;
+	text-align: center;
+	color: rgb(48, 104, 141);
+	background: rgb(225, 231, 231);
+}
+.cost-admin, .timer-admin{
+	position: absolute;
+	border-radius: 8px;
 	text-align: center;
 	color: rgb(48, 104, 141);
 	background: rgb(225, 231, 231);
@@ -161,18 +166,30 @@ body{
 }
 @media only screen and (min-width: 600px) { /* pc*/
 	#timer, #cost{
-		font-size: 400%;
+		font-size: 500%;
 	}
 	.timer{
 		width: 38%;
-		height: 25%;
-		top: 43%;
+		height: 33%;
+		top: 30%;
 		left: 10%;
 	}
 	.cost{
 		width: 38%;
-		height: 25%;
-		top: 43%;
+		height: 33%;
+		top: 30%;
+		left: 50%;
+	}
+	.timer-admin{
+		width: 38%;
+		height: 33%;
+		top: 40%;
+		left: 10%;
+	}
+	.cost-admin{
+		width: 38%;
+		height: 33%;
+		top: 40%;
 		left: 50%;
 	}
 	#meeting{
@@ -180,12 +197,20 @@ body{
 	}
 	.copy, .ref{
 		top: 60%;
+		height: 31%;
 	}
 	.ref{
 		width: 40%;
 	}
 	#complet{
 		top: 70%;
+		left: 43%;
+		width: 10%;
+		height: 10%;
+		font-size: 130%;
+	}
+	#complet-admin{
+		top: 80%;
 		left: 43%;
 		width: 10%;
 		height: 10%;
@@ -199,13 +224,13 @@ body{
 	#meeting{
 		font-size: 250%;
 	}
-	.timer{
+	.timer, .timer-admin{
 		width: 80%;
 		height: 25%;
 		top: 30%;
 		left: 10%;
 	}
-	.cost{
+	.cost, .cost-admin{
 		width: 80%;
 		height: 25%;
 		top: 60%;
@@ -213,11 +238,12 @@ body{
 	}
 	.copy, .ref{
 		top: 10%;
+		height: 32%;
 	}
 	.ref{
 		width: 60%;
 	}
-	#complet{
+	#complet, #complet-admin{
 		top: 88%;
 		left: 35%;
 		width: 30%;
@@ -269,8 +295,8 @@ body{
 }
 @media only screen and (min-width: 600px) { /* pc*/
 	.login{
-		left: 30%;
-		font-size: 195%;
+		left: 35%;
+		font-size: 215%;
 	}
 	.registration-box input[type="submit"]{
 		top: 50%;
@@ -280,7 +306,7 @@ body{
 		height: 10%;
 	}
 	.registration-box input[type="password"], input[type="email"]{
-		width: 40%;
+		width: 30%;
 	}
 }
 @media only screen and (max-width: 599px) {/* mobile*/
@@ -511,6 +537,20 @@ body{
 	.currentUser{
 		max-height: 50%; 
 	}
+}
+#text-1{
+	position: relative;
+	width: 50%;
+	font-size: 120%;
+	left: 55%;
+	text-align: right;
+	}
+#enter-1{
+	font-size: 120%;
+	color: rgb(125, 221, 210);
+	width: 30%;
+	bottom: 0%;
+	left: 5%;
 }
 .adminEnterMeeting-text{
 	text-decoration: none;

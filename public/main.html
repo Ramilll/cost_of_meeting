@@ -2,85 +2,36 @@
 <html>
 <head>
 	<style type="text/css">
-		div[slider] > input[type=range]::-ms-tooltip {
-  display: none;
-}
- 
-[slider] > div > [sign] {
-  opacity: 0;
-  position: absolute;
-  margin-left: -11px;
-  top: -39px;
-  z-index:3;
-  background-color: #1ABC9C;
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 28px;
-  -webkit-border-radius: 28px;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  text-align: center;
-}
- 
-[slider] > div > [sign]:after {
-  position: absolute;
-  content: '';
-  left: 0;
-  border-radius: 16px;
-  top: 19px;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top-width: 16px;
-  border-top-style: solid;
-  border-top-color: #1ABC9C;
-}
- 
-[slider] > div > [sign] > span {
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 28px;
-}
- 
-[slider]:hover > div > [sign] {
-  opacity: 1;
-}
+		.filter{
+      background: white;
+      width: 90%;
+      height: 84%;
+      left: 5%;
+      top: 8%;
+      position: absolute;
+    }
 	</style>
 	<title></title>
 </head>
 <body>
-	                 <div slider id="slider-distance">
-  <div>
-    <div inverse-left style="width:70%;"></div>
-    <div inverse-right style="width:70%;"></div>
-    <div range style="left:30%;right:40%;"></div>
-    <span thumb style="left:30%;"></span>
-    <span thumb style="left:60%;"></span>
-    <div sign style="left:30%;">
-      <span id="value">30</span>
-    </div>
-    <div sign style="left:60%;">
-      <span id="value">60</span>
-    </div>
-  </div>
-  <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
-  this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
-  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-  var children = this.parentNode.childNodes[1].childNodes;
-  children[1].style.width=value+'%';
-  children[5].style.left=value+'%';
-  children[7].style.left=value+'%';children[11].style.left=value+'%';
-  children[11].childNodes[1].innerHTML=this.value;" />
- 
-  <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
-  this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
-  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-  var children = this.parentNode.childNodes[1].childNodes;
-  children[3].style.width=(100-value)+'%';
-  children[5].style.right=(100-value)+'%';
-  children[9].style.left=value+'%';children[13].style.left=value+'%';
-  children[13].childNodes[1].innerHTML=this.value;" />
-</div>
+        <div class="filter">
+        <div class="period">
+          <p><b>Период</b></p>
+            <p><input name="dzen" type="radio" checked>1 месяц</p>
+            <p><input name="dzen" type="radio" >2 месяца</p>
+            <p><input name="dzen" type="radio" >3 месяца</p>
+        </div>
+
+        <div class="time">
+          <div>Время, мин.</div>
+          <div class="minutes">
+            <b>от</b>
+            <input type="text" id="min" name="">
+            <b>до</b>
+            <input type="text" id="max" name="">
+          </div>
+          <input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min')">
+          <input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max')">
+        </div>
 </body>
 </html>

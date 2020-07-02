@@ -7,28 +7,28 @@
 </head>
 <body>
 	<script type="text/javascript" src="index.js"></script>
-	<div class="userEnter">
+	<div class="userEnter" id="userEnter">
 		<div class="userName">
-			<h1>Иван Петр</h1>
+			<h1>Иван Петр</h1><!-- {{name}} -->
 		</div>
 		<div class="userImg">
 			<img src="userPhoto.jpg">
 		</div>
 		<div class="adminEnterMeeting-text">
 			<b>Статистика</b>
-			<a id="enter" href="meeting.html">Войти в собрание</a>
+			<a id="enter" href="directorEnter.html">Войти в собрание</a>
 		</div>
 		<div class="statistics">
-			<ul style="width: 40%;background: blue;" class="filter-button">
+			<ul class="filter-button" onclick="test13()">
+				<img id="filter-img" src="filter-empty.png" style="width: 5%;height: 5%;">
 				фильтры
-				<li style="display: none;">123</li>
 			</ul>
-			<div class="filter">
+			<div class="filter" id="filter">
 				<div class="period">
 					<p><b>Период</b></p>
-   		 			<p><input name="dzen" type="radio" >1 месяц</p>
+   		 			<p><input name="dzen" type="radio" checked>1 месяц</p>
     				<p><input name="dzen" type="radio" >2 месяца</p>
-    				<p><input name="dzen" type="radio" checked>3 месяца</p>
+    				<p><input name="dzen" type="radio" >3 месяца</p>
 				</div>
 
 				<div class="time">
@@ -53,14 +53,16 @@
 					</div>
 					<input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min1')">
 					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max1')">
+
+					<input type="button" name="" class="apply" id="apply" value="Применить" onclick="test14()">
 				</div>
 
 			</div>
 
-			<div class="box-1"></div>
-			<div class="box-2"></div>
-			<div class="box-3"></div>
-			<div class="grid-colums">
+			<div class="box-1" id="box-1"></div>
+			<div class="box-2" id="box-2"></div>
+			<div class="box-3" id="box-3"></div>
+			<div class="grid-colums" id="grid-colums">
 				<div class="colums">Сотрудники, учавствующие во встречях</div>
 				<div class="colums">Время, мин.</div>
 				<div class="colums">Стоимость ,руб.</div>

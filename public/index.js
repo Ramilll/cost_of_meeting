@@ -169,3 +169,24 @@ function usersData(element) {
 function maxMin(value,id) {
     document.getElementById(id).value = value;
 }
+function test13() {
+    console.log("yes");
+    document.getElementById('filter').style.display = 'block';
+    document.getElementById('grid-colums').style.display = 'none';
+    document.getElementById('box-1').style.display = 'none';
+    document.getElementById('box-2').style.display = 'none';
+    document.getElementById('box-3').style.display = 'none';
+    document.getElementById('enter').style.display = 'none';
+}
+
+function test14() {
+    console.log("yes");
+    document.getElementById('filter').style.display = 'none';
+    document.getElementById('grid-colums').style.display = 'grid';
+    document.getElementById('box-1').style.display = 'block';
+    document.getElementById('box-2').style.display = 'block';
+    document.getElementById('box-3').style.display = 'block';
+    document.getElementById('enter').style.display = 'block';
+
+    document.getElementById('filter-img').src = 'filter-full.png';
+}
