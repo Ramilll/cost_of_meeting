@@ -45,8 +45,10 @@ app.post(["/", "/login"] , urlencodedParser, function (req, res) {
             if (err) console.log(err);
             if (results.length == 0) res.send("This email was not found");
             else if (results.find(el => el.password === password)){
-                if
-            } res.send(results);
+                if ((results.find(el => el.password === password).role == 'admin')) res.redirect('createMeeting.html')
+                else if (results.find(el => el.password === password).role == 'director') res.redirect('director.html')
+                else if (results.find(el => el.password === password).role == 'user') res.redirect('user.html')
+            }
             else res.send("Incorrect password");
         });
 
