@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
 </head>
-<body>
+<body onload="timer()">
 	<div>
 		<h1 id="meeting">Информаия о собрании</h1>
 		<div class="timer-admin">
@@ -17,11 +17,11 @@
 			<h1 id="cost">0000</h1>
 		</div>
 		<div class="link">
-			<input type="text" name="" value="http" class="ref" readonly="">
-			<input type="button" value="Копировать" class="copy" name="">
+			<input type="text" name="" value="http" id="ref" class="ref" readonly="">
+			<input type="button" value="Копировать" id="copy" class="copy" onclick="copy()" name="">
 		</div>
 	</div>
-	<input type="button" name="" id="complet-admin" value="Завершить" onclick="">
+	<input type="button" name="" id="complet-admin" value="Завершить" onclick="complet()">
 <!-- 	<form method="POST" id="form" class="form">
 		<input type="button" name="" id="button2" value="add" onclick="addUser()">
 		<input type="button" name="" id="button3" value="addCurrentUser" onclick="addCurrentUser()">

@@ -6,6 +6,7 @@ const url = 'http://localhost:3000/'; //url place holder /user/all
 //     addUser(text.users,text.wage);
 //   })
 // })
+
 let res = [];
 let wageAr = [];
 
@@ -14,6 +15,7 @@ function fetchGet() {
     result.then(function(response) {
     response.json().then(function(text){
       addUser(text);
+      console.log(text);
     })
     })
     const result1  = fetch(url+'wage/all');
@@ -92,13 +94,22 @@ var start = true;
       }
     }
 
+function a(argument) {
+    console.log(a);
+}
 // add user in current user list
 function addCurrentUser(id,id1,classI) {
   var value = document.getElementById(id).value;
-  var user = document.getElementById(value);
-  var cln = user.cloneNode(true);
+  var users = document.getElementById('users').childNodes;
+  for(var i = 0;i < users.length;i++){
+        if(value == users[i].innerHTML){
+            var user = users[i];
+            var cln = user.cloneNode(true);
+        }
+  }
+
   cln.classList.add(classI);
-  var element = document.getElementById(id);
+  // var element = document.getElementById(id);
 
   document.getElementById(id1).appendChild(cln); //add
   user.remove();
@@ -110,13 +121,21 @@ function addUser(array) { // add user in selection
   for(var i = 0;i<array.length;i++){
     var user = document.createElement("option");
     var name = array[i].name;
+    user.setAttribute('onclick', 'removeUser(this.id)')
 
+    console.log(user.onClick);
     user.value = array[i].name; // users name
-    user.id = array[i].name; // users id 
+    user.id = array[i].id; // users id 
     user.innerHTML = array[i].name;
     document.getElementById("users").appendChild(user); //add
   }
 
+}
+function removeUser(id) {
+    var cln = document.getElementById(id);
+    cln.classList.add('re');
+    document.getElementById(id).remove();
+    document.getElementById("users").appendChild(cln); //add
 }
 
 var value = 0; // money
@@ -166,21 +185,57 @@ function usersData(element) {
     }
 }
 function postMeeting() {
-    var data = {
-        email:"user@user.ru",
-        password:"user"
-    };
     var users = document.getElementById('currentUsers').childNodes;
     var nameMeeting = document.getElementById('nameMeeting').value;
-
+    var id = [];
+    for (var i = 0; i < users.length; i++) {
+            if(users[i].innerHTML != null){
+                id.push(users[i].id);
+            }
+    }
+    var now = new Date();
+    let data = {
+        name: nameMeeting,
+        userId: id,
+        start: now
+    };
+    console.log(data)
+    console.log(nameMeeting);
     const res = fetch(url+'login', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+            // 'Content-Type': 'application/json; charset=utf-8'
          },
         body: JSON.stringify(data)
-    });
+    })
 }
+function copy() {
+    navigator.clipboard.writeText(document.getElementById('ref').value)
+}
+function complet() {
+    navigator.clipboard.readText()
+        .then(text => {
+            console.log(text);
+        })
+    var now = new Date();
+
+    let data = {
+        end: now,
+        time: seconds
+    }
+    const res = fetch(url+'login', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+            // 'Content-Type': 'application/json; charset=utf-8'
+         },
+        body: JSON.stringify(data)
+    })
+}
+
 function addUserDirect(text) {
     console.log(text);
     var link = document.getElementById('grid-colums');

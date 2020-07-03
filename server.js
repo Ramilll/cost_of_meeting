@@ -33,6 +33,9 @@ const connection = mysql.createConnection({
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
+app.get('/director', function(req, res) {
+    res.sendFile(__dirname + "/public/director.html");
+});
 
 app.post(["/", "/login"] , urlencodedParser, function (req, res) {
     console.log(req.body);
