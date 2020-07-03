@@ -199,9 +199,7 @@ function postMeeting() {
         userId: id,
         start: now
     };
-    console.log(data)
-    console.log(nameMeeting);
-    const res = fetch(url+'login', {
+    const res = fetch(url+'meeting', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
@@ -215,17 +213,19 @@ function copy() {
     navigator.clipboard.writeText(document.getElementById('ref').value)
 }
 function complet() {
-    navigator.clipboard.readText()
-        .then(text => {
-            console.log(text);
-        })
+    // navigator.clipboard.readText() //
+    //     .then(text => {
+    //         console.log(text);
+    //     })
     var now = new Date();
 
     let data = {
         end: now,
-        time: seconds
+        time: seconds,
+        name: 'post'
+        // userId: id
     }
-    const res = fetch(url+'login', {
+    const res = fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {

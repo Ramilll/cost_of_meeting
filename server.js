@@ -34,11 +34,15 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/public/register.html");
 });
 app.get('/director', function(req, res) {
-    res.sendFile(__dirname + "/public/director.html");
+    res.redirect("director.html");
+});
+
+app.post("/meeting" , urlencodedParser, function (req, res) {
+    console.log(req.body);
+    res.redirect("meeting");
 });
 
 app.post(["/", "/login"] , urlencodedParser, function (req, res) {
-    console.log(req.body);
     if(!req.body) return res.sendStatus(400);
     var email = req.body.email
     var password = req.body.password
