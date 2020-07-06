@@ -1,6 +1,11 @@
 /*rgb(48, 104, 141); цвет текста*/
 /*	background: rgb(225, 231, 231) серый фон*/
-
+:root{
+	--royalBlue: #604eee;
+	--silver: #DDDDDD;
+	--zircon: #F1F1F1;
+	--monsoon: #BABDC2;
+}
 body{
 	background-repeat: no-repeat;
 	background: white;
@@ -9,7 +14,7 @@ body{
 	text-align: center;
 }
 .userName{
-	color: rgb(48, 104, 141);
+	color: black;
 	font-size: 150%;
 	position: relative;
 }
@@ -35,7 +40,7 @@ body{
 }
 #enter{
 	text-decoration: none;
-	color: rgb(125, 221, 210);
+	color: var(--royalBlue);
 	position: absolute;
 }
 .adminEnterMeeting-text b{
@@ -56,11 +61,16 @@ body{
 	height: 65%;
 }
 .filter{
+	display: none;
 	position: relative;
 	left: 10%;
 	text-align: left;
 	width: 30%;
 	height: 100%;
+}
+.filter-button{
+	color: var(--royalBlue);
+	text-decoration: underline;
 }
 .grid-colums{
 	text-align: left;
@@ -73,19 +83,11 @@ body{
 }
 .box-1, .box-2, .box-3{
 	border: none;
-	border-radius: 8px;
+	border-radius: 4px;
 }
-.box-1{
+.box-1, .box-2 , .box-3{
 	position: relative;
-	background: rgb(195, 205, 206);
-}
-.box-2{
-	position: relative;
-	background: rgb(125, 221, 210);
-}
-.box-3{
-	position: relative;
-	background: rgb(195, 205, 206);
+	background: var(--zircon);
 }
 .period{
 	font-size: 150%;
@@ -124,53 +126,81 @@ body{
 	color: white;
 	background: rgb(125, 221, 210);
 }
+.adminEnterMeeting-text h1{
+	position: relative;
+	color: var(--royalBlue);
+}
+.grid-headers{
+	text-align: center;
+	border-bottom: 1px solid;
+	font-weight: bold;
+}
 @media only screen and (min-width: 600px) {
   	.userImg{
 		position: absolute;
-		left: 32%;
+		left: 10%;
 		top: 1%;
 	}
-	.adminEnterMeeting-text b{
+	.userName{
 		font-size: 120%;
-		left: 15%;
-		width: 30%;
+		left: -25%;
 	}
 	.grid-colums{
-		grid-template-columns: 48% 21% 21%;
+		grid-template-columns: 46% 23% 25.5%;
 		grid-gap: 2%;
-		bottom: 400%;
-		left: 30%;
-		width: 70%;
+		bottom: 300%;
+		left: 10%;
+		width: 80%;
 		height: 100%;
 	}
 	.box-1{
-		left: 30%;
-		bottom: 100%;
-		width: 34%;
+		left: 10%;
+		bottom: 0%;
+		width: 37%;
 		height: 100%;
 	}
 	.box-2{
-		left: 65%;
-		bottom: 200%;
-		width: 15%;
+		left: 48%;
+		bottom: 100%;
+		width: 19%;
 		height: 100%;
 	}
 	.box-3{
-		left: 81%;
-		bottom: 300%;
-		width: 15%;
+		left: 68%;
+		bottom: 200%;
+		width: 21%;
 		height: 100%;
 	}
+	.filter{
+		display: block;
+		background: white;
+		position: absolute;
+		left: 48.15%;
+		top: 29%;
+		height: 68%;
+		width: 40%;
+		z-index: 1;
+	}
 	.filter-button{
-		display: none;
+		position: absolute;
+/*		display: none;*/
+		left: 70%;
+		top: 15%;
+		width: 20%;
+		height: 10%;
+		font-size: 150%;
+	}
+	#filter-img{
+		max-width: 10%;
+		height: auto;
 	}
 	.apply{
 		display: none;
 	}
 	#enter{
-		font-size: 120%;
-		bottom: 0%;
-		left: 75%;
+		font-size: 100%;
+		bottom: 250%;
+		left: 70%;
 	}
 	.adminEnterMeeting-text{
 		font-size: 170%;
@@ -178,9 +208,12 @@ body{
 		height: 4%;
 		margin-bottom: 5%;
 	}
-	.adminEnterMeeting-text b{
-		left: 15%;
+	.adminEnterMeeting-text h1{
+		left: 5%;
 		width: 30%;
+	}
+	.grid-headers{
+		font-size: 130%;
 	}
 }
 @media only screen and (max-width: 599px) {
@@ -209,7 +242,11 @@ body{
       	padding: 10%;
       	padding-top: 0%;
 	}
-	.adminEnterMeeting-text b{
+	#filter-img{
+		width: 10%;
+		max-height: 10%;
+	}
+	.adminEnterMeeting-text h1{
 		font-size: 120%;
 		left: 15%;
 		width: 30%;
@@ -252,12 +289,15 @@ body{
 		height: 4%;
 		margin-bottom: 5%;
 	}
-	.adminEnterMeeting-text b{
+	.adminEnterMeeting-text h1{
 		left: 5%;
 		width: 40%;
 	}
 	.period b, #t1, #t2{
 		color: rgb(48, 104, 141);
+	}
+	.grid-headers{
+		font-size: 110%;
 	}
 }
 /*.time input[type="range"]{;

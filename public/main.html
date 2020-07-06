@@ -8,6 +8,10 @@
     body{
       background: var(--red);
     }
+    h1{
+      font-family: 'Rubik';
+      font-weight: bold;
+    }
     .filter{
       background: white;
       width: 90%;
@@ -20,24 +24,6 @@
 	<title></title>
 </head>
 <body>
-        <div class="filter">
-        <div class="period">
-          <p><b>Период</b></p>
-            <p><input name="dzen" type="radio" checked>1 месяц</p>
-            <p><input name="dzen" type="radio" >2 месяца</p>
-            <p><input name="dzen" type="radio" >3 месяца</p>
-        </div>
-
-        <div class="time">
-          <div>Время, мин.</div>
-          <div class="minutes">
-            <b>от</b>
-            <input type="text" id="min" name="">
-            <b>до</b>
-            <input type="text" id="max" name="">
-          </div>
-          <input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min')">
-          <input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max')">
-        </div>
+  <h1>Макс</h1>
 </body>
 </html>

@@ -123,7 +123,6 @@ function addUser(array) { // add user in selection
     var name = array[i].name;
     user.setAttribute('onclick', 'removeUser(this.id)')
 
-    console.log(user.onClick);
     user.value = array[i].name; // users name
     user.id = array[i].id; // users id 
     user.innerHTML = array[i].name;

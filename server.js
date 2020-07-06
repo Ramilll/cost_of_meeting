@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/public/register.html");
+    res.sendFile(__dirname + "/public/login.html");
 });
 app.get('/createMeeting', function(req, res) {
     res.sendFile(__dirname + "/public/createMeeting.html");
@@ -31,7 +31,7 @@ const connection = mysql.createConnection({
 });
 
 app.get('/login', function(req, res) {
-    res.sendFile(__dirname + "/public/register.html");
+    res.sendFile(__dirname + "/public/login.html");
 });
 app.get('/director', function(req, res) {
     res.redirect("director.html");
