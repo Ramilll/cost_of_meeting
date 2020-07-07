@@ -1,0 +1,51 @@
+{
+
+  "development": {
+
+    "username": "remoteUser",
+
+    "password": "remoteUser",
+
+    "database": "database",
+
+    "host": "192.168.200.64",
+
+    "dialect": "mysql",
+
+    "define": {
+      "timestamps": false
+    },
+
+    "logging": false
+
+  },
+
+  "test": {
+
+    "username": "",
+
+    "password": null,
+
+    "database": "",
+
+    "host": "",
+
+    "dialect": "mysql"
+
+  },
+
+  "production": {
+
+    "username": "",
+
+    "password": null,
+
+    "database": "",
+
+    "host": "127.0.0.1",
+
+    "dialect": "mysql"
+
+  }
+
+}

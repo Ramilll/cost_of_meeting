@@ -1,24 +1,33 @@
 
 var models = require("./app/models");
 
+
+<<<<<<< HEAD
+var express = require('express');
+=======
 const express = require('express');
 const app = express();
 const flash = require('connect-flash');
 const passport   = require('passport')
 const session = require('express-session');
+>>>>>>> 087a4b4... beta-test
+const mysql = require('mysql');
 const bodyParser = require("body-parser");
 const env = require('dotenv').config({path:'/.env'});
 
+<<<<<<< HEAD
+var app = express();
+=======
 
 var authRoute = require('./app/routes/auth.js')(app,passport);
 require('./config/passport/passport.js')(passport, models.user);
-
+>>>>>>> 087a4b4... beta-test
 
 
 app.use(flash());
 app.use(express.static('public'));
-//app.use(bodyParser.json());
-//  app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'Ramil',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session())
@@ -27,6 +36,8 @@ app.set('views', (__dirname + '/public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+<<<<<<< HEAD
+=======
 app.listen(3000);
 // отправляем сообщение
 console.log('Сервер стартовал!');
@@ -42,11 +53,12 @@ models.sequelize.sync().then(function() {
 
 });
 
-/*
+
+>>>>>>> 087a4b4... beta-test
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/public/login.html");
 });
-*/
+
 /*
 
 app.get('/createMeeting', function(req, res) {
