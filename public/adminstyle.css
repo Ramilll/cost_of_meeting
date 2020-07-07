@@ -171,6 +171,8 @@ h1{
 @media only screen and (min-width: 600px) { /* pc*/
 	#timer, #cost{
 		font-size: 600%;
+		position: relative;
+		bottom: 20%;
 	}
 	.timer{
 		width: 38%;
@@ -236,6 +238,8 @@ h1{
 @media only screen and (max-width: 599px) {/* mobile*/
 	#timer, #cost{
 		font-size: 400%;
+		position: relative;
+		bottom: 20%;
 	}
 	#meeting{
 		font-size: 250%;
@@ -299,10 +303,8 @@ h1{
 .registration-box input[type="password"], input[type="email"]{
 	background: white;
 	border: 2px solid;
-	border-color: var(--zircon); 
 	border-radius: 4px;
 	height: 80%;
-	color: var(--silver);
 }
 .registration-box input[type="submit"]{
 	border: none;
@@ -364,11 +366,26 @@ h1{
 }
 .userName{
 	color: black;
-	font-size: 150%;
-	margin-bottom: 5%;
+	margin-bottom: 7%;
 	position: relative;
 	text-align: left;
 	left: 0%;
+}
+/*.userName h1:hover > a{
+	display: block;
+}
+.userName a:hover{
+	display: block;
+}*/
+.userName a{
+	text-decoration: none;
+	display: none;
+	box-shadow: 0 0 10px rgba(0,0,1,0.2);
+	background: white;
+	position: absolute;
+	text-align: center;
+	font-size: 80%;
+	color: var(--royalBlue);
 }
 .enterMeeting-text {
 	text-decoration: none;
@@ -398,6 +415,12 @@ h1{
 	border-radius: 4px; 
 	background: var(--royalBlue);
 	color: white;
+}
+#buttonRay{
+	position: absolute;
+	border: none;
+	background: none;
+	color: black;
 }
 @media only screen and (min-width: 600px) { /*pc*/
 	.userEnter{
@@ -500,6 +523,21 @@ h1{
 		bottom: 320%;
 		left: 85%;
 	}
+	.userName a{
+		font-size: 80%;
+		height: 140%;
+		width: 15%;
+		left: 10%;
+		top: 110%;
+	}
+	#buttonRay{
+		left: 17%;
+		bottom: 10%;
+		font-size: 120%;
+	}
+	#rise{
+		display: none;
+	}
 }
 @media only screen and (max-width: 599px) {/*mobile*/
   	.userEnter{
@@ -558,11 +596,28 @@ h1{
 		top: 35%;
 		font-size: 150%;
 	}
-/*	#enter{
-		width: 40%;
+	#buttonRay{
+		left: 65%;
 		bottom: 0%;
-		left: 80%;
-	}*/
+		font-size: 160%;
+	}
+	#rise{
+		display: block;
+		position: absolute;
+		left: 72%;
+		top: 50%;
+		color: var(--royalBlue);
+		border: none;
+		background: none;
+		font-size: 160%;
+	}
+	#enter, #enter-1{
+		position: absolute;
+		width: 60%;
+		bottom: 0%;
+		left: 15%;
+		box-shadow: 0px 0px 10px rgba(0,0,0.1,10);
+	}
 	.createMeeting{
 		width: 100%;
 		height: 20%;
@@ -603,9 +658,14 @@ h1{
 		top: 100%;
 		background: white;
 	}
-	.adminEnterMeeting-text:hover > a{
-		display: block; 
+	.userName a{
+		font-size: 80%;
+		height: 140%;
+		width: 45%;
+		left: 45%;
+		top: 110%;
 	}
+
 
 }
 /*#text-1{
@@ -643,9 +703,9 @@ h1{
 .createMeeting input, select{
 	background: white;
 	border: 2px solid;
-	border-color: var(--zircon); 
+	border-color: var(--silver); 
 	border-radius: 4px;
-	color: var(--silver);
+	color: var(--monsoon);
 }
 .userEnter{
 	position:absolute;
@@ -683,4 +743,11 @@ h1{
 	border: 2px solid;
 	border-radius: 4px;
 	border-color: var(--silver); 
+}
+input[type="text"], input[type="email"],input[type="password"]{
+	color: var(--monsoon);
+	border-color: var(--silver); 
+}
+input[type="button"]:focus{
+	outline: none;
 }

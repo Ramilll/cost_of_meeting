@@ -263,16 +263,33 @@ function addUserDirect(text) {
 function maxMin(value,id) {
     document.getElementById(id).value = value;
 }
+var booltest = true;
 function test13() {
-    document.getElementById('filter').style.display = 'block';
-    document.getElementById('grid-colums').style.display = 'none';
-    document.getElementById('box-1').style.display = 'none';
-    document.getElementById('box-2').style.display = 'none';
-    document.getElementById('box-3').style.display = 'none';
-    document.getElementById('enter').style.display = 'none';
+    if(booltest){
+        document.getElementById('filter').style.display = 'block';
+    }
+    else document.getElementById('filter').style.display = 'none';
+    booltest = !booltest;
+    // document.getElementById('grid-colums').style.display = 'none';
+    // document.getElementById('box-1').style.display = 'none';
+    // document.getElementById('box-2').style.display = 'none';
+    // document.getElementById('box-3').style.display = 'none';
+    // document.getElementById('enter').style.display = 'none';
 }
-
+var booltest20 = true;
+function test20(id,id1) {
+    if(booltest20){
+        document.getElementById(id1).style.display = 'block';
+        document.getElementById(id).value = '∧';
+    }
+    else{
+        document.getElementById(id1).style.display = 'none';
+        document.getElementById(id).value = '∨';
+    }
+    booltest20 = !booltest20;
+}
 function test14() {
+    booltest = !booltest;
     document.getElementById('filter').style.display = 'none';
     document.getElementById('grid-colums').style.display = 'grid';
     document.getElementById('box-1').style.display = 'block';
@@ -280,5 +297,5 @@ function test14() {
     document.getElementById('box-3').style.display = 'block';
     document.getElementById('enter').style.display = 'block';
 
-    document.getElementById('filter-img').src = 'filter-full.png';
+    // document.getElementById('filter-img').src = 'filter-full.png';
 }

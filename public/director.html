@@ -24,39 +24,40 @@
 				фильтры
 			</ul>
 			<div class="filter" id="filter">
+				<h1 id="parameters">Параметры</h1>
 				<div class="period">
-					<p><b>Период</b></p>
-   		 			<p><input name="dzen" type="radio" checked>1 месяц</p>
-    				<p><input name="dzen" type="radio" >2 месяца</p>
-    				<p><input name="dzen" type="radio" >3 месяца</p>
+					<h1>Период</h1>
+					<select>
+						<option value="1">1 месяц</option>
+						<option value="2">2 месяц</option>
+						<option value="3">3 месяц</option>
+						<option value="4">4 месяц</option>
+						<option value="5">5 месяц</option>
+						<option value="6">6 месяц</option>
+					</select>
 				</div>
 
 				<div class="time">
-					<div id="t1">Время, мин.</div>
+					<h1 id="t1">Время, мин.</h1>
 					<div class="minutes">
-						<b>от</b>
-						<input type="text" id="min" name="">
-						<b>до</b>
-						<input type="text" id="max" name="">
+						<input type="text" id="min"name="" value="10">
+						<input type="text" id="max"name="" value="4000">
 					</div>
 					<input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min')">
 					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max')">
 				</div>
 
 				<div class="cost">
-					<div id="t2">Стоимость, руб.</div>
+					<h1 id="t2">Стоимость, руб.</h1>
 					<div class="rubles">
-						<b>от</b>
-						<input type="text" id="min1"name="">
-						<b>до</b>
-						<input type="text" id="max1"name="">
+						<input type="text" id="min1"name="" value="10">
+						<input type="text" id="max1"name="" value="4000">
 					</div>
 					<input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min1')">
 					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max1')">
-
-					<input type="button" name="" class="apply" id="apply" value="Применить" onclick="test14()">
 				</div>
-
+				<input type="button" name="" class="apply" id="apply" value="Применить" onclick="test14()">
+				<input type="button" class="dropping" name="" value="Сброс">
 			</div>
 
 			<div class="box-1" id="box-1"></div>
@@ -71,3 +72,4 @@
 	</div>
 </body>
 </html>
+<!-- Ⓧ -->
