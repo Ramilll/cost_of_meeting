@@ -1,14 +1,19 @@
 // берём Express
 
-var express = require('express');
+const express = require('express');
+const passport = require('passport')
+const connect = require('connect')
 const mysql = require('mysql');
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({extended: false}); //test method: Post
 
-var app = express();
+
+const app = express();
 
 
 app.use(express.static('public'));
+
+
 
 
 app.get('/', function(req, res) {
