@@ -7,7 +7,6 @@ exports.login = function(req, res) {
 }
 
 exports.userboard = function(req, res) {
-
+    //res.sendFile('user.html')
     res.render('user');
-
 }

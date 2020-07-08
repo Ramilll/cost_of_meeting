@@ -1,4 +1,4 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, Sequelize) {  //change second argument to DataTypes instead of Sequilize
 
     var User = sequelize.define('user', {
 
@@ -45,3 +45,4 @@ module.exports = function(sequelize, Sequelize) {
     return User;
 
 }
+
