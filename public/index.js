@@ -34,15 +34,6 @@ function getDirect() {
         })
     })
 }
-
-// function test1(ar) {
-//   res = ar;
-// }
-// function test2(ar) {
-//   console.log(ar);
-// }
-
-
 var time = '';
 var second = 0;
 var seconds = 0;
@@ -161,14 +152,6 @@ function cost(array){
   			}
   		}
     }
-    // wage = unique(wage); 
-    // for(var i = 0;i < n;i++){
-    //   for(var s = 1; s < res.wage.length;s++){
-    //    var sd = (wawgeData(usersData(elem[s].value)));
-    //   }
-    //     wage.push(sd)
-    // }
-    // wage = unique(wage);
     console.log(wage);
     for (var d = 0; d < wage.length; d++) {
         greed += wage[d];
@@ -193,29 +176,19 @@ function postMeeting() {
             }
     }
     var now = new Date();
-    let data = {
-        name: nameMeeting,
-        userId: id,
-        start: now
-    };
     const res = fetch(url+'meeting', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-            // 'Content-Type': 'application/json; charset=utf-8'
          },
-        body: JSON.stringify(data)
+        body: 'name='+nameMeeting+'&userId='+id+'&start='+now
     })
 }
 function copy() {
     navigator.clipboard.writeText(document.getElementById('ref').value)
 }
 function complet() {
-    // navigator.clipboard.readText() //
-    //     .then(text => {
-    //         console.log(text);
-    //     })
     var now = new Date();
 
     let data = {
@@ -224,14 +197,15 @@ function complet() {
         name: 'post'
         // userId: id
     }
-    const res = fetch(url, {
+    time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
+    const res = fetch(url+'meeting', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
             // 'Content-Type': 'application/json; charset=utf-8'
          },
-        body: JSON.stringify(data)
+        body: 'name=post'+'&seconds='+seconds+'&userId='+'1,2,3,4,5'+'&timeEnd='+time
     })
 }
 
@@ -254,9 +228,6 @@ function addUserDirect(text) {
             elem2.classList.add('colums');;
             elem2.innerHTML = text[i].costMeetingTime;
             document.getElementById('grid-colums').appendChild(elem2);
-            // elem.innerHTML = text[i].meetingTime;
-            // elem.innerHTML = text[i].costMeetingTime;
-            // document.getElementById('grid-colums').appendChild(elem);
     }
 }
 
@@ -270,11 +241,6 @@ function test13() {
     }
     else document.getElementById('filter').style.display = 'none';
     booltest = !booltest;
-    // document.getElementById('grid-colums').style.display = 'none';
-    // document.getElementById('box-1').style.display = 'none';
-    // document.getElementById('box-2').style.display = 'none';
-    // document.getElementById('box-3').style.display = 'none';
-    // document.getElementById('enter').style.display = 'none';
 }
 var booltest20 = true;
 function test20(id,id1) {
@@ -298,4 +264,7 @@ function test14() {
     document.getElementById('enter').style.display = 'block';
 
     // document.getElementById('filter-img').src = 'filter-full.png';
+}
+function toLink(ref) {
+    document.location.href=ref;
 }
