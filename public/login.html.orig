@@ -7,7 +7,12 @@
 </head>
 <body>
 	<script type="text/javascript" src="register.js"></script>
+<<<<<<< HEAD:public/login.html
 	<form method="POST">
+=======
+
+	<form method="POST" action="/login">
+>>>>>>> 087a4b4... beta-test:public/register.html
 
 		<div class="registration-box">
 			<div class="login">
