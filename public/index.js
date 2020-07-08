@@ -1,12 +1,5 @@
 const url = 'http://localhost:3000/'; //url place holder /user/all
 
-// fetch(url+'all').then(function(response) { //gettingalle data
-//   response.json().then(function(text){
-//     console.log(text.users[1].name);
-//     addUser(text.users,text.wage);
-//   })
-// })
-
 let res = [];
 let wageAr = [];
 
@@ -18,13 +11,13 @@ function fetchGet() {
       console.log(text);
     })
     })
-    const result1  = fetch(url+'wage/all');
-    result1.then(function(response1) {
-        response1.json().then(function(text1){
-            console.log(text1);
-        })
-    })
-    console.log(result);
+    // const result1  = fetch(url+'wage/all');
+    // result1.then(function(response1) {
+    //     response1.json().then(function(text1){
+    //         console.log(text1);
+    //     })
+    // })
+    // console.log(result);
 }
 function getDirect() {
     const result  = fetch(url+'direct');
@@ -38,10 +31,8 @@ var time = '';
 var second = 0;
 var seconds = 0;
 var min = 0;
-// var hour = 0;
 var s = '';
 var m = '';
-// var h = '';
 var start = true;
 
     function test(){
@@ -62,10 +53,6 @@ var start = true;
           min++;
           second = 0;
         }
-        // if(min>=60){
-        //   hour++;
-        //   min = 0;
-        // }
         if(second>=10){
           s = '';
         }
@@ -74,10 +61,6 @@ var start = true;
           m = '';
         }
         else m ='0';
-       //  if(hour>=10){
-       //    h = '';
-       //  }
-       // else h ='0';
 
         time = m+min+':'+s+second; //h+hour+':'
         document.getElementById('timer').innerHTML = time;
@@ -88,7 +71,6 @@ var start = true;
 function a(argument) {
     console.log(a);
 }
-// add user in current user list
 function addCurrentUser(id,id1,classI) {
   var value = document.getElementById(id).value;
   var users = document.getElementById('users').childNodes;
@@ -100,11 +82,9 @@ function addCurrentUser(id,id1,classI) {
   }
 
   cln.classList.add(classI);
-  // var element = document.getElementById(id);
 
   document.getElementById(id1).appendChild(cln); //add
   user.remove();
-	// users.parentNode.removeChild(id);
 }
 
 var ar = [];
@@ -166,6 +146,9 @@ function usersData(element) {
     if(element == res.users[i].name) return res.users[i].wageId;
     }
 }
+function copy() {
+    navigator.clipboard.writeText(document.getElementById('ref').value)
+}
 function postMeeting() {
     var users = document.getElementById('currentUsers').childNodes;
     var nameMeeting = document.getElementById('nameMeeting').value;
@@ -185,34 +168,32 @@ function postMeeting() {
         body: 'name='+nameMeeting+'&userId='+id+'&start='+now
     })
 }
-function copy() {
-    navigator.clipboard.writeText(document.getElementById('ref').value)
-}
 function complet() {
     var now = new Date();
-
-    let data = {
-        end: now,
-        time: seconds,
-        name: 'post'
-        // userId: id
-    }
     time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
     const res = fetch(url+'meeting', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-            // 'Content-Type': 'application/json; charset=utf-8'
          },
         body: 'name=post'+'&seconds='+seconds+'&userId='+'1,2,3,4,5'+'&timeEnd='+time
+    })
+}
+function login(email, password) {
+    const res = fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+         },
+        body: 'email='+email+'&password='+password
     })
 }
 
 function addUserDirect(text) {
     console.log(text);
     var link = document.getElementById('grid-colums');
-    // var elem = document.createElement('div');
     for (var i = 0; i < text.length; i++) {
             var elem = document.createElement('div');
             elem.classList.add('colums');
@@ -267,4 +248,20 @@ function test14() {
 }
 function toLink(ref) {
     document.location.href=ref;
+}
+var clon;
+var sss = 0;
+function wait(num){
+    var body =  document.body.childNodes;
+    var n  = body.length;
+
+    var temp = document.getElementsByTagName("template")[num];
+    var clon = temp.content.cloneNode(true);
+    document.body.appendChild(clon);
+
+    for (var i = 1; i < n; i++) {
+            if(body[i].tagName != null && body[i].tagName != 'TEMPLATE'){
+                body[i].remove(); 
+            }         
+    }
 }
