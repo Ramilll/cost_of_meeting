@@ -2,11 +2,17 @@ var exports = module.exports = {}
 
 
 exports.login = function(req, res) {
-    console.log('New reload')
     res.render('login')
 }
 
-exports.userboard = function(req, res) {
-    //res.sendFile('user.html')
+exports.user = function(req, res) {
     res.render('user');
+}
+
+exports.admin = function(req, res) {
+    res.render('admin');
+}
+
+exports.director = function(req, res) {
+    res.render('director');
 }

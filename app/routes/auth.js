@@ -1,24 +1,53 @@
 var authController = require('../../controllers/authcontroller.js');
-//const bodyParser = require("body-parser");
-//const urlencodedParser = bodyParser.urlencoded({extended: false});
+var models           = require('../../app/models');
 
 module.exports = function(app, passport) {
 
-    app.get('/userboard', isLoggedIn, authController.userboard);
+    app.get('/user/all', function(req,res) {
+        models.user.findAll({raw:true}).then(users=>{
+            res.send(users);
+        }).catch(err=>console.log(err));
+    })
+
+    app.get('/logout', function(req, res){
+        req.logout();
+        res.redirect('/login');
+    });
+
+    app.get('/user', isUser, authController.user);
+
+    app.get('/admin', isAdmin, authController.admin);
+
+    app.get('/director', isDirector, authController.director);
 
     app.get('/login', authController.login);
 
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/userboard', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        //failureFlash : true // allow flash messages
-    }));
+    app.post('/login',
+        passport.authenticate('local-login'),
+        function(req, res) {
+            // If this function gets called, authentication was successful.
+            // `req.user` contains the authenticated user.
+            if (req.user.role == 'admin') {res.redirect('/admin')}
+            if (req.user.role == 'user') {res.redirect('/user')}
+            if (req.user.role == 'director') {res.redirect('/director')}
 
+        });
 
-    function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated())  // <-- typo here
+    function isUser(req, res, next) {
+        if ((req.isAuthenticated()) && (req.user.role === 'user'))
             return next();
         res.redirect('/login');
     }
 
+    function isAdmin(req, res, next) {
+        if ((req.isAuthenticated())  && (req.user.role === 'admin'))
+            return next();
+        res.redirect('/login');
+    }
+
+    function isDirector(req, res, next) {
+        if ((req.isAuthenticated()) && (req.user.role === 'director'))
+            return next();
+        res.redirect('/login');
+    }
 }

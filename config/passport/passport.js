@@ -46,7 +46,7 @@ module.exports = function(passport, user) {
                     console.log('First')
                     if(!user) return done(null, false);
                     console.log('Second')
-                    if(user.password != password) return done(null, false)
+                    if(user.password !== password) return done(null, false)
                     console.log('Third')
                     return done(null, user.get())
                 })//     .catch(err=>console.log(err));

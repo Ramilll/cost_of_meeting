@@ -164,13 +164,7 @@ app.get('/direct',function(req,res) {
         });
 })
 
-app.get('/user/all',function(req,res) {
-    connection.query("SELECT * FROM users",
-        function(err, results, fields) {
-            if (err) console.log(err);
-            res.send(results); // собственно данные
-        });
-})
+
 
 app.get('/wage/all',function(req,res) {
     connection.query("SELECT * FROM wages",
