@@ -27,9 +27,18 @@ module.exports = function(app, passport) {
         function(req, res) {
             // If this function gets called, authentication was successful.
             // `req.user` contains the authenticated user.
-            if (req.user.role == 'admin') {res.redirect('/admin')}
-            if (req.user.role == 'user') {res.redirect('/user')}
-            if (req.user.role == 'director') {res.redirect('/director')}
+            if (req.user.role == 'admin') {
+                res.send(req.user.name)
+                res.redirect('/admin')
+            }
+            if (req.user.role == 'user') {
+                res.send(req.user.name)
+                res.redirect('/user')
+            }
+            if (req.user.role == 'director') {
+                res.send(req.user.name)
+                res.redirect('/director')
+            }
 
         });
 
