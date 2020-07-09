@@ -16,3 +16,8 @@ exports.admin = function(req, res) {
 exports.director = function(req, res) {
     res.render('director');
 }
+
+exports.DataProcessing = function (req, res) {
+    console.log(req)
+    console.log(req.body)
+}

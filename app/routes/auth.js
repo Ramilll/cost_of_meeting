@@ -1,6 +1,7 @@
 var authController = require('../../controllers/authcontroller.js');
 var models           = require('../../app/models');
 
+
 module.exports = function(app, passport) {
 
     app.get('/getUsers', function(req,res) {
@@ -15,10 +16,18 @@ module.exports = function(app, passport) {
         }).catch(err=>console.log(err))
     })
 
+    app.get('/getUsers_meeting',function(req,res) {
+        models.users_meeting.findAll({raw:true}).then(users_meetings=>{
+            res.send(users_meetings);
+        }).catch(err=>console.log(err))
+    })
+
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');
     });
+
+    app.post('/sendMeetingData/:Meetingid', authController.DataProcessing)
 
     app.get('/user', isUser, authController.user);
 
@@ -34,15 +43,15 @@ module.exports = function(app, passport) {
             // If this function gets called, authentication was successful.
             // `req.user` contains the authenticated user.
             if (req.user.role == 'admin') {
-                res.send(req.user.name)
+                //res.send(req.user.name)
                 res.redirect('/admin')
             }
             if (req.user.role == 'user') {
-                res.send(req.user.name)
+                //res.send(req.user.name)
                 res.redirect('/user')
             }
             if (req.user.role == 'director') {
-                res.send(req.user.name)
+                //res.send(req.user.name)
                 res.redirect('/director')
             }
 
