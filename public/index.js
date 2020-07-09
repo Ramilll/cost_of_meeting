@@ -1,26 +1,29 @@
 const url = 'http://localhost:3000/'; //url place holder /user/all
 
 let res = [];
+let resWage = [];
 let wageAr = [];
+let currentUserId = [];
 
 function fetchGet() {
-   const result  = fetch(url+'user/all');
+   const result  = fetch(url+'getUsers');
     result.then(function(response) {
     response.json().then(function(text){
       addUser(text);
+      res = text;
       console.log(text);
     })
     })
-    // const result1  = fetch(url+'wage/all');
-    // result1.then(function(response1) {
-    //     response1.json().then(function(text1){
-    //         console.log(text1);
-    //     })
-    // })
-    // console.log(result);
+    const result1  = fetch(url+'getWages');
+    result1.then(function(response1) {
+        response1.json().then(function(text1){
+            console.log(text1);
+            resWage = text1;
+        })
+    })
 }
 function getDirect() {
-    const result  = fetch(url+'direct');
+    const result  = fetch(url+'getUsers');
     result.then(function(response) {
         response.json().then(function(text){
             addUserDirect(text);
@@ -67,10 +70,6 @@ var start = true;
         setTimeout(timer,1000);
       }
     }
-
-function a(argument) {
-    console.log(a);
-}
 function addCurrentUser(id,id1,classI) {
   var value = document.getElementById(id).value;
   var users = document.getElementById('users').childNodes;
@@ -110,48 +109,64 @@ function removeUser(id) {
 
 var value = 0; // money
 // money counter
-function cost(array){
+function cost(){
   if(start){
     var greed = 0;
     var wage = [];
-    var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
-    var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
+    // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
+    // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
 
-    for(var i = 1; i < n;i++){
-        var sd = usersData(elem[i].value);
-        for(var f = 0; f < res.wage.length; f++) {
-            if(sd == res.wage[f].wageId){
-                wage.push(res.wage[f].salary);
+    var n = currentUserId.length;
+    var elem = []
+    console.log(currentUserId);
+    for(var p = 0; p < n; p++) {
+        for(var user = 0; user < res.length; user++) {
+            if(res[user].id == currentUserId[p]){
+                elem.push(res[user].name);
             }
         }
     }
-      	var sd = usersData(elem[i].value);
-		for(var f = 0; f < res.wage.length; f++) {
-  			if(sd == res.wage[f].wageId){
-  				wage.push(res.wage[f].salary);
+    console.log(elem);
+
+    for(var i = 1; i < n;i++){
+        var sd = usersData(elem[i]);
+        for(var f = 0; f < resWage.length; f++) {
+            if(sd == resWage[f].wageId){
+                wage.push(resWage[f].salary);
+            }
+        }
+    }
+      	var sd = usersData(elem[i]);
+		for(var f = 0; f < resWage.length; f++) {
+  			if(sd == resWage[f].wageId){
+  				wage.push(resWage[f].salary);
   			}
   		}
     }
-    console.log(wage);
+    // console.log(wage);
     for (var d = 0; d < wage.length; d++) {
         greed += wage[d];
     }
+    // greed = 1000000;
     console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*seconds;
-    document.getElementById('cost').innerHTML =value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
+    document.getElementById('cost').innerHTML = value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
 function usersData(element) {
-  for(var i = 0;i<res.users.length;i++){
-    if(element == res.users[i].name) return res.users[i].wageId;
+  for(var i = 0;i<res.length;i++){
+    if(element == res[i].name) return res[i].wageId;
     }
 }
 function copy() {
     navigator.clipboard.writeText(document.getElementById('ref').value)
 }
+var NameMeeting = '';
+var startTime = new Date();
 function postMeeting() {
     var users = document.getElementById('currentUsers').childNodes;
     var nameMeeting = document.getElementById('nameMeeting').value;
+    NameMeeting = nameMeeting;
     var id = [];
     for (var i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
@@ -159,6 +174,8 @@ function postMeeting() {
             }
     }
     var now = new Date();
+    startTime = now;
+    currentUserId = id;
     const res = fetch(url+'meeting', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
@@ -171,24 +188,33 @@ function postMeeting() {
 function complet() {
     var now = new Date();
     time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
-    const res = fetch(url+'meeting', {
+    const res = fetch(url+'sendMeetingData/'+randomInteger(200, 299){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
          },
-        body: 'name=post'+'&seconds='+seconds+'&userId='+'1,2,3,4,5'+'&timeEnd='+time
+        body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTimea+'&endTime='+now
     })
 }
 function login(email, password) {
-    const res = fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-         },
-        body: 'email='+email+'&password='+password
-    })
+    if(email != '' && password != ''){
+            if(email == 'd'){
+                wait(7);
+                getDirect();
+            }
+            else wait(1);
+            console.log(email+password); 
+            const res = fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+            },
+            body: 'email='+email+'&password='+password
+        })
+    }
+
 }
 
 function addUserDirect(text) {

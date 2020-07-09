@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./style.css">
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
 	<title></title>
 	<script type="text/javascript" src="index.js"></script>
@@ -19,7 +20,7 @@
 				<div class="password">
 					<input type="password" name="password" id="password" placeholder="Пороль">  
 				</div>
-				<input type="button" class="enterbutton" value="Войти" onclick="wait(1);login(email.value,password.value)">
+				<input type="button" class="enterbutton" value="Войти" onclick="login(email.value,password.value)">
 			</div>
 		</form>
 	</template>
@@ -77,7 +78,8 @@
 		<div class="currentUsers" id="currentUsers">
 		</div>
 		<div class="createButton">
-			<input type="button" name="enter" value="Создать" onclick="postMeeting()">
+			<input type="button" name="enter" value="Создать" onclick="postMeeting();wait(3);cost();timer()">
+			<!-- postMeeting() -->
 			</div>
 			</div>
 		</form>
@@ -97,12 +99,139 @@
 			<input type="text" name="" value="http" id="ref" class="ref" readonly="">
 			<input type="button" value="Копировать" id="copy" class="copy" onclick="copy()" name="">
 		</div>
-		<input type="button" name="" id="complet-admin" value="Завершить" onclick="wait(4)">
+		<input type="button" name="" id="complet-admin" value="Завершить" onclick="wait(4);complet()">
 	</div>
 	<!-- complet()-->
 	</template>
 	<template id="124">
-		
+		<div>
+			<h1 id="meeting">Информаия о собрании</h1>
+			<div class="timer">
+				<h1 class="timer-text">Длительсность встречи</h1>
+				<h1 id="timer">00:00</h1>
+			</div>
+			<div class="cost">
+				<h1 class="cost-text">Стоимость встречи в рублях</h1>
+				<h1 id="cost">0000</h1>
+			</div>
+		</div>
+	</template>
+	<template>
+		<form>
+		<div class="userEnter">
+			<div class="userName">
+				<h1>Иван Петр
+					<a href="login.html" id="exit">Выйти</a>
+				</h1>
+				<input type="button" value="∨" name="" id="buttonRay" onclick="test20(this.id, 'exit')">
+			</div>
+			<div class="userImg">
+				<img src="userPhoto.jpg">
+			</div>
+			<div class="adminEnterMeeting-text">
+				<h1 id="text-1">Войти собрание</h1>
+				<input type="button" value="∨" name="" id="rise" onclick="test20(this.id, 'enter-1')">
+				<a id="enter-1" href="director.html">Статистика собрания</a>
+			</div>
+				<div class="refToMeeting">
+					<input type="text" name="ref" value="" placeholder="Сылка на собрание" required="">
+				</div>
+	
+				<div class="enterButton">
+					<input type="button" name="enter" value="Войти" onclick="">
+				</div>
+			</div>
+		</form>
+	</template>
+	<template>
+		<form>
+		<div class="userEnter">
+			<div class="userName">
+				<h1>Иван Петр
+					<a href="login.html" id="exit">Выйти</a>
+				</h1>
+			<input type="button" value="∨" name="" id="buttonRay" onclick="test20(this.id, 'exit')">
+			</div>
+			<div class="userImg">
+				<img src="userPhoto.jpg">
+			</div>
+			<div class="adminEnterMeeting-text">
+				<h1 id="text-1">Войти собрание</h1>
+			</div>
+			<div class="refToMeeting">
+				<input type="text" name="ref" value="" placeholder="Сылка на собрание" required="">
+			</div>
+	
+			<div class="enterButton">
+				<input type="submit" name="enter" value="Войти">
+			</div>
+		</div>
+	</form>
+	</template>
+	<template>
+		<div class="userEnter" id="userEnter">
+		<div class="userName">
+			<h1>Иван Петр</h1><!-- {{name}} -->
+		</div>
+		<div class="userImg">
+			<img src="userPhoto.jpg">
+		</div>
+		<div class="adminEnterMeeting-text">
+			<h1>Статистика</h1>
+			<a id="enter" href="directorEnter.html">Войти в собрание</a>
+		</div>
+		<div class="statistics">
+			<ul class="filter-button" onclick="test13()">
+				<img id="filter-img" src="Filter.png">
+				фильтры
+			</ul>
+			<div class="filter" id="filter">
+				<h1 id="parameters">Параметры</h1>
+				<div class="period">
+					<h1>Период</h1>
+					<select>
+						<option value="1">1 месяц</option>
+						<option value="2">2 месяц</option>
+						<option value="3">3 месяц</option>
+						<option value="4">4 месяц</option>
+						<option value="5">5 месяц</option>
+						<option value="6">6 месяц</option>
+					</select>
+				</div>
+
+				<div class="time">
+					<h1 id="t1">Время, мин.</h1>
+					<div class="minutes">
+						<input type="text" id="min"name="" value="10">
+						<input type="text" id="max"name="" value="4000">
+					</div>
+					<input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min')">
+					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max')">
+				</div>
+
+				<div class="cost">
+					<h1 id="t2">Стоимость, руб.</h1>
+					<div class="rubles">
+						<input type="text" id="min1"name="" value="10">
+						<input type="text" id="max1"name="" value="4000">
+					</div>
+					<input type="range" min="10" max="5000" value="25" id="input-left" name="" onchange="maxMin(this.value,'min1')">
+					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="" onchange="maxMin(this.value,'max1')">
+				</div>
+				<input type="button" name="" class="apply" id="apply" value="Применить" onclick="test14()">
+				<input type="button" class="dropping" name="" value="Сброс">
+			</div>
+
+			<div class="box-1" id="box-1"></div>
+			<div class="box-2" id="box-2"></div>
+			<div class="box-3" id="box-3"></div>
+			<div class="grid-colums" id="grid-colums">
+				<div class="grid-headers">Сотрудники, учавствующие во встречях</div>
+				<div class="grid-headers">Время, мин.</div>
+				<div class="grid-headers">Стоимость ,руб.</div>
+			</div>
+		</div>
+	</div>
 	</template>
 </body>
 </html>
