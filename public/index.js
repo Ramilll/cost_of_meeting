@@ -187,7 +187,7 @@ function complet() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
          },
-        body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTimea+'&endTime='+now
+        body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTime+'&endTime='+now
     })
 }
 function login(email, password) {
