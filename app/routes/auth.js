@@ -3,10 +3,16 @@ var models           = require('../../app/models');
 
 module.exports = function(app, passport) {
 
-    app.get('/user/all', function(req,res) {
+    app.get('/getUsers', function(req,res) {
         models.user.findAll({raw:true}).then(users=>{
             res.send(users);
         }).catch(err=>console.log(err));
+    })
+
+    app.get('/getWages',function(req,res) {
+        models.wage.findAll({raw:true}).then(wages=>{
+            res.send(wages);
+        }).catch(err=>console.log(err))
     })
 
     app.get('/logout', function(req, res){

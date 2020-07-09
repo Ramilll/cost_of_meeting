@@ -165,15 +165,6 @@ app.get('/direct',function(req,res) {
 })
 
 
-
-app.get('/wage/all',function(req,res) {
-    connection.query("SELECT * FROM wages",
-        function(err, results, fields) {
-            if (err) console.log(err);
-            res.send(results); // собственно данные
-        });
-})
-
 app.get('/meeting/all',function(req,res) {
     connection.query("SELECT * FROM meetings",
         function(err, results, fields) {
