@@ -6,7 +6,7 @@ let wageAr = [];
 let currentUserId = [];
 
 function fetchGet() {
-   const result  = fetch(url+'getUsers',{mode: 'same-origin'});
+   const result  = fetch(url+'getUsers');
     result.then(function(response) {
     response.json().then(function(text){
       addUser(text);
@@ -14,7 +14,7 @@ function fetchGet() {
       console.log(text);
     })
     })
-    const result1  = fetch(url+'getWages',{mode: 'same-origin'});
+    const result1  = fetch(url+'getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
             console.log(text1);
@@ -23,7 +23,7 @@ function fetchGet() {
     })
 }
 function getDirect() {
-    const result  = fetch(url+'getUsers',{mode: 'same-origin'});
+    const result  = fetch(url+'getUsers');
     result.then(function(response) {
         response.json().then(function(text){
             addUserDirect(text);
