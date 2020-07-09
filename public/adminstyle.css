@@ -306,7 +306,7 @@ h1{
 	border-radius: 4px;
 	height: 80%;
 }
-.registration-box input[type="submit"]{
+.registration-box input[type="submit"], .registration-box input[type="button"]{
 	border: none;
 	border-radius: 4px;
 	position: absolute;
@@ -327,7 +327,7 @@ h1{
 		font-size: 180%;
 		margin-bottom: 5%;
 	}
-	.registration-box input[type="submit"]{
+	.registration-box input[type="submit"],.registration-box input[type="button"]{
 		top: 58%;
 		left: 45%;
 		font-size: 150%;
@@ -347,7 +347,7 @@ h1{
 		font-size: 135%;
 		margin-bottom: 1%;
 	}
-	.registration-box input[type="submit"]{
+	.registration-box input[type="submit"],.registration-box input[type="button"]{
 		top: 61%;
 		left: 35%;
 		font-size: 150%;

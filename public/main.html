@@ -1,29 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style type="text/css">
-		:root{
-      --red: #ffaa88;
-    }
-    body{
-      background: var(--red);
-    }
-    h1{
-      font-family: 'Rubik';
-      font-weight: bold;
-    }
-    .filter{
-      background: white;
-      width: 90%;
-      height: 84%;
-      left: 5%;
-      top: 8%;
-      position: absolute;
-    }
-	</style>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
 	<title></title>
+	<script type="text/javascript" src="index.js"></script>
 </head>
-<body>
-  <h1>Макс</h1>
+<body onload="wait(0)">
+	<template id="template-login" style="display: block;">
+		<form method="POST">
+			<div class="registration-box">
+				<div class="login">
+					<h1>Авторизация</h1>
+				</div>
+				<div class="email">
+					<input type="email" name="email" id="email" placeholder="Email">
+				</div>
+				<div class="password">
+					<input type="password" name="password" id="password" placeholder="Пороль">  
+				</div>
+				<input type="button" class="enterbutton" value="Войти" onclick="wait(1);login(email.value,password.value)">
+			</div>
+		</form>
+	</template>
+	<template id="121">
+		<form>
+			<div class="userEnter">
+			<div class="userName">
+				<h1>
+					Иван Петр
+					<a href="login.html" id="exit">Выйти</a>
+				</h1>
+			<input type="button" value="∨" name="" id="buttonRay" onclick="test20(this.id, 'exit')">
+			</div>
+			<div class="userImg">
+				<img src="userPhoto.jpg">
+			</div>
+			<div class="adminEnterMeeting-text">
+				<h1 id="text-1">Войти собрание</h1>
+				<input type="button" value="∨" name="" id="rise" onclick="test20(this.id, 'enter-1')">
+				<a id="enter-1" onclick="wait(2);fetchGet()">Создать собрание</a>
+			</div>
+			<div class="refToMeeting">
+				<input type="text" name="ref" value="" placeholder="Сылка на собрание" required="">
+			</div>
+			<div class="enterButton">
+				<input type="button" name="enter" value="Войти" onclick="">
+			</div>
+			</div>
+		</form>
+	</template>
+	<template id="122">
+		<form method="POST">
+		<div onload="fetchGet()" class="userEnter">
+		<div class="userName">
+			<h1>
+				Иван Петр
+				<a href="login.html" id="exit">Выйти</a>
+			</h1>
+			<input type="button" value="∨" name="" id="buttonRay" onclick="test20(this.id, 'exit')">
+		</div>
+		<div class="userImg">
+			<img src="userPhoto.jpg">
+		</div>
+		<div class="adminEnterMeeting-text">
+			<h1 id="text-1">Создать собрание</h1>
+			<input type="button" value="∨" name="" id="rise" onclick="test20(this.id, 'enter-1')">
+			<a id="enter-1" href="admin.html">Войти собрание</a>
+		</div>
+		<div class="createMeeting">
+			<input type="text" id="nameMeeting" name="nameMeeting" placeholder="Название" required="">
+			<select id="users" onchange="addCurrentUser(this.id,'currentUsers','currentUser')">
+				<option>   </option>
+			</select>	
+		</div>
+		<div class="currentUsers" id="currentUsers">
+		</div>
+		<div class="createButton">
+			<input type="button" name="enter" value="Создать" onclick="postMeeting()">
+			</div>
+			</div>
+		</form>
+	</template>
+	<template id="123">
+		<div onload="timer()">
+		<h1 id="meeting">Информаия о собрании</h1>
+		<div class="timer-admin">
+			<h1 class="timer-text">Длительсность встречи</h1>
+			<h1 id="timer">00:00</h1>
+		</div>
+		<div class="cost-admin">
+			<h1 class="cost-text">Стоимость встречи в рублях</h1>
+			<h1 id="cost">0000</h1>
+		</div>
+		<div class="link">
+			<input type="text" name="" value="http" id="ref" class="ref" readonly="">
+			<input type="button" value="Копировать" id="copy" class="copy" onclick="copy()" name="">
+		</div>
+		<input type="button" name="" id="complet-admin" value="Завершить" onclick="wait(4)">
+	</div>
+	<!-- complet()-->
+	</template>
+	<template id="124">
+		
+	</template>
 </body>
 </html>
