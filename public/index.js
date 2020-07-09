@@ -6,7 +6,7 @@ let wageAr = [];
 let currentUserId = [];
 
 function fetchGet() {
-   const result  = fetch(url+'getUsers');
+   const result  = fetch(url+'getUsers',{mode: 'same-origin'});
     result.then(function(response) {
     response.json().then(function(text){
       addUser(text);
@@ -14,7 +14,7 @@ function fetchGet() {
       console.log(text);
     })
     })
-    const result1  = fetch(url+'getWages');
+    const result1  = fetch(url+'getWages',{mode: 'same-origin'});
     result1.then(function(response1) {
         response1.json().then(function(text1){
             console.log(text1);
@@ -23,7 +23,7 @@ function fetchGet() {
     })
 }
 function getDirect() {
-    const result  = fetch(url+'getUsers');
+    const result  = fetch(url+'getUsers',{mode: 'same-origin'});
     result.then(function(response) {
         response.json().then(function(text){
             addUserDirect(text);
@@ -178,9 +178,10 @@ function postMeeting() {
     // })
 }
 function complet() {
+    start = false;
     var now = new Date();
     time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
-    const res = fetch(url+'sendMeetingData/'+randomInteger(200, 299), {
+    const res = fetch(url+'sendMeetingData/'+Math.random() * (299 - 200) + 200, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
