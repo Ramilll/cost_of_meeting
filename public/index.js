@@ -122,32 +122,24 @@ function cost(){
     for(var p = 0; p < n; p++) {
         for(var user = 0; user < res.length; user++) {
             if(res[user].id == currentUserId[p]){
-                elem.push(res[user].name);
+                elem.push(res[user].wageId);
             }
         }
     }
     console.log(elem);
-
-    for(var i = 1; i < n;i++){
-        var sd = usersData(elem[i]);
+    for (var i = 0; i < elem.length; i++) {
         for(var f = 0; f < resWage.length; f++) {
-            if(sd == resWage[f].wageId){
+            if(elem[i] == resWage[f].id){
                 wage.push(resWage[f].salary);
             }
         }
     }
-      	var sd = usersData(elem[i]);
-		for(var f = 0; f < resWage.length; f++) {
-  			if(sd == resWage[f].wageId){
-  				wage.push(resWage[f].salary);
-  			}
-  		}
+
     }
-    // console.log(wage);
+    console.log(wage);
     for (var d = 0; d < wage.length; d++) {
         greed += wage[d];
     }
-    // greed = 1000000;
     console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*seconds;
     document.getElementById('cost').innerHTML = value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
@@ -176,19 +168,19 @@ function postMeeting() {
     var now = new Date();
     startTime = now;
     currentUserId = id;
-    const res = fetch(url+'meeting', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-         },
-        body: 'name='+nameMeeting+'&userId='+id+'&start='+now
-    })
+    // const res = fetch(url+'meeting', {
+    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //     mode: 'cors', // no-cors, *cors, same-origin
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+    //      },
+    //     body: 'name='+nameMeeting+'&userId='+id+'&start='+now
+    // })
 }
 function complet() {
     var now = new Date();
     time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
-    const res = fetch(url+'sendMeetingData/'+randomInteger(200, 299){
+    const res = fetch(url+'sendMeetingData/'+randomInteger(200, 299), {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         headers: {
@@ -204,15 +196,15 @@ function login(email, password) {
                 getDirect();
             }
             else wait(1);
-            console.log(email+password); 
-            const res = fetch(url, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            headers: {
-               'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-            },
-            body: 'email='+email+'&password='+password
-        })
+        //     console.log(email+password); 
+        //     const res = fetch(url, {
+        //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        //     mode: 'cors', // no-cors, *cors, same-origin
+        //     headers: {
+        //        'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+        //     },
+        //     body: 'email='+email+'&password='+password
+        // })
     }
 
 }
