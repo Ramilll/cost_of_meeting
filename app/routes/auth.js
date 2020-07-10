@@ -34,12 +34,11 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
-    app.get('/logout', function(req, res){
-        req.logout();
-        res.redirect('/login');
-    });
-
     app.post('/sendMeetingData/:meetingId', authController.DataProcessing)
+
+    app.get('/meeting/:meetingId', authController.meeting)
+
+    app.get('/createMeeting', isAdmin, authController.createMeeting)
 
     app.get('/user', isUser, authController.user);
 

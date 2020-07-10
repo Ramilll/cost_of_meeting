@@ -23,3 +23,11 @@ exports.DataProcessing = function (req, res) {
     console.log(req.params.meetingId)
     res.send('OK')
 }
+
+exports.meeting = function(req, res) {
+    res.render('meeting');
+}
+
+exports.createMeeting = function (req, res) {
+    res.render('createMeeting');
+}

@@ -43,11 +43,8 @@ module.exports = function(passport, user) {
         function(req, email, password, done) { // callback with email and password from our form
             User.findOne({where: {'email': email}})
                 .then(user=>{
-                    console.log('First')
                     if(!user) return done(null, false);
-                    console.log('Second')
                     if(user.password !== password) return done(null, false)
-                    console.log('Third')
                     return done(null, user.get())
                 })//     .catch(err=>console.log(err));
 
