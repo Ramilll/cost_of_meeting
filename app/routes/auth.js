@@ -22,12 +22,24 @@ module.exports = function(app, passport) {
         }).catch(err=>console.log(err))
     })
 
+    app.get('/getMeetingId', function(req, res){
+        models.meeting.findAll({raw:true}).then(meetings=>{
+            var latestMeetingId = meetings[meetings.length - 1].id
+            res.send([latestMeetingId])
+        })
+    })
+
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');
     });
 
-    app.post('/sendMeetingData/:Meetingid', authController.DataProcessing)
+    app.get('/logout', function(req, res){
+        req.logout();
+        res.redirect('/login');
+    });
+
+    app.post('/sendMeetingData/:meetingId', authController.DataProcessing)
 
     app.get('/user', isUser, authController.user);
 
@@ -56,6 +68,10 @@ module.exports = function(app, passport) {
             }
 
         });
+
+    app.get('/*', function (req, res) {
+        res.redirect('/login')
+    })
 
     function isUser(req, res, next) {
         if ((req.isAuthenticated()) && (req.user.role === 'user'))

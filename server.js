@@ -41,14 +41,6 @@ app.set('view engine', 'html');
 //Cross-Domain configuration
 app.use(allowCrossDomain);
 
-
-
-app.get('/', function(req, res) {
-
-    res.send('Welcome to Passport with Sequelize');
-
-});
-
 //Models
 var models = require("./app/models");
 

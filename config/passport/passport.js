@@ -15,15 +15,15 @@ module.exports = function(passport, user) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log('serializing => user.id: ', user.id)
+        //console.log('serializing => user.id: ', user.id)
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        console.log("Deserializing => user.id ", id)
+        //console.log("Deserializing => user.id ", id)
         User.findByPk(id).then(user=>{
-            console.log('Success on deserializing')
+            //console.log('Success on deserializing')
             done(null, user)
         }).catch(done);
     });

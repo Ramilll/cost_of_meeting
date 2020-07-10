@@ -18,6 +18,8 @@ exports.director = function(req, res) {
 }
 
 exports.DataProcessing = function (req, res) {
-    console.log(req)
+    console.log('Processing Data')
     console.log(req.body)
+    console.log(req.params.meetingId)
+    res.send('OK')
 }
