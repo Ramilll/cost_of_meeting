@@ -30,13 +30,13 @@ function getDirect() {
         })
     })
 }
-var time = '';
-var second = 0;
-var seconds = 0;
-var min = 0;
-var s = '';
-var m = '';
-var start = true;
+let time = '';
+let second = 0;
+let seconds = 0;
+let min = 0;
+let s = '';
+let m = '';
+let start = true;
 
     function test(){
       start = !start;
@@ -66,79 +66,82 @@ var start = true;
         else m ='0';
 
         time = m+min+':'+s+second; //h+hour+':'
-        document.getElementById('timer').innerHTML = time;
+        document.querySelector('#timer').innerHTML = time;
         setTimeout(timer,1000);
       }
     }
+
 function addCurrentUser(id,id1,classI) {
-  var value = document.getElementById(id).value;
-  var users = document.getElementById('users').childNodes;
-  for(var i = 0;i < users.length;i++){
+    let cln;
+    let user;
+    const value = document.querySelector('#'+id).value;
+    const users = document.querySelector('#users').childNodes;
+    for(let i = 0;i < users.length;i++){
         if(value == users[i].innerHTML){
-            var user = users[i];
-            var cln = user.cloneNode(true);
+            user = users[i];
+            cln = user.cloneNode(true);
         }
-  }
+    }
 
   cln.classList.add(classI);
 
-  document.getElementById(id1).appendChild(cln); //add
+  document.querySelector('#'+id1).appendChild(cln); //add
   user.remove();
 }
 
-var ar = [];
+let ar = [];
 function addUser(array) { // add user in selection
-  for(var i = 0;i<array.length;i++){
-    var user = document.createElement("option");
-    var name = array[i].name;
+  for(let i = 0;i<array.length;i++){
+    const user = document.createElement("option");
+    const name = array[i].name;
     user.setAttribute('onclick', 'removeUser(this.id)')
 
     user.value = array[i].name; // users name
     user.id = array[i].id; // users id 
     user.innerHTML = array[i].name;
-    document.getElementById("users").appendChild(user); //add
+    document.querySelector("#users").appendChild(user); //add
   }
 
 }
 function removeUser(id) {
-    var cln = document.getElementById(id);
+    const cln = document.getElementById(id);
     cln.classList.add('re');
     document.getElementById(id).remove();
-    document.getElementById("users").appendChild(cln); //add
+    document.querySelector('#users').appendChild(cln); //add
 }
 
-var value = 0; // money
+let value = 0; // money
 // money counter
 function cost(){
   if(start){
-    var greed = 0;
-    var wage = [];
+    let greed = 0;
+    let wages = [];
     // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
     // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
 
-    var n = currentUserId.length;
-    var elem = []
+    const n = currentUserId.length;
+    let elem = []
     console.log(currentUserId);
-    for(var p = 0; p < n; p++) {
-        for(var user = 0; user < res.length; user++) {
+    for(let p = 0; p < n; p++) {
+        for(let user = 0; user < res.length; user++) {
             if(res[user].id == currentUserId[p]){
                 elem.push(res[user].wageId);
             }
         }
     }
     console.log(elem);
-    for (var i = 0; i < elem.length; i++) {
-        for(var f = 0; f < resWage.length; f++) {
+    for (let i = 0; i < elem.length; i++) {
+        for(let f = 0; f < resWage.length; f++) {
             if(elem[i] == resWage[f].id){
-                wage.push(resWage[f].salary);
+                wages.push(resWage[f].salary);
             }
         }
     }
 
     }
-    console.log(wage);
-    for (var d = 0; d < wage.length; d++) {
-        greed += wage[d];
+    console.log(wages);
+    for (let d = 0; d < wage.length; d++) {
+        greed += wages[d];
     }
     console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*seconds;
@@ -146,141 +149,174 @@ function cost(){
     setTimeout(cost,1000);
   }
 function usersData(element) {
-  for(var i = 0;i<res.length;i++){
+  for(let i = 0;i<res.length;i++){
     if(element == res[i].name) return res[i].wageId;
     }
 }
 function copy() {
-    navigator.clipboard.writeText(document.getElementById('ref').value)
+    navigator.clipboard.writeText(document.querySelector('#ref').value)
 }
-var NameMeeting = '';
-var startTime = new Date();
+let NameMeeting = '';
+let startTime = new Date();
+
 function postMeeting() {
-    var users = document.getElementById('currentUsers').childNodes;
-    var nameMeeting = document.getElementById('nameMeeting').value;
+    // debugger;
+    const users = document.querySelector('#currentUsers').childNodes;
+    const nameMeeting = document.getElementById('nameMeeting').value;
     NameMeeting = nameMeeting;
-    var id = [];
-    for (var i = 0; i < users.length; i++) {
+    let ids = [];
+    for (let i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
-                id.push(users[i].id);
+                ids.push(users[i].id);
             }
     }
-    var now = new Date();
+    const now = new Date();
     startTime = now;
-    currentUserId = id;
-    // const res = fetch(url+'meeting', {
-    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    //     mode: 'cors', // no-cors, *cors, same-origin
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-    //      },
-    //     body: 'name='+nameMeeting+'&userId='+id+'&start='+now
-    // })
-}
-function complet() {
-    start = false;
-    var now = new Date();
-    time = now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate()+'-'+now.getHours()+'-'+now.getMinutes()+'-'+now.getSeconds();
-    const res = fetch(url+'sendMeetingData/'+Math.random() * (299 - 200) + 200, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
+    currentUserId = ids;
+    const res = fetch(url+'sendMeetingData/1', {
+        method: 'POST', 
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
          },
-        body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTime+'&endTime='+now
+        body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
+    })
+    // .then((res) => {
+    //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
+    //     //template.querySelector()
+    //     document.querySelector('body').append(template);
+    // })
+}
+function complet() {
+    let getMeetingId = 0;
+    start = false;
+    const now = new Date();
+
+    const result  = fetch(url+'getMeetingId');
+    result.then(function(response) {
+    response.json().then(function(text){
+            getMeetingId = text[0];
+            getMeetingId += 1;
+            console.log(getMeetingId);
+            const res = fetch(url+'sendMeetingData/'+getMeetingId, {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+                },
+                body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTime+'&endTime='+now+'&cost='+document.getElementById('cost').innerHTML
+            })  
+        })
     })
 }
 function login(email, password) {
-    if(email != '' && password != ''){
-            if(email == 'd'){
-                wait(7);
-                getDirect();
-            }
-            else wait(1);
-        //     console.log(email+password); 
-        //     const res = fetch(url, {
-        //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        //     mode: 'cors', // no-cors, *cors, same-origin
-        //     headers: {
-        //        'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-        //     },
-        //     body: 'email='+email+'&password='+password
-        // })
-    }
-
+    return;
 }
 
 function addUserDirect(text) {
     console.log(text);
-    var link = document.getElementById('grid-colums');
-    for (var i = 0; i < text.length; i++) {
-            var elem = document.createElement('div');
+    const link = document.getElementById('grid-colums');
+    for (let i = 0; i < text.length; i++) {
+            const elem = document.createElement('div');
             elem.classList.add('colums');
             elem.innerHTML = text[i].name;
-            document.getElementById('grid-colums').appendChild(elem);
+            document.querySelector('#grid-colums').appendChild(elem);
 
-            var elem1 = document.createElement('div');
+            const elem1 = document.createElement('div');
             elem1.classList.add('colums');
             elem1.innerHTML = text[i].meetingTime;
-            document.getElementById('grid-colums').appendChild(elem1);
+            document.querySelector('#grid-colums').appendChild(elem1);
 
-            var elem2 = document.createElement('div');
+            const elem2 = document.createElement('div');
             elem2.classList.add('colums');;
             elem2.innerHTML = text[i].costMeetingTime;
-            document.getElementById('grid-colums').appendChild(elem2);
+            document.querySelector('#grid-colums').appendChild(elem2);
     }
 }
 
 function maxMin(value,id) {
-    document.getElementById(id).value = value;
+    document.document.querySelector('#'+id).value = value;
 }
-var booltest = true;
-function test13() {
+let booltest = true;
+function filter() {
     if(booltest){
-        document.getElementById('filter').style.display = 'block';
-    }
-    else document.getElementById('filter').style.display = 'none';
+        document.getElementById('filter-button').style.display = 'block';
+    }   
+    else document.getElementById('filter-button').style.display = 'none';
     booltest = !booltest;
 }
-var booltest20 = true;
-function test20(id,id1) {
-    if(booltest20){
-        document.getElementById(id1).style.display = 'block';
-        document.getElementById(id).value = '∧';
-    }
-    else{
-        document.getElementById(id1).style.display = 'none';
-        document.getElementById(id).value = '∨';
-    }
-    booltest20 = !booltest20;
+let booltest20 = true;
+
+function toggleState(selectorButton, selectorPopup) {
+    const button = document.querySelector('#' + selectorButton);
+    const popup = document.querySelector('#' + selectorPopup);
+
+    button.value = button.value === '∧' ? '∨' : '∧';
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
 }
 function test14() {
     booltest = !booltest;
-    document.getElementById('filter').style.display = 'none';
-    document.getElementById('grid-colums').style.display = 'grid';
-    document.getElementById('box-1').style.display = 'block';
-    document.getElementById('box-2').style.display = 'block';
-    document.getElementById('box-3').style.display = 'block';
-    document.getElementById('enter').style.display = 'block';
-
-    // document.getElementById('filter-img').src = 'filter-full.png';
+    document.querySelector('#filter').style.display = 'none';
+    document.querySelector('#grid-colums').style.display = 'grid';
+    document.querySelector('#box-1').style.display = 'block';
+    document.querySelector('#box-2').style.display = 'block';
+    document.querySelector('#box-3').style.display = 'block';
+    document.querySelector('#enter').style.display = 'block';
 }
 function toLink(ref) {
     document.location.href=ref;
 }
-var clon;
-var sss = 0;
 function wait(num){
-    var body =  document.body.childNodes;
-    var n  = body.length;
+    // return;
+    const body =  document.body.childNodes;
+    const n  = body.length;
 
-    var temp = document.getElementsByTagName("template")[num];
-    var clon = temp.content.cloneNode(true);
+    const temp = document.getElementsByTagName("template")[num];
+    const clon = temp.content.cloneNode(true);
     document.body.appendChild(clon);
 
-    for (var i = 1; i < n; i++) {
+    for (let i = 1; i < n; i++) {
             if(body[i].tagName != null && body[i].tagName != 'TEMPLATE'){
                 body[i].remove(); 
             }         
     }
 }
+
+
+function AddEventListeners() {
+    const buttonRay = document.querySelector('#buttonRay');
+    if(buttonRay != null){
+        buttonRay.addEventListener('click', (evt) => {toggleState('buttonRay', 'exit')})
+    }
+    const filterButton = document.querySelector('#filter-button');
+    if(filterButton != null){
+        filterButton.addEventListener('click', (evt) => {filter()})
+    }
+    const buttonRise = document.querySelector('#rise');
+    if(buttonRise != null){
+        buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'text-1')})
+    }
+    const buttonСopy = document.querySelector('#сopy');
+    if(buttonСopy != null){
+        buttonСopy.addEventListener('click', (evt) => {copy()})
+    }
+    const buttonAddCurrentUser = document.querySelector('#users');
+    if(buttonAddCurrentUser != null){
+        buttonAddCurrentUser.addEventListener('change', (evt) => {addCurrentUser('users','currentUsers','currentUser')})
+    }
+    const buttonPostMeeting = document.querySelector('#postMeeting');
+    if(buttonPostMeeting != null){
+        buttonPostMeeting.addEventListener('click', (evt) => {postMeeting()})
+    }
+    const buttonCompleteAdmin = document.querySelector('#complete-admin');
+    if(buttonCompleteAdmin != null){
+        buttonCompleteAdmin.addEventListener('click', (evt) => {complet()})
+    }
+}
+setTimeout(AddEventListeners, 20);
+
+// var => const
+// grid
+// flex
+// onclick => addEventListener
+// getElementById => querySelector

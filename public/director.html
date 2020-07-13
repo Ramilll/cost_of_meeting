@@ -3,13 +3,14 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./style.css">
+	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 <body onload="getDirect()">
 	<script type="text/javascript" src="index.js"></script>
-	<div class="userEnter" id="userEnter">
+<!-- 	<div class="userEnter" id="userEnter">
 		<div class="userName">
-			<h1>Иван Петр</h1><!-- {{name}} -->
+			<h1>Иван Петр</h1> {{name}} 
 		</div>
 		<div class="userImg">
 			<img src="userPhoto.jpg">
@@ -67,6 +68,47 @@
 				<div class="grid-headers">Сотрудники, учавствующие во встречях</div>
 				<div class="grid-headers">Время, мин.</div>
 				<div class="grid-headers">Стоимость ,руб.</div>
+			</div>
+		</div>
+	</div> -->
+	<div class="wrapper-director">
+		<div class="row a-3">
+			<h1>
+				<img src="userPhoto.jpg">
+				Админ
+				<input type="button" value="∨" name="" id="buttonRay">
+				<a style="display: none;" href="l" id="exit">Выйти</a>
+			</h1>
+		</div>
+		<div class="row b-3">
+			<div class="enter">
+				<a id="enter-1" href="createMeeting">Создать собрание</a>
+			</div>
+		</div>
+		<div class="row c-3">
+			<div class="text-1">
+				<h1 id="text-1">Войти в собрание</h1>
+				<input style="display: none;" type="button" value="∨" name="" id="rise">
+			</div>
+		</div>
+		<div class="row d-3">
+			<div class="filter-button" id="filter-button">
+				<img id="filter-img" src="Filter.png">
+				фильтры
+			</div>
+		</div>
+		<div class="row e-3">
+			<div class="statistics">
+				<div class="boxes">
+					<div class="box-1" id="box-1"></div>
+					<div class="box-2" id="box-2"></div>
+					<div class="box-3" id="box-3"></div>
+				</div>
+				<div class="grid-colums" id="grid-colums">				
+					<div class="grid-headers">Сотрудники, учавствующие во встречях</div>
+					<div class="grid-headers">Время, мин.</div>
+					<div class="grid-headers">Стоимость ,руб.</div>
+				</div>
 			</div>
 		</div>
 	</div>

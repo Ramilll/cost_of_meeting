@@ -4,38 +4,54 @@
 	<title></title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 <body onload="fetchGet()">
 	<script type="text/javascript" src="index.js"></script>
-	<form method="POST">
-		<div class="userEnter">
-		<div class="userName">
-			<h1>
-				Иван Петр
-				<a href="login.html" id="exit">Выйти</a>
-			</h1>
-			<input type="button" value="∨" name="" id="buttonRay" onclick="test20(this.id, 'exit')">
-		</div>
-		<div class="userImg">
-			<img src="userPhoto.jpg">
-		</div>
-		<div class="adminEnterMeeting-text">
-			<h1 id="text-1">Создать собрание</h1>
-			<input type="button" value="∨" name="" id="rise" onclick="test20(this.id, 'enter-1')">
-			<a id="enter-1" href="admin.html">Войти собрание</a>
-		</div>
-		<div class="createMeeting">
-			<input type="text" id="nameMeeting" name="nameMeeting" placeholder="Название" required="">
-			<select id="users" onchange="addCurrentUser(this.id,'currentUsers','currentUser')">
-				<option>   </option>
-			</select>	
-		</div>
-		<div class="currentUsers" id="currentUsers">
-		</div>
-		<div class="createButton">
-			<input type="button" name="enter" value="Создать" onclick="postMeeting()">
-		</div>
+	<div class="wrapper-createMeeting">
+  		<div class="row a">
+  			<div class="UserName">
+				<h1>
+					<img src="userPhoto.jpg">
+					Иван Петр
+					<a style="display: none;" href="login" id="exit">Выйти</a>
+				</h1>
+			</div>
+  		</div>
+  		<div class="row b">
+  			<div class="enter">
+				<a id="enter-1" href="director.html">Статистика собрания</a>
+			</div>
+  		</div>
+  		<div class="row c">
+  			<div class="text-1">
+				<h1 id="text-1">Создать собрание</h1>
+				<input style="display: none;" type="button" value="∨" name="" id="rise">
+			</div>
+  		</div>
+ 	 	<div class="row d">
+ 	 		<div class="createMeeting">
+				<input type="text" id="nameMeeting" name="nameMeeting" placeholder="Название" required="">
+			</div>
+ 	 	</div>
+ 	 	<div class="row e">
+ 	 		<div class="selectUser">
+ 	 	 		<select id="users">
+					<option>   </option>
+				</select>	
+ 	 		</div>
+
+ 	 	</div>
+ 	 	<div class="row f">
+ 	 		<div class="currentUsers" id="currentUsers">
+
+			</div>
+ 	 	</div>
+ 	 	<div class="row g">
+ 	 		<div class="createButton">
+				<input type="button" name="enter" id="postMeeting" value="Создать">
+			</div>
+ 	 	</div>
 	</div>
-	</form>
 </body>
 </html>

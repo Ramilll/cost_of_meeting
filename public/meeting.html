@@ -3,25 +3,48 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
+	<script src= "./index.js"></script>
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 <body onload="timer()">
-	<div>
-		<h1 id="meeting">Информаия о собрании</h1>
-		<div class="timer-admin">
-			<h1 class="timer-text">Длительсность встречи</h1>
-			<h1 id="timer">00:00</h1>
-		</div>
-		<div class="cost-admin">
-			<h1 class="cost-text">Стоимость встречи в рублях</h1>
-			<h1 id="cost">0000</h1>
-		</div>
-		<div class="link">
-			<input type="text" name="" value="http" id="ref" class="ref" readonly="">
-			<input type="button" value="Копировать" id="copy" class="copy" onclick="copy()" name="">
-		</div>
-	</div>
-	<input type="button" name="" id="complet-admin" value="Завершить" onclick="complet()">
-	<script src= "./index.js"></script>
+		<div class="wrapper-meetingAmdin">
+  		<div class="row a">
+  			<div class="UserName">
+				<h1>
+					<img src="userPhoto.jpg">
+					Иван Петр
+					<a style="display: none;" href="login" id="exit">Выйти</a>
+				</h1>
+			</div>
+  		</div>
+  		<div class="row b-1">
+  			<div class="text-1-1">
+				<h1 id="meeting">Информация о собрании</h1>	
+  			</div>	
+  		</div>
+  		<div class="row c-1">
+  			<div class="link">
+				<input type="url" name="" value="http" id="ref" class="ref" readonly="">
+				<input type="button" value="Копировать" id="copy" class="copy" name="">
+			</div>
+  		</div>
+ 	 	<div class="row d-1">
+ 	 		<div class="timer-admin">
+				<h2 class="timer-text">Длительсность встречи</h1>
+				<h2 id="timer">00:00</h1>
+			</div>
+ 	 	</div>
+ 	 	<div class="row e-1">
+ 	 		<div class="cost-admin">
+				<h2 class="cost-text">Стоимость встречи в рублях</h2>
+				<h2 id="cost">0000</h2>
+			</div>
+ 	 	</div>
+ 	 	<div class="row f-1">
+ 	 		<div class="complete">
+ 	 			<input type="button" name="" id="complete-admin" value="Завершить">
+ 	 		</div>
+ 	 	</div>
 </body>
 </html>
