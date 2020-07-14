@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/'; //url place holder /user/all
+const url = 'https://cost-of-meeting.herokuapp.com/'; //url place holder /user/all
 
 let res = [];
 let resWage = [];
@@ -6,7 +6,7 @@ let wageAr = [];
 let currentUserId = [];
 
 function fetchGet() {
-   const result  = fetch(url+'getUsers');
+   const result  = fetch('./getUsers');
     result.then(function(response) {
     response.json().then(function(text){
       addUser(text);
@@ -14,7 +14,7 @@ function fetchGet() {
       console.log(text);
     })
     })
-    const result1  = fetch(url+'getWages');
+    const result1  = fetch(url+'./getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
             console.log(text1);
@@ -23,7 +23,7 @@ function fetchGet() {
     })
 }
 function getDirect() {
-    const result  = fetch(url+'getUsers');
+    const result  = fetch('./getUsers');
     result.then(function(response) {
         response.json().then(function(text){
             console.log(text);
@@ -39,7 +39,7 @@ let s = '';
 let m = '';
 let start = true;
 
-    function test(){
+function test(){
       start = !start;
       timer();
       cost();
@@ -47,7 +47,7 @@ let start = true;
         button.value = 'stop';
       }
       else button.value = 'start'
-    }
+}
 
     function timer() {
       if(start){
@@ -160,44 +160,44 @@ function copy() {
 let NameMeeting = '';
 let startTime = new Date();
 
-function postMeeting() {
-    // debugger;
-    const users = document.querySelector('#currentUsers').childNodes;
-    const nameMeeting = document.getElementById('nameMeeting').value;
-    NameMeeting = nameMeeting;
-    let ids = [];
-    for (let i = 0; i < users.length; i++) {
-            if(users[i].innerHTML != null){
-                ids.push(users[i].id);
-            }
-    }
-    const now = new Date();
-    let data = {
-        answer: 42
-    }
-    startTime = now;
-    currentUserId = ids;
-    const result  = fetch(url+'getMeetingId');
-    result.then(function(response) {
-    response.json().then(function(text){
-            getMeetingId = text[0];
-            getMeetingId += 1;
-            const res = fetch(url+'sendMeetingData/'+getMeetingId, {
-                method: 'POST', 
-                mode: 'cors',
-                headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-                },
-                body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
-            })
-        })
-    })
-    // .then((res) => {
-    //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
-    //     //template.querySelector()
-    //     document.querySelector('body').append(template);
-    // })
-}
+// function postMeeting() {
+//     // debugger;
+//     const users = document.querySelector('#currentUsers').childNodes;
+//     const nameMeeting = document.getElementById('nameMeeting').value;
+//     NameMeeting = nameMeeting;
+//     let ids = [];
+//     for (let i = 0; i < users.length; i++) {
+//             if(users[i].innerHTML != null){
+//                 ids.push(users[i].id);
+//             }
+//     }
+//     const now = new Date();
+//     let data = {
+//         answer: 42
+//     }
+//     startTime = now;
+//     currentUserId = ids;
+//     const result  = fetch(url+'getMeetingId');
+//     result.then(function(response) {
+//     response.json().then(function(text){
+//             getMeetingId = text[0];
+//             getMeetingId += 1;
+//             const res = fetch(url+'sendMeetingData/'+getMeetingId, {
+//                 method: 'POST', 
+//                 mode: 'cors',
+//                 headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+//                 },
+//                 body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
+//             })
+//         })
+//     })
+//     // .then((res) => {
+//     //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
+//     //     //template.querySelector()
+//     //     document.querySelector('body').append(template);
+//     // })
+// }
 function complet() {
     let getMeetingId = 0;
     // users.push({userId:1,startTime: 1,endTime: 10,costTime: 100});
@@ -208,7 +208,7 @@ function complet() {
     //     users.push({userId:currentUserI[i],startTime: 1,endTime: 10,costTime: 100});
     // }
 
-    const result  = fetch(url+'getMeetingId');
+    const result  = fetch('./getMeetingId');
     result.then(function(response) {
     response.json().then(function(text){
             getMeetingId = text[0];
@@ -235,7 +235,7 @@ function complet() {
                     }
                 } 
             };
-            const res = fetch(url+'sendMeetingData/'+getMeetingId, {
+            const res = fetch('./sendMeetingData/'+getMeetingId, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -245,9 +245,6 @@ function complet() {
             })
         })
     })
-}
-function login(email, password) {
-    return;
 }
 
 function addUserDirect(text) {
@@ -271,15 +268,20 @@ function addUserDirect(text) {
 }
 
 function maxMin(value,id) {
-    document.querySelector(id).value = value;
+    document.querySelector('#'+id).value = value;
 }
-let booltest = true;
 function filter() {
-    if(booltest){
-        document.getElementById('filter-button').style.display = 'block';
-    }   
-    else document.getElementById('filter-button').style.display = 'none';
-    booltest = !booltest;
+    const button = document.querySelector('#filter-button');
+    const filterSettings = document.querySelector('#filter'); 
+    if(button.style.display == 'block'){
+        button.style.display = 'none';
+        filterSettings.style.display = 'block';
+    }
+    else{
+        console.log("else");
+        button.style.display = 'block';
+        filterSettings.style.display = 'none';
+    }
 }
 let booltest20 = true;
 
@@ -289,15 +291,6 @@ function toggleState(selectorButton, selectorPopup) {
 
     button.value = button.value === '∧' ? '∨' : '∧';
     popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-}
-function test14() {
-    booltest = !booltest;
-    document.querySelector('#filter').style.display = 'none';
-    document.querySelector('#grid-colums').style.display = 'grid';
-    document.querySelector('#box-1').style.display = 'block';
-    document.querySelector('#box-2').style.display = 'block';
-    document.querySelector('#box-3').style.display = 'block';
-    document.querySelector('#enter').style.display = 'block';
 }
 function toLink(ref) {
     document.location.href=ref;
@@ -352,10 +345,28 @@ function AddEventListeners() {
     if(buttonExit != null){
         buttonExit.addEventListener('click', (evt) => {document.location.href = url+'logout'} )
     }
-    const buttonSlider = document.querySelector('#min');
-    if(buttonSlider != null){
-        buttonSlider.addEventListener('blur', (evt) => {maxMin(buttonSlider.value,buttonSlider.id)} )
+    const buttonInputleft = document.querySelector('#input-left');
+    if(buttonInputleft != null){
+        buttonInputleft.addEventListener('change', (evt) => {maxMin(buttonInputleft.value,'min')} )
     }
+    const buttonInputRigth = document.querySelector('#input-rigth');
+    if(buttonInputRigth != null){
+        buttonInputRigth.addEventListener('change', (evt) => {maxMin(buttonInputRigth.value,'max')} )
+    }
+    const buttonInputleft1 = document.querySelector('#input-left1');
+    if(buttonInputleft1 != null){
+        buttonInputleft1.addEventListener('change', (evt) => {maxMin(buttonInputleft1.value,'min1')} )
+    }
+    const buttonInputRigth1 = document.querySelector('#input-rigth1');
+    if(buttonInputRigth1 != null){
+        buttonInputRigth1.addEventListener('change', (evt) => {maxMin(buttonInputRigth1.value,'max1')} )
+    }
+    const buttonApply = document.querySelector('#apply');
+    if(buttonApply != null){
+        buttonApply.addEventListener('click', (evt) => {filter()} )
+    }
+
+
 
 }
 setTimeout(AddEventListeners, 20);
