@@ -36,15 +36,21 @@
 
   "production": {
 
-    "username": "",
+    "username": "remoteUser",
 
-    "password": null,
+    "password": "remoteUser",
 
-    "database": "",
+    "database": "database",
 
-    "host": "127.0.0.1",
+    "host": "database.cw7rba78ytpy.eu-central-1.rds.amazonaws.com",
 
-    "dialect": "mysql"
+    "dialect": "mysql",
+
+    "define": {
+      "timestamps": false
+    },
+
+    "logging": false
 
   }
 
