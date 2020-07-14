@@ -14,6 +14,8 @@
 body{
 	background-repeat: no-repeat;
 	background: white;
+	margin: 0;
+	padding: 0;
 }
 input[type="text"], input[type="password"], input[type="email"], input[type="url"]{
 	border: 2px solid;
@@ -28,6 +30,9 @@ input{
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus{
 	color: black;
  	outline: none;
+}
+input[type="button"]:focus,input[type="submit"]:focus{
+	outline: none;
 }
 a{
 	text-decoration: none;
@@ -69,11 +74,6 @@ h2{
 	background: var(--royalBlue);
 	color: white;
 }
-#exit{
-	background: black;
-	top: 0;
-	position: absolute;
-}
 .wrapper{
     display: grid;
    	grid-gap: 10px;
@@ -111,11 +111,12 @@ h2{
     grid-template-rows: [row] 12% [row] 12% [row] 60%;
 }
 .row{
-/*	background: brown;*/
+	background: none;
 	border-radius: 5px;
 	padding: 20px;
 	padding-bottom: 0px;
-	padding-left: 100px;
+	padding-left: 90px;
+	padding-right: 90px;
 }
 .a {
 	grid-column: col / span 2;
@@ -201,7 +202,7 @@ h2{
 }
 
 .enter{
-	text-align: left;
+	text-align: right;
 	font-size: 130%;
 	margin-top: 85px;
 }
@@ -232,9 +233,6 @@ h2{
 }
 .userName a{
 	display: none;
-}
-.userName h2{
-	
 }
 .refToMeeting{
 	min-width: 100%;
@@ -284,6 +282,10 @@ h2{
 	height: 8%;
 }
 
+
+#rise, #enter-2{
+	display: none;
+}
 
 .login{
 	text-align: center;
@@ -387,8 +389,6 @@ h2{
 	margin-right: 110px;
 	min-width: 60%;
 }
-.timer-admin h2, .cost-admin h2{
-}
 #timer, #cost{
 	color: var(--royalBlue);
 	font-size: 450%;
@@ -433,7 +433,9 @@ h2{
 }
 .grid-colums{
 	position: relative;
+	color: black;
 	bottom: 100%;
+	height: 100%;
 	display: grid;
 	grid-template-columns: 50% 24% 24%;
 	grid-gap: 1%;
@@ -458,4 +460,296 @@ h2{
 	border-color: silver;
 	font-size: 120%;
 	max-height: 20%;
+}
+#exit-1{
+	display: none;
+}
+#enter-2, #exit-1{
+	position: absolute;
+	border: 2px solid;
+	border-radius: 4px;
+	border-color: var(--silver);
+	margin-bottom: 100px;
+	text-align: center;
+	margin-left: 200px;
+	min-height: 50px;
+	min-width: 150px;
+	font-size: 70%;
+	background: white;
+	padding-top: 15px;
+	box-shadow: -1px 0px 45px 1px var(--monsoon);
+}
+#exit-1{
+	margin-left: 150px;
+}
+.filter{
+	border: 2px solid;
+	border-radius: 4px;
+	border-color: var(--silver);
+	background: white;
+	position: relative;
+	left: 50%;
+	width: 59%;
+	height: 100%;
+	bottom: 200%;
+	z-index: 1;
+}
+.filter h1{
+	color: var(--royalBlue);
+}
+.filter select{
+	border: 2px solid;
+	border-radius: 4px;
+	border-color: var(--silver);
+}
+.filter input, .filter select{
+	height: 45px;
+	width: 140px;
+}
+.dropping{
+	border-color: var(--royalBlue);
+	background: white;
+	font-size: 100%;
+	border-radius: 4px;
+}
+.apply{
+	border: none;
+	border-radius: 4px;
+	color: white;
+	font-size: 100%;
+	background: var(--royalBlue);
+}
+
+
+@media (max-width: 599px) {
+	.row{
+/*		background: rgb(15,66,99);*/
+		border-radius: 5px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+	.wrapper{
+   		display: grid;
+   		grid-gap: 10px;
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+  	  	grid-template-rows: [row] 30% [row] 30% [row] 25% [row] 30%;
+	}
+	.wrapper-login{
+   	 	display: grid;
+   		grid-gap: 10px;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+    	grid-template-rows: [row] 25% [row] 20% [row] 20% [row] 45%;
+	}
+	.wrapper-createMeeting{
+    	display: grid;	
+   		grid-gap: 10px;
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+    	grid-template-rows: [row] 15% [row] 7% [row] 7% [row] 7% [row] 10% [row] 7%;
+	}
+	.wrapper-meetingAmdin{
+		display: grid;
+   		grid-gap: 10px;
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+   	 	grid-template-rows: [row] 8% [row] 7% [row] 4% [row] 19% [row] 19% [row] 5%;
+	}
+	.wrapper-meetingUser{
+		display: grid;
+   		grid-gap: 10px;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+   	 	grid-template-rows: [row] 8% [row] 7% [row] 19% [row] 19%;
+	}
+	.wrapper-director{
+		display: grid;
+   		grid-gap: 10px;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+    	grid-template-rows: [row] 12% [row] 8% [row] 6% [row] 60%;
+	}
+	.a {
+		grid-column: col / span 4;
+		grid-row: row ;
+	}
+	.a-1 {
+		grid-column: col / span 4;
+		grid-row: row ;
+	}
+	.b {
+		grid-column: col / span 2;
+		grid-row: row 2;
+	}
+	.c {
+		grid-column: col / span 4;
+		grid-row: row 2;
+	}
+	.d {
+		grid-column: col / span 4;
+		grid-row: row 3;
+	}
+	.e {
+		grid-column: col / span 4;
+		grid-row: row 4;
+	}
+	.f {
+		grid-column: col / span 4;
+		grid-row: row 5;
+	}
+	.g {
+		grid-column: col / span 4;
+		grid-row: row 6;
+	}
+
+	.b-1 {
+		grid-column: col / span 4;
+		grid-row: row 2;
+	}
+	.c-1 {
+		grid-column: col / span 4;
+		grid-row: row 3;
+	}
+	.d-1 {
+		grid-column: col / span 4;
+		grid-row: row 4;
+	}
+	.e-1 {
+		grid-column: col / span 4;
+		grid-row: row 5;
+	}
+	.f-1 {
+		grid-column: col / span 4;
+		grid-row: row 6;
+	}
+	.d-2 {
+		grid-column: col  / span 4;
+		grid-row: row 3;
+	}
+	.e-2 {
+		grid-column: col / span 4;
+		grid-row: row 4;
+	}
+
+	.a-3 {
+		grid-column: col / span 4;
+		grid-row: row ;
+	}
+	.b-3 {
+		grid-column: col / span 4;
+		grid-row: row 2;
+	}
+	.c-3 {
+		grid-column: col / span 4;
+		grid-row: row 2;
+	}
+	.d-3 {
+		grid-column: col / span 4;
+		grid-row: row 3;
+	}
+	.e-3 {
+		grid-column: col / span 4;
+		grid-row: row 4;
+	}
+	.login{
+		font-size: 150%;
+		margin-bottom: 60px;
+	}
+	.login-button{
+		height: 100%;
+		width: 100%;
+		text-align: center;
+	}
+	.login-button input{
+		margin-top: 30px;
+		border: none;
+		border-radius: 4px;
+		background: var(--royalBlue);
+		color: white;
+		font-size: 120%;
+		min-width: 34%;
+		min-height: 26%;
+	}
+	.email input, .password input{
+		min-width: 100%;
+		min-height: 70%;
+	}
+	.password input{
+		margin-bottom: 100px;
+	}
+	#enter-1{
+		display: none;
+	}
+	.text-1, .text-1-1{
+		margin-bottom: 0;
+		font-size: 110%;
+		background-color: white;
+	}
+	.refToMeeting input{
+		min-width: 100%;
+		min-height: 45px;
+	}
+	.enterButton{
+		text-align: center;
+		height: 100%;
+		width: 100%;
+	}
+	.enterButton input{
+		font-size: 120%;
+		min-width: 26%; 
+		min-height: 45%;
+	}
+	.link input[type="button"]{
+		min-width: 25%;
+		min-height: 55px;
+	}
+	.link input[type="url"]{
+		min-width: 72%;
+		min-height: 80%;
+	}
+	.complete{
+		height: 100%;
+		width: 100%;
+		text-align: center;
+	}
+	.complete input{
+		min-height: 110%;
+		min-width: 35%;
+		font-size: 120%;
+	}
+	.timer-admin, .cost-admin{
+		min-height: 80%;
+		min-width: 100%;
+	}
+	.cost-admin{
+		margin: 0;
+	}
+	.grid-colums{
+		grid-template-columns: 50% 25% 25%;
+		grid-gap: 0%;
+		height: 100%;
+	}
+	.currentUsers{
+		grid-template-columns: 50% 50%;
+		grid-gap: 0%;
+	}
+	.currentUser{
+		font-size: 120%;
+		max-height: 20%;
+	}
+	.filter-button{
+		margin-top: 0;
+		margin-bottom: 200px;
+	}
+	.boxes{
+		grid-gap: 0;
+		grid-template-columns: [col] 50% [col] 25% [col] 25%;
+		min-height: 100%; 
+	}
+	#rise{
+		margin-left: 330px;
+		margin-top: -35px;
+		font-size: 80%;
+		display: block;
+		border: none;
+		background: none;
+		color: var(--royalBlue);
+	}
 }

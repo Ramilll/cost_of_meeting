@@ -77,18 +77,25 @@
 				<img src="userPhoto.jpg">
 				Админ
 				<input type="button" value="∨" name="" id="buttonRay">
-				<a style="display: none;" href="l" id="exit">Выйти</a>
+				<div class="exit-1" id="exit-1">
+					<a id="exit">Выйти</a>
+				</div>
 			</h1>
 		</div>
 		<div class="row b-3">
 			<div class="enter">
-				<a id="enter-1" href="createMeeting">Создать собрание</a>
+				<a id="enter-1">Войти в собрание</a>
 			</div>
 		</div>
 		<div class="row c-3">
 			<div class="text-1">
-				<h1 id="text-1">Войти в собрание</h1>
-				<input style="display: none;" type="button" value="∨" name="" id="rise">
+				<h1 id="text-1">
+					Статистика
+					<input type="button" value="∨" name="" id="rise">
+					<div class="enter-2" id="enter-2">
+						<a id="hrefCreateMeeting">Войти в собрание</a>
+					</div>
+				</h1>
 			</div>
 		</div>
 		<div class="row d-3">
@@ -109,6 +116,41 @@
 					<div class="grid-headers">Время, мин.</div>
 					<div class="grid-headers">Стоимость ,руб.</div>
 				</div>
+				<div class="filter" id="filter">
+				<h1 id="parameters">Параметры</h1>
+				<div class="period">
+					<h2>Период</h2>
+					<select>
+						<option value="1">1 месяц</option>
+						<option value="2">2 месяц</option>
+						<option value="3">3 месяц</option>
+						<option value="4">4 месяц</option>
+						<option value="5">5 месяц</option>
+						<option value="6">6 месяц</option>
+					</select>
+				</div>
+
+				<div class="time">
+					<h2 id="t1">Время, мин.</h2>
+					<div class="minutes">
+						<input type="text" id="min"name="" value="10">
+						<input type="text" id="max"name="" value="4000">
+					</div>
+					<input type="range" min="10" max="5000" value="25" id="input-left" name="">
+					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="">
+				</div>
+
+				<div class="cost">
+					<h2 id="t2">Стоимость, руб.</h2>
+					<div class="rubles">
+						<input type="text" id="min1"name="" value="10">
+						<input type="text" id="max1"name="" value="4000">
+					</div>
+					<input type="range" min="10" max="5000" value="25" id="input-left" name="">
+					<input type="range" min="10" max="5000" value="4000" id="input-rigth" name="">
+				</div>
+				<input type="button" name="" class="apply" id="apply" value="Применить" onclick="test14()">
+				<input type="button" class="dropping" name="" value="Сброс">
 			</div>
 		</div>
 	</div>

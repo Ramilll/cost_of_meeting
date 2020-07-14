@@ -26,6 +26,7 @@ function getDirect() {
     const result  = fetch(url+'getUsers');
     result.then(function(response) {
         response.json().then(function(text){
+            console.log(text);
             addUserDirect(text);
         })
     })
@@ -171,15 +172,25 @@ function postMeeting() {
             }
     }
     const now = new Date();
+    let data = {
+        answer: 42
+    }
     startTime = now;
     currentUserId = ids;
-    const res = fetch(url+'sendMeetingData/1', {
-        method: 'POST', 
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-         },
-        body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
+    const result  = fetch(url+'getMeetingId');
+    result.then(function(response) {
+    response.json().then(function(text){
+            getMeetingId = text[0];
+            getMeetingId += 1;
+            const res = fetch(url+'sendMeetingData/'+getMeetingId, {
+                method: 'POST', 
+                mode: 'cors',
+                headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+                },
+                body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
+            })
+        })
     })
     // .then((res) => {
     //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
@@ -189,8 +200,13 @@ function postMeeting() {
 }
 function complet() {
     let getMeetingId = 0;
+    // users.push({userId:1,startTime: 1,endTime: 10,costTime: 100});
     start = false;
     const now = new Date();
+
+    // for (var i = 0; i < currentUserId.length; i++) {
+    //     users.push({userId:currentUserI[i],startTime: 1,endTime: 10,costTime: 100});
+    // }
 
     const result  = fetch(url+'getMeetingId');
     result.then(function(response) {
@@ -198,14 +214,35 @@ function complet() {
             getMeetingId = text[0];
             getMeetingId += 1;
             console.log(getMeetingId);
+            let users  = {
+                id: getMeetingId,
+                name: NameMeeting,
+                startTime: startTime,
+                endTime: now,
+                cost: document.getElementById('cost').innerHTML,
+                users:{
+                    0:{
+                        userId: 1,
+                        startTime: 1,
+                        endTime: 10,
+                        costTime: 100 
+                    },
+                    1:{
+                        userId: 2,
+                        startTime: 5,
+                        endTime: 50,
+                        costTime: 700  
+                    }
+                } 
+            };
             const res = fetch(url+'sendMeetingData/'+getMeetingId, {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
+                method: 'POST',
+                mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+                    'Content-Type': 'application/x-www-form-urlencoded' 
                 },
-                body: 'name='+NameMeeting+'&seconds='+seconds+'&userId='+currentUserId+'&startTime='+startTime+'&endTime='+now+'&cost='+document.getElementById('cost').innerHTML
-            })  
+                body: JSON.stringify(users)
+            })
         })
     })
 }
@@ -215,27 +252,26 @@ function login(email, password) {
 
 function addUserDirect(text) {
     console.log(text);
-    const link = document.getElementById('grid-colums');
-    for (let i = 0; i < text.length; i++) {
-            const elem = document.createElement('div');
-            elem.classList.add('colums');
-            elem.innerHTML = text[i].name;
-            document.querySelector('#grid-colums').appendChild(elem);
+    for(let i = 0; i < text.length; i++) {
+        const elem = document.createElement('div');
+        elem.classList.add('colums');
+        elem.innerHTML = text[i].name;
+        document.querySelector('#grid-colums').appendChild(elem);
 
-            const elem1 = document.createElement('div');
-            elem1.classList.add('colums');
-            elem1.innerHTML = text[i].meetingTime;
-            document.querySelector('#grid-colums').appendChild(elem1);
+        const elem1 = document.createElement('div');
+        elem1.classList.add('colums');
+        elem1.innerHTML = text[i].meetingTime;
+        document.querySelector('#grid-colums').appendChild(elem1);
 
-            const elem2 = document.createElement('div');
-            elem2.classList.add('colums');;
-            elem2.innerHTML = text[i].costMeetingTime;
-            document.querySelector('#grid-colums').appendChild(elem2);
+        const elem2 = document.createElement('div');
+        elem2.classList.add('colums');;
+        elem2.innerHTML = text[i].costMeetingTime;
+        document.querySelector('#grid-colums').appendChild(elem2);
     }
 }
 
 function maxMin(value,id) {
-    document.document.querySelector('#'+id).value = value;
+    document.querySelector(id).value = value;
 }
 let booltest = true;
 function filter() {
@@ -286,7 +322,7 @@ function wait(num){
 function AddEventListeners() {
     const buttonRay = document.querySelector('#buttonRay');
     if(buttonRay != null){
-        buttonRay.addEventListener('click', (evt) => {toggleState('buttonRay', 'exit')})
+        buttonRay.addEventListener('click', (evt) => {toggleState('buttonRay', 'exit-1')})
     }
     const filterButton = document.querySelector('#filter-button');
     if(filterButton != null){
@@ -294,7 +330,7 @@ function AddEventListeners() {
     }
     const buttonRise = document.querySelector('#rise');
     if(buttonRise != null){
-        buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'text-1')})
+        buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'enter-2')})
     }
     const buttonСopy = document.querySelector('#сopy');
     if(buttonСopy != null){
@@ -312,9 +348,20 @@ function AddEventListeners() {
     if(buttonCompleteAdmin != null){
         buttonCompleteAdmin.addEventListener('click', (evt) => {complet()})
     }
+    const buttonExit = document.querySelector('#exit');
+    if(buttonExit != null){
+        buttonExit.addEventListener('click', (evt) => {document.location.href = url+'logout'} )
+    }
+    const buttonSlider = document.querySelector('#min');
+    if(buttonSlider != null){
+        buttonSlider.addEventListener('blur', (evt) => {maxMin(buttonSlider.value,buttonSlider.id)} )
+    }
+
 }
 setTimeout(AddEventListeners, 20);
 
+
+// document.location.href = "http://google.com";
 // var => const
 // grid
 // flex
