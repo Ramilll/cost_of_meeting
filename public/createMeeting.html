@@ -5,9 +5,9 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./adminstyle.css">
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="index.js"></script>
 </head>
 <body onload="fetchGet()">
-	<script type="text/javascript" src="index.js"></script>
 	<div class="wrapper-createMeeting">
   		<div class="row a">
   			<div class="UserName">
@@ -57,9 +57,52 @@
  	 	</div>
  	 	<div class="row g">
  	 		<div class="createButton">
-				<input type="button" name="enter" id="postMeeting" value="Создать" onclick="document.location.href='meeting.html'">
+				<input type="button" name="enter" id="postMeeting" value="Создать">
 			</div>
  	 	</div>
 	</div>
+	<template>
+		<div class="wrapper-meetingAmdin">
+  		<div class="row a">
+  			<div class="UserName">
+				<h1>
+					<img src="userPhoto.jpg">
+					Иван Петр
+					<input type="button" value="∨" name="" id="buttonRay">
+					<div class="exit-1" id="exit-1">
+						<a id="exit">Выйти</a>
+					</div>
+				</h1>
+			</div>
+  		</div>
+  		<div class="row b-1">
+  			<div class="text-1-1">
+				<h1 id="meeting">Информация о собрании</h1>	
+  			</div>	
+  		</div>
+  		<div class="row c-1">
+  			<div class="link">
+				<input type="url" name="" value="http" id="ref" class="ref" readonly="">
+				<input type="button" value="Копировать" id="copy" class="copy" name="">
+			</div>
+  		</div>
+ 	 	<div class="row d-1">
+ 	 		<div class="timer-admin">
+				<h2 class="timer-text">Длительность встречи</h1>
+				<h2 id="timer">00:00</h1>
+			</div>
+ 	 	</div>
+ 	 	<div class="row e-1">
+ 	 		<div class="cost-admin">
+				<h2 class="cost-text">Стоимость встречи в рублях</h2>
+				<h2 id="cost">0000</h2>
+			</div>
+ 	 	</div>
+ 	 	<div class="row f-1">
+ 	 		<div class="complete">
+ 	 			<input type="button" name="" id="complete-admin" onclick="complet()" value="Завершить">
+ 	 		</div>
+ 	 	</div>
+	</template>
 </body>
 </html>

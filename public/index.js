@@ -114,14 +114,14 @@ function removeUser(id) {
 let value = 0; // money
 // money counter
 function cost(){
-  if(start){
-    let greed = 0;
-    let wages = [];
-    // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
-    // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
-
     const n = currentUserId.length;
     let elem = []
+    let wages = [];
+    let greed = 0;
+  if(start){
+    // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
+    // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
+  
     console.log(currentUserId);
     for(let p = 0; p < n; p++) {
         for(let user = 0; user < res.length; user++) {
@@ -140,8 +140,8 @@ function cost(){
     }
 
     }
-    console.log(wages);
-    for (let d = 0; d < wage.length; d++) {
+    // console.log(wages);
+    for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
     }
     console.log("greed:"+greed);
@@ -160,44 +160,49 @@ function copy() {
 let NameMeeting = '';
 let startTime = new Date();
 
-// function postMeeting() {
-//     // debugger;
-//     const users = document.querySelector('#currentUsers').childNodes;
-//     const nameMeeting = document.getElementById('nameMeeting').value;
-//     NameMeeting = nameMeeting;
-//     let ids = [];
-//     for (let i = 0; i < users.length; i++) {
-//             if(users[i].innerHTML != null){
-//                 ids.push(users[i].id);
-//             }
-//     }
-//     const now = new Date();
-//     let data = {
-//         answer: 42
-//     }
-//     startTime = now;
-//     currentUserId = ids;
-//     const result  = fetch(url+'getMeetingId');
-//     result.then(function(response) {
-//     response.json().then(function(text){
-//             getMeetingId = text[0];
-//             getMeetingId += 1;
-//             const res = fetch(url+'sendMeetingData/'+getMeetingId, {
-//                 method: 'POST', 
-//                 mode: 'cors',
-//                 headers: {
-//                 'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-//                 },
-//                 body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
-//             })
-//         })
-//     })
-//     // .then((res) => {
-//     //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
-//     //     //template.querySelector()
-//     //     document.querySelector('body').append(template);
-//     // })
-// }
+function postMeeting() {
+    // debugger;
+    const users = document.querySelector('#currentUsers').childNodes;
+    const nameMeeting = document.getElementById('nameMeeting').value;
+    NameMeeting = nameMeeting;
+    console.log(nameMeeting);
+    let ids = [];
+    for (let i = 0; i < users.length; i++) {
+            if(users[i].innerHTML != null){
+                ids.push(users[i].id);
+            }
+    }
+    const now = new Date();
+    let data = {
+        answer: 42
+    }
+    startTime = now;
+    currentUserId = ids;
+    wait(0);
+    cost();
+    
+    timer();
+    // const result  = fetch(url+'getMeetingId');
+    // result.then(function(response) {
+    // response.json().then(function(text){
+    //         getMeetingId = text[0];
+    //         getMeetingId += 1;
+    //         const res = fetch(url+'sendMeetingData/'+getMeetingId, {
+    //             method: 'POST', 
+    //             mode: 'cors',
+    //             headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
+    //             },
+    //             body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
+    //         })
+    //     })
+    // })
+    // .then((res) => {
+    //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
+    //     //template.querySelector()
+    //     document.querySelector('body').append(template);
+    // })
+}
 function complet() {
     let getMeetingId = 0;
     // users.push({userId:1,startTime: 1,endTime: 10,costTime: 100});
@@ -207,14 +212,14 @@ function complet() {
     // for (var i = 0; i < currentUserId.length; i++) {
     //     users.push({userId:currentUserI[i],startTime: 1,endTime: 10,costTime: 100});
     // }
-
+    console.log(NameMeeting);
     const result  = fetch('./getMeetingId');
     result.then(function(response) {
     response.json().then(function(text){
             getMeetingId = text[0];
             getMeetingId += 1;
             console.log(getMeetingId);
-            let users  = {
+            let sendMeetingData  = {
                 id: getMeetingId,
                 name: NameMeeting,
                 startTime: startTime,
@@ -235,13 +240,22 @@ function complet() {
                     }
                 } 
             };
+            for(let i = 0; i < currentUserId.length; i++) {
+                sendMeetingData.users[i] = ({
+                        userId: currentUserId[i],
+                        startTime: startTime,
+                        endTime: now,
+                        costTime: Number(document.getElementById('cost').innerHTML)/currentUserId.length //considers wrong  
+                    });
+            }
+
             const res = fetch('./sendMeetingData/'+getMeetingId, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded' 
                 },
-                body: JSON.stringify(users)
+                body: JSON.stringify(sendMeetingData)
             })
         })
     })
@@ -303,7 +317,6 @@ function wait(num){
     const temp = document.getElementsByTagName("template")[num];
     const clon = temp.content.cloneNode(true);
     document.body.appendChild(clon);
-
     for (let i = 1; i < n; i++) {
             if(body[i].tagName != null && body[i].tagName != 'TEMPLATE'){
                 body[i].remove(); 
