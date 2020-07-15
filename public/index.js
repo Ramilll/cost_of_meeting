@@ -84,10 +84,13 @@ function addCurrentUser(id,id1,classI) {
         }
     }
 
-  cln.classList.add(classI);
+    cln.classList.add(classI);
 
-  document.querySelector('#'+id1).appendChild(cln); //add
-  user.remove();
+    document.querySelector('#'+id1).appendChild(cln); //add
+    user.remove();
+    if(cln != null){
+        cln.addEventListener('click', (evt) => {removeUser(cln.id)} )
+    }
 }
 
 let ar = [];
@@ -95,7 +98,7 @@ function addUser(array) { // add user in selection
   for(let i = 0;i<array.length;i++){
     const user = document.createElement("option");
     const name = array[i].name;
-    user.setAttribute('onclick', 'removeUser(this.id)')
+    // user.setAttribute('onclick', 'removeUser(this.id)')
 
     user.value = array[i].name; // users name
     user.id = array[i].id; // users id 
@@ -138,8 +141,6 @@ function cost(){
             }
         }
     }
-
-    }
     // console.log(wages);
     for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
@@ -149,6 +150,7 @@ function cost(){
     document.getElementById('cost').innerHTML = value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
+}
 function usersData(element) {
   for(let i = 0;i<res.length;i++){
     if(element == res[i].name) return res[i].wageId;
@@ -226,18 +228,6 @@ function complet() {
                 endTime: now,
                 cost: document.getElementById('cost').innerHTML,
                 users:{
-                    0:{
-                        userId: 1,
-                        startTime: 1,
-                        endTime: 10,
-                        costTime: 100 
-                    },
-                    1:{
-                        userId: 2,
-                        startTime: 5,
-                        endTime: 50,
-                        costTime: 700  
-                    }
                 } 
             };
             for(let i = 0; i < currentUserId.length; i++) {
@@ -378,8 +368,7 @@ function AddEventListeners() {
     if(buttonApply != null){
         buttonApply.addEventListener('click', (evt) => {filter()} )
     }
-
-
+    
 
 }
 setTimeout(AddEventListeners, 20);

@@ -11,6 +11,48 @@
 	font-family: "Rubik";
 	/* font-weight: bold; */
 }
+
+/* cyrillic */
+@font-face {
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Rubik Bold Italic'), local('Rubik-BoldItalic'), url(https://fonts.gstatic.com/s/rubik/v9/iJWBBXyIfDnIV7nElcWfwWb-6bB_.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Rubik Bold Italic'), local('Rubik-BoldItalic'), url(https://fonts.gstatic.com/s/rubik/v9/iJWBBXyIfDnIV7nElcWfwWD-6bB_.woff2) format('woff2');
+  unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Rubik Bold Italic'), local('Rubik-BoldItalic'), url(https://fonts.gstatic.com/s/rubik/v9/iJWBBXyIfDnIV7nElcWfwWz-6bB_.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Rubik Bold Italic'), local('Rubik-BoldItalic'), url(https://fonts.gstatic.com/s/rubik/v9/iJWBBXyIfDnIV7nElcWfwWL-6Q.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+
+
+
 body{
 	background-repeat: no-repeat;
 	background: white;
@@ -108,7 +150,7 @@ h2{
 	display: grid;
    	grid-gap: 10px;
     grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
-    grid-template-rows: [row] 8% [row] 8% [row] 60%;
+    grid-template-rows: [row] 12% [row] 12% [row] 60%;
 }
 .row{
 /*	background: blue;*/
@@ -371,6 +413,7 @@ h2{
 	border-radius: 4px;
 	background: var(--royalBlue);
 	color: white;
+	margin-right: 100px;
 	min-height: 110%;
 	min-width: 14%;
 	font-size: 120%;
@@ -394,6 +437,7 @@ h2{
 	font-size: 450%;
 }
 .filter-button{
+	text-align: right;
 	text-decoration: underline;
 	margin-top: 55px;
 	color: var(--royalBlue);
@@ -438,10 +482,14 @@ h2{
 	height: 100%;
 	display: grid;
 	grid-template-columns: 50% 24% 24%;
+	grid-template-rows: 10%;
 	grid-gap: 1%;
 }
 .grid-headers{
 	text-align: left;
+}
+.colums{
+	
 }
 .colums, .grid-headers{
 	border-bottom: 2px solid;
@@ -450,7 +498,6 @@ h2{
 .currentUsers{
 	display: grid;
 	grid-template-columns: 49% 49%;
-	grid-template-rows: 100%;
 	grid-gap: 2%;
 }
 .currentUser{
@@ -458,8 +505,8 @@ h2{
 	border: 2px solid;
 	border-radius: 4px;
 	border-color: silver;
-	font-size: 120%;
-	max-height: 20%;
+	/* font-size: 120%; */
+	/* max-height: 20%; */
 }
 #exit-1{
 	display: none;
@@ -480,7 +527,7 @@ h2{
 	box-shadow: -1px 0px 45px 1px var(--monsoon);
 }
 #exit-1{
-	margin-left: 150px;
+	margin-left: 210px;
 }
 .filter{
 	display: none;
@@ -522,7 +569,7 @@ h2{
 }
 
 
-@media (max-width: 599px) {
+@media (max-width: 599px) and (max-height: 599px) {
 	.row{
 /*		background: rgb(15,66,99);*/
 		border-radius: 5px;
@@ -729,7 +776,7 @@ h2{
 	}
 	.currentUsers{
 		grid-template-columns: 50% 50%;
-		grid-gap: 0%;
+		grid-gap: 2%;
 	}
 	.currentUser{
 		font-size: 120%;
@@ -745,12 +792,21 @@ h2{
 		min-height: 100%; 
 	}
 	#rise{
-		margin-left: 330px;
+		margin-left: 230px;
 		margin-top: -35px;
 		font-size: 80%;
 		display: block;
 		border: none;
 		background: none;
 		color: var(--royalBlue);
+	}
+	.filter{
+		left: 0%;
+		width: 100%;
+		height: 100%;
+		bottom: 200%;
+	}
+	.filter-button{
+		text-align: left;
 	}
 }
