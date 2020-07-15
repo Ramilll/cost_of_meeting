@@ -1,5 +1,4 @@
-const url = 'https://cost-of-meeting.herokuapp.com/'; //url place holder /user/all
-
+// const url = 'https://cost-of-meeting.herokuapp.com/'; //url place holder /user/all
 let res = [];
 let resWage = [];
 let wageAr = [];
@@ -14,7 +13,7 @@ function fetchGet() {
       console.log(text);
     })
     })
-    const result1  = fetch(url+'./getWages');
+    const result1  = fetch('./getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
             console.log(text1);
@@ -49,7 +48,7 @@ function test(){
       else button.value = 'start'
 }
 
-    function timer() {
+function timer() {
       if(start){
        second++;
        seconds++;
@@ -70,7 +69,7 @@ function test(){
         document.querySelector('#timer').innerHTML = time;
         setTimeout(timer,1000);
       }
-    }
+}
 
 function addCurrentUser(id,id1,classI) {
     let cln;
@@ -223,6 +222,7 @@ function complet() {
             console.log(getMeetingId);
             let sendMeetingData  = {
                 id: getMeetingId,
+                time: seconds,
                 name: NameMeeting,
                 startTime: startTime,
                 endTime: now,
