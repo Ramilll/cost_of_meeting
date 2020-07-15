@@ -763,12 +763,14 @@ h2{
 	.link input[type="button"]{
 		margin-top: 100px;
 		min-width: 25%;
-		min-height: 80px;
+		min-height: 90px;
+		font-size: 100%;
 	}
 	.link input[type="url"]{
 		margin-top: 100px;
 		min-width: 72%;
 		min-height: 80px;
+		font-size: 200%;
 	}
 	.complete{
 		height: 100%;
@@ -791,6 +793,10 @@ h2{
 	}
 	.cost-admin{
 		margin: 0;
+		margin-top: 50px;
+	}
+	#cost-admin{
+		margin-top: 100px;
 	}
 	.cost-text, .timer-text{
 		font-size: 300%;
@@ -803,17 +809,9 @@ h2{
 		grid-gap: 0%;
 		height: 100%;
 	}
-	.colums{
-		padding-left: 25px;
-		margin-top: 37px;
-	}
 	.currentUsers{
 		grid-template-columns: 50% 50%;
 		grid-gap: 2%;
-	}
-	.filter-button{
-		margin-top: 0;
-		margin-bottom: 200px;
 	}
 	.boxes{
 		grid-gap: 0;
@@ -836,13 +834,41 @@ h2{
 		bottom: 200%;
 	}
 	.filter-button{
+		font-size: 300%;
 		text-align: left;
+	}
+	.grid-headers{
+		margin-top: 30px;
+		font-size: 230%;
+	}
+	.colums{
+		font-size: 200%;
+		padding-left: 25px;
+		margin-top: 37px;
+	}
+	.filter{
+		font-size: 200%;
+	}
+	.filter h1{
+	}
+	.filter select{
+	}
+	.filter input[type="text"],.filter input[type="range"], .filter select{
+		font-size: 130%;
+		height: 65px;
+		width: 250px;
+	}
+	.filter input[type="button"]{
+		border-radius: 8px;
+		font-size: 130%;
+		height: 85px;
+		width: 250px;
 	}
 }
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   body {background: blue;}
-} 
+} */
 @media only screen and (max-width: 599px){
 	.row{
 		background: rgb(15,66,99);
