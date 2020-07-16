@@ -114,13 +114,14 @@ function removeUser(id) {
 }
 
 let value = 0; // money
+let len = 0;
+let n = 0;
 // money counter
 function cost(){
-    const n = currentUserId.length;
     let elem = []
     let wages = [];
     let greed = 0;
-  if(start){
+    if(start){
     // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
     // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
   
@@ -152,7 +153,7 @@ function cost(){
 }
 function usersData(element) {
   for(let i = 0;i<res.length;i++){
-    if(element == res[i].name) return res[i].wageId;
+    if(element == res[i].id) return res[i].wageId;
     }
 }
 function copy() {
@@ -160,6 +161,15 @@ function copy() {
 }
 let NameMeeting = '';
 let startTime = new Date();
+function wageIdToWage(elem) {
+    let Wages = 0;
+        for(let f = 0; f < resWage.length; f++) {
+            if(elem == resWage[f].id){
+                Wages = resWage[f].salary;
+            }
+        }
+    return (currentUserId.length*Wages*1/160*1/3600*seconds);
+}
 
 function postMeeting() {
     // debugger;
@@ -179,6 +189,7 @@ function postMeeting() {
     }
     startTime = now;
     currentUserId = ids;
+    n = currentUserId.length;
     wait(0);
     cost();
     
@@ -234,7 +245,7 @@ function complet() {
                         userId: currentUserId[i],
                         startTime: startTime,
                         endTime: now,
-                        costTime: Number(document.getElementById('cost').innerHTML)/currentUserId.length //considers wrong  
+                        costTime: wageIdToWage(usersData(currentUserId[i])) 
                     });
             }
 
@@ -260,7 +271,7 @@ function addUserDirect(text) {
 
         const elem1 = document.createElement('div');
         elem1.classList.add('colums');
-        elem1.innerHTML = text[i].meetingTime;
+        elem1.innerHTML = (text[i].meetingTime/60).toFixed(2);
         document.querySelector('#grid-colums').appendChild(elem1);
 
         const elem2 = document.createElement('div');
@@ -311,6 +322,7 @@ function wait(num){
                 body[i].remove(); 
             }         
     }
+    AddEventListeners();
 }
 
 
