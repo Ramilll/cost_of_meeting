@@ -227,8 +227,7 @@ function complet() {
                 startTime: startTime,
                 endTime: now,
                 cost: document.getElementById('cost').innerHTML,
-                users:{
-                } 
+                users:[]
             };
             for(let i = 0; i < currentUserId.length; i++) {
                 sendMeetingData.users[i] = ({
@@ -239,7 +238,7 @@ function complet() {
                     });
             }
 
-            const res = fetch('./sendMeetingData/'+getMeetingId, {
+            const response = fetch('./sendMeetingData/'+getMeetingId, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -316,7 +315,7 @@ function wait(num){
 
 
 function AddEventListeners() {
-    const buttonRay = document.querySelector('#buttonRay');
+    const buttonRay = document.querySelector('.UserName');
     if(buttonRay != null){
         buttonRay.addEventListener('click', (evt) => {toggleState('buttonRay', 'exit-1')})
     }
@@ -324,7 +323,7 @@ function AddEventListeners() {
     if(filterButton != null){
         filterButton.addEventListener('click', (evt) => {filter()})
     }
-    const buttonRise = document.querySelector('#rise');
+    const buttonRise = document.querySelector('.text-1');
     if(buttonRise != null){
         buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'enter-2')})
     }
@@ -346,7 +345,15 @@ function AddEventListeners() {
     }
     const buttonExit = document.querySelector('#exit');
     if(buttonExit != null){
-        buttonExit.addEventListener('click', (evt) => {document.location.href = url+'logout'} )
+        buttonExit.addEventListener('click', (evt) => {document.location.href = './logout'} )
+    }
+    const buttonEnter1 = document.querySelector('#enter-1');
+    if(buttonEnter1 != null){
+        buttonEnter1.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    }
+    const buttonEnter2 = document.querySelector('#enter-2');
+    if(buttonEnter2 != null){
+        buttonEnter2.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
     }
     const buttonInputleft = document.querySelector('#input-left');
     if(buttonInputleft != null){
