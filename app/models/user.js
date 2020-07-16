@@ -13,11 +13,9 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.STRING
         },
 
-
         wageId: {
             type: Sequelize.INTEGER
         },
-
 
         meetingTime: {
             type: Sequelize.INTEGER
