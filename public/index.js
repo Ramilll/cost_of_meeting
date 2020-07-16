@@ -368,6 +368,10 @@ function AddEventListeners() {
     if(buttonEnter2 != null){
         buttonEnter2.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
     }
+    const buttonDirectorEnter1 = document.querySelector('.enterDirector');
+    if(buttonDirectorEnter1 != null){
+        buttonDirectorEnter1.addEventListener('click', (evt) => {document.location.href = './directorEnter'} )
+    }
     const buttonDirectorEnter = document.querySelector('#hrefDirectorEnter');
     if(buttonDirectorEnter != null){
         buttonDirectorEnter.addEventListener('click', (evt) => {document.location.href = './directorEnter'} )

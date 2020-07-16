@@ -122,37 +122,37 @@ h2{
 .wrapper{
     display: grid;
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 30% [row] 30% [row] 25% [row] 30%;
 }
 .wrapper-login{
     display: grid;
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 25% [row] 10% [row] 10% [row] 30%;
 }
 .wrapper-createMeeting{
     display: grid;	
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 15% [row] 10% [row] 7% [row] 7% [row] 10% [row] 7%;
 }
 .wrapper-meetingAmdin{
 	display: grid;
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 8% [row] 10% [row] 5% [row] 20% [row] 5%;
 }
 .wrapper-meetingUser{
 	display: grid;
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 8% [row] 10% [row] 20%;
 }
 .wrapper-director{
 	display: grid;
    	grid-gap: 10px;
-    grid-template-columns: [col] 1fr [col] 1fr;
+    grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     grid-template-rows: [row] 12% [row] 12% [row] 60%;
 }
 .row{
@@ -242,7 +242,7 @@ h2{
 	grid-row: row 2;
 }
 .e-3 {
-	grid-column: col / span 6;
+	grid-column: col / span 4;
 	grid-row: row 3;
 }
 
@@ -443,7 +443,7 @@ h2{
 	cursor: pointer;
 	text-align: right;
 	text-decoration: underline;
-	margin-top: 55px;
+	/* margin-top: 55px; */
 	color: var(--royalBlue);
 	font-size: 140%;
 }
@@ -482,7 +482,7 @@ h2{
 .grid-colums{
 	position: relative;
 	color: black;
-	top: -100%;
+	bottom: 100%;
 	height: 100%;
 	display: grid;
 	grid-template-columns: 50% 24% 24%;
@@ -617,37 +617,37 @@ h2{
 	.wrapper{
    		display: grid;
    		grid-gap: 10px;
-   		grid-template-columns: [col] 1fr [col] 1fr;
-   		grid-template-rows: [row] 30% [row] 30% [row] 25% [row] 30%;
- }
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
+  	  	grid-template-rows: [row] 30% [row] 30% [row] 25% [row] 30%;
+	}
 	.wrapper-login{
    	 	display: grid;
    		grid-gap: 10px;
-    	grid-template-columns: [col] 1fr [col] 1fr;
+    	grid-template-columns: [col] 25% [col] 24% [col] 24% [col] 24%  ;
     	grid-template-rows: [row] 25% [row] 20% [row] 20% [row] 45%;
 	}
 	.wrapper-createMeeting{
     	display: grid;	
    		grid-gap: 10px;
-   	 	grid-template-columns: [col] 1fr [col] 1fr;
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     	grid-template-rows: [row] 15% [row] 16% [row] 16% [row] 16% [row] auto [row] 14%;
 	}
 	.wrapper-meetingAmdin{
 		display: grid;
    		grid-gap: 10px;
-   	 	grid-template-columns: [col] 1fr [col] 1fr;
+   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
    	 	grid-template-rows: [row] 8% [row] 7% [row] 4% [row] 19% [row] 19% [row] 5%;
 	}
 	.wrapper-meetingUser{
 		display: grid;
    		grid-gap: 10px;
-    	grid-template-columns: [col] 1fr [col] 1fr;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
    	 	grid-template-rows: [row] 8% [row] 7% [row] 19% [row] 19%;
 	}
 	.wrapper-director{
 		display: grid;
    		grid-gap: 10px;
-    	grid-template-columns: [col] 1fr [col] 1fr;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
     	grid-template-rows: [row] 12% [row] 8% [row] 6% [row] 60%;
 	}
 	.a {
@@ -817,7 +817,7 @@ h2{
 		font-size: 700%;
 	}
 	.grid-colums{
-		grid-template-columns: 2fr 1fr 1fr;
+		grid-template-columns: 50% 25% 25%;
 		grid-template-rows: 15% repeat(40, 6%);
 		grid-gap: 0%;
 		height: 100%;
@@ -857,7 +857,6 @@ h2{
 	}
 	.filter-button{
 		font-size: 300%;
-		margin: 0;
 		text-align: left;
 	}
 	.grid-headers{
