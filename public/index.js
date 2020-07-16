@@ -216,6 +216,7 @@ function postMeeting() {
     // })
 }
 function complet() {
+    if(start){
     let getMeetingId = 0;
     // users.push({userId:1,startTime: 1,endTime: 10,costTime: 100});
     start = false;
@@ -259,6 +260,7 @@ function complet() {
             })
         })
     })
+    }
 }
 
 function addUserDirect(text) {
@@ -276,7 +278,7 @@ function addUserDirect(text) {
 
         const elem2 = document.createElement('div');
         elem2.classList.add('colums');;
-        elem2.innerHTML = text[i].costMeetingTime;
+        elem2.innerHTML = text[i].costMeetingTime.toFixed(2);
         document.querySelector('#grid-colums').appendChild(elem2);
     }
 }
@@ -286,13 +288,12 @@ function maxMin(value,id) {
 }
 function filter() {
     const button = document.querySelector('#filter-button');
-    const filterSettings = document.querySelector('#filter'); 
-    if(button.style.display == 'block'){
+    const filterSettings = document.querySelector('#filter');
+    if(button.style.display == 'block' || button.style.display == ''){
         button.style.display = 'none';
         filterSettings.style.display = 'block';
     }
     else{
-        console.log("else");
         button.style.display = 'block';
         filterSettings.style.display = 'none';
     }
@@ -353,7 +354,7 @@ function AddEventListeners() {
     }
     const buttonCompleteAdmin = document.querySelector('#complete-admin');
     if(buttonCompleteAdmin != null){
-        buttonCompleteAdmin.addEventListener('click', (evt) => {complet()})
+        buttonCompleteAdmin.addEventListener('click', (evt) => {complet(), buttonCompleteAdmin.setAttribute("disabled", "true");})
     }
     const buttonExit = document.querySelector('#exit');
     if(buttonExit != null){
@@ -366,6 +367,10 @@ function AddEventListeners() {
     const buttonEnter2 = document.querySelector('#enter-2');
     if(buttonEnter2 != null){
         buttonEnter2.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    }
+    const buttonDirectorEnter = document.querySelector('#hrefDirectorEnter');
+    if(buttonDirectorEnter != null){
+        buttonDirectorEnter.addEventListener('click', (evt) => {document.location.href = './directorEnter'} )
     }
     const buttonInputleft = document.querySelector('#input-left');
     if(buttonInputleft != null){
