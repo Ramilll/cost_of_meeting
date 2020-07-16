@@ -46,6 +46,8 @@ module.exports = function(app, passport) {
 
     app.get('/director', isDirector, authController.director);
 
+    app.get('/directorEnter', isDirector, authController.directorEnter)
+
     app.get('/login', authController.login);
 
     app.post('/login',

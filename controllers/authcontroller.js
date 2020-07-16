@@ -42,3 +42,7 @@ exports.meeting = function(req, res) {
 exports.createMeeting = function (req, res) {
     res.render('createMeeting');
 }
+
+exports.directorEnter = function (req, res) {
+    res.render('directorEnter.html');
+}
