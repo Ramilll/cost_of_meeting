@@ -14,7 +14,6 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
 
-
         meetingId: {
             type: Sequelize.INTEGER
         },
@@ -31,6 +30,10 @@ module.exports = function(sequelize, Sequelize) {
         cost: {
             type: Sequelize.FLOAT
         },
+
+        company: {
+            type: Sequelize.STRING,
+        }
 
     });
 

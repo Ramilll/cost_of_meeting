@@ -12,6 +12,10 @@ module.exports = function(sequelize, Sequelize) {
         salary: {
             type: Sequelize.INTEGER
         },
+
+        company: {
+            type: Sequelize.STRING,
+        }
     });
 
     return Wage;

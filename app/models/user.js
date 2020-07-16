@@ -24,7 +24,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         costMeetingTime: {
-            type: Sequelize.INTEGER
+            type: Sequelize.FLOAT
         },
 
         email: {
@@ -38,6 +38,10 @@ module.exports = function(sequelize, Sequelize) {
         role: {
             type: Sequelize.STRING,
         },
+
+        company: {
+            type: Sequelize.STRING,
+        }
 
 
     });

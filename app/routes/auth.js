@@ -5,19 +5,19 @@ var models           = require('../../app/models');
 module.exports = function(app, passport) {
 
     app.get('/getUsers', function(req,res) {
-        models.user.findAll({raw:true}).then(users=>{
+        models.user.findAll({raw:true, where: {company: req.user.company}}).then(users=>{
             res.send(users);
         }).catch(err=>console.log(err));
     })
 
     app.get('/getWages',function(req,res) {
-        models.wage.findAll({raw:true}).then(wages=>{
+        models.wage.findAll({raw:true, where: {company: req.user.company}}).then(wages=>{
             res.send(wages);
         }).catch(err=>console.log(err))
     })
 
     app.get('/getUsers_meeting',function(req,res) {
-        models.users_meeting.findAll({raw:true}).then(users_meetings=>{
+        models.users_meeting.findAll({raw:true, where: {company: req.user.company}}).then(users_meetings=>{
             res.send(users_meetings);
         }).catch(err=>console.log(err))
     })

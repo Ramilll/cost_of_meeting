@@ -27,6 +27,10 @@ module.exports = function(sequelize, Sequelize) {
 
         cost: {
             type: Sequelize.FLOAT
+        },
+
+        company: {
+            type: Sequelize.STRING,
         }
 
     });
