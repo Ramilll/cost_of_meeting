@@ -1,8 +1,12 @@
 var authController = require('../../controllers/authcontroller.js');
 var models           = require('../../app/models');
-
+var path = require('path')
 
 module.exports = function(app, passport) {
+
+    app.get('/users/photo/:id', function (req, res) {
+        res.sendFile(path.join(__dirname, '../../avatars', req.params.id + '.png'));
+    })
 
     app.get('/getUsers', function(req,res) {
         models.user.findAll({raw:true, where: {company: req.user.company}}).then(users=>{
