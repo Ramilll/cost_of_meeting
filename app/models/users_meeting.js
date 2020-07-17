@@ -18,6 +18,10 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
 
+        time: {
+            type: Sequelize.INTEGER
+        },
+
 
         startTime: {
             type: Sequelize.DATE
