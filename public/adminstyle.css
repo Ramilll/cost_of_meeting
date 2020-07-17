@@ -112,9 +112,9 @@ h2{
 .createButton input{
 	font-size: 120%;
 	min-width: 22%;
-	min-height: 80%;
+	min-height: 65px;
 	border: none;
-	margin-bottom: 200px;
+	/* margin-bottom: 200px; */
 	border-radius: 4px;
 	background: var(--royalBlue);
 	color: white;
@@ -135,7 +135,7 @@ h2{
     display: grid;
     grid-gap: 10px;
     grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%;
-    grid-template-rows: [row] 15% [row] 10% [row] 7% [row] 7% [row] 10% [row] 7%;
+    grid-template-rows: [row] 15% [row] 10% [row] 7% [row] 7%;
 }
 .wrapper-meetingAmdin{
 	display: grid;
@@ -189,7 +189,6 @@ h2{
 }
 .f {
 	grid-column: col / span 4;
-	grid-row: row 5;
 }
 .g {
 	grid-column: col / span 4;
@@ -498,6 +497,7 @@ h2{
 .currentUsers{
 	display: grid;
 	grid-template-columns: 49% 49%;
+	padding-bottom: 8%;
 	grid-gap: 2%;
 }
 .currentUser{
@@ -520,11 +520,10 @@ h2{
 .currentUser option{
 	padding-left: 20px;
 	padding-top: 35px;
+	width: 80%;
 }
 .currentUser div{
 	color: var(--monsoon);
-	padding-left: 90px;
-	padding-top: 0px;
 }
 .currentUser div:hover{
 	color: black;

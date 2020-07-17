@@ -83,11 +83,11 @@ function addCurrentUser(id,id1,classI) {
         }
     }
     const div = document.createElement('div');
-    div.id = 'user'+cln.id;
+    div.id = cln.id;
     div.classList.add(classI);
 
     const img = document.createElement('img');
-    img.src = 'userPhoto.jpg';
+    img.src = './users/photo/'+cln.id;
 
     const cross = document.createElement('div');
     cross.innerHTML = 'Ⓧ';
@@ -120,7 +120,7 @@ function addUser(array) { // add user in selection
 function removeUser(id) {
     const cln = document.getElementById(id);
     cln.classList.add('re');
-    document.querySelector('#user'+id).remove();
+    document.getElementById(id).remove();
     document.querySelector('#users').appendChild(cln); //add
 }
 
@@ -150,9 +150,8 @@ function cost(){
     for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
     }
-    console.log("greed:"+greed);
     value = n*greed*1/160*1/3600*(seconds+1);
-    document.getElementById('cost').innerHTML = value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
+    document.getElementById('cost').innerHTML = value.toFixed(2);
     setTimeout(cost,1000);
   }
 }
@@ -166,22 +165,19 @@ function copy() {
 }
 let NameMeeting = '';
 let startTime = new Date();
-function wageIdToWage(elem) {
+function counter(elem) {
     let Wages = 0;
         for(let f = 0; f < resWage.length; f++) {
             if(elem == resWage[f].id){
                 Wages = resWage[f].salary;
             }
         }
-    console.log(currentUserId.length+','+Wages+','+seconds);
     return (currentUserId.length*Wages*1/160*1/3600*seconds).toFixed(2);
 }
-
 function postMeeting() {
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
     NameMeeting = nameMeeting;
-    console.log(nameMeeting);
     let ids = [];
     for (let i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
@@ -226,7 +222,7 @@ function complet() {
                         userId: currentUserId[i],
                         startTime: startTime,
                         endTime: now,
-                        costTime: wageIdToWage(usersData(currentUserId[i])) 
+                        costTime: counter(usersData(currentUserId[i])) 
                     });
             }
 
