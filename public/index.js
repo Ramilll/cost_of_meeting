@@ -180,13 +180,15 @@ function postMeeting() {
     let ids = [];
     for (let i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
-                ids.push(users[i].id);
+                console.log(users[i].id);
+                ids.push(users[i].id.replace('User',''));
             }
     }
     const now = new Date();
     let data = {
         answer: 42
     }
+    console.log(ids);
     startTime = now;
     currentUserId = ids;
     n = currentUserId.length;
