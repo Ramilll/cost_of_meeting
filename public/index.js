@@ -82,13 +82,24 @@ function addCurrentUser(id,id1,classI) {
             cln = user.cloneNode(true);
         }
     }
+    const div = document.createElement('div');
+    div.id = 'user'+cln.id;
+    div.classList.add(classI);
 
-    cln.classList.add(classI);
+    const img = document.createElement('img');
+    img.src = 'userPhoto.jpg';
 
-    document.querySelector('#'+id1).appendChild(cln); //add
+    const cross = document.createElement('div');
+    cross.innerHTML = 'Ⓧ';
+
+    div.append(img)
+    div.append(cln)
+    div.append(cross);
+
+    document.querySelector('#'+id1).appendChild(div); //add
     user.remove();
     if(cln != null){
-        cln.addEventListener('click', (evt) => {removeUser(cln.id)} )
+        cross.addEventListener('click', (evt) => {removeUser(cln.id)} )
     }
 }
 
@@ -109,7 +120,7 @@ function addUser(array) { // add user in selection
 function removeUser(id) {
     const cln = document.getElementById(id);
     cln.classList.add('re');
-    document.getElementById(id).remove();
+    document.querySelector('#user'+id).remove();
     document.querySelector('#users').appendChild(cln); //add
 }
 
@@ -122,10 +133,6 @@ function cost(){
     let wages = [];
     let greed = 0;
     if(start){
-    // var n = document.getElementById("currentUsers").childNodes.length; // length currentUsers
-    // var elem = document.getElementById("currentUsers").childNodes; // list currentUsers
-  
-    console.log(currentUserId);
     for(let p = 0; p < n; p++) {
         for(let user = 0; user < res.length; user++) {
             if(res[user].id == currentUserId[p]){
@@ -133,7 +140,6 @@ function cost(){
             }
         }
     }
-    console.log(elem);
     for (let i = 0; i < elem.length; i++) {
         for(let f = 0; f < resWage.length; f++) {
             if(elem[i] == resWage[f].id){
@@ -141,12 +147,11 @@ function cost(){
             }
         }
     }
-    // console.log(wages);
     for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
     }
     console.log("greed:"+greed);
-    value = n*greed*1/160*1/3600*seconds;
+    value = n*greed*1/160*1/3600*(seconds+1);
     document.getElementById('cost').innerHTML = value.toFixed(2);//n*(greed*1/160*1/3600*seconds)
     setTimeout(cost,1000);
   }
@@ -168,11 +173,11 @@ function wageIdToWage(elem) {
                 Wages = resWage[f].salary;
             }
         }
-    return (currentUserId.length*Wages*1/160*1/3600*seconds);
+    console.log(currentUserId.length+','+Wages+','+seconds);
+    return (currentUserId.length*Wages*1/160*1/3600*seconds).toFixed(2);
 }
 
 function postMeeting() {
-    // debugger;
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
     NameMeeting = nameMeeting;
@@ -194,37 +199,12 @@ function postMeeting() {
     cost();
     
     timer();
-    // const result  = fetch(url+'getMeetingId');
-    // result.then(function(response) {
-    // response.json().then(function(text){
-    //         getMeetingId = text[0];
-    //         getMeetingId += 1;
-    //         const res = fetch(url+'sendMeetingData/'+getMeetingId, {
-    //             method: 'POST', 
-    //             mode: 'cors',
-    //             headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded'//x-www-form-urlencoded  
-    //             },
-    //             body: 'name='+nameMeeting+'&userId='+ids+'&start='+now
-    //         })
-    //     })
-    // })
-    // .then((res) => {
-    //     const template = document.querySelector('#meeting_template').content.children[0].cloneNode(true);
-    //     //template.querySelector()
-    //     document.querySelector('body').append(template);
-    // })
 }
 function complet() {
     if(start){
     let getMeetingId = 0;
-    // users.push({userId:1,startTime: 1,endTime: 10,costTime: 100});
     start = false;
     const now = new Date();
-
-    // for (var i = 0; i < currentUserId.length; i++) {
-    //     users.push({userId:currentUserI[i],startTime: 1,endTime: 10,costTime: 100});
-    // }
     console.log(NameMeeting);
     const result  = fetch('./getMeetingId');
     result.then(function(response) {
@@ -303,15 +283,16 @@ let booltest20 = true;
 function toggleState(selectorButton, selectorPopup) {
     const button = document.querySelector('#' + selectorButton);
     const popup = document.querySelector('#' + selectorPopup);
+    const popup1 = document.querySelector('.enter');
 
     button.value = button.value === '∧' ? '∨' : '∧';
     popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    
 }
 function toLink(ref) {
     document.location.href=ref;
 }
 function wait(num){
-    // return;
     const body =  document.body.childNodes;
     const n  = body.length;
 
@@ -336,7 +317,7 @@ function AddEventListeners() {
     if(filterButton != null){
         filterButton.addEventListener('click', (evt) => {filter()})
     }
-    const buttonRise = document.querySelector('.text-1');
+    const buttonRise = document.querySelector('#rise');
     if(buttonRise != null){
         buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'enter-2')})
     }

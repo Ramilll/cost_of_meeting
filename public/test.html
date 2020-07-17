@@ -1,63 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<style type="text/css">
-		body {
- 			margin: 40px;
- 	}
-		.wrapper {
-        	display: grid;
-   			grid-gap: 10px;
-       	 	grid-template-columns: [col] 100px [col] 100px [col] 100px [col] 100px  ;
-        	grid-template-rows: [row] auto [row] auto [row] ;
-        	background-color: #fff;
-        	color: #444;
-    	}
-    	.box {
-        	background-color: #444;
-        	color: #fff;
-       	 	border-radius: 5px;
-        	padding: 20px;
-        	font-size: 150%;
-    	}
-    	.a {
-        	grid-column: col / span 2;
-        	grid-row: row ;
-    	}
-    	.b {
-        	grid-column: col 3 / span 2 ;
-        	grid-row: row ;
-    	}
-    	.c {
-        	grid-column: col / span 4;
-        	grid-row: row 2 ;
-    	}
-    	.d {
-       	 	grid-column: col / span 4;
-       	 	grid-row: row 3;
-    	}
-    	.e {
-       	 	grid-column: col / span 4;
-       	 	grid-row: row 4;
-    	}
-    	.f {
-       	 	grid-column: col / span 4;
-       	 	grid-row: row 5;
-    	}
-
-	</style>
+  <title></title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="./adminstyle.css">
+  <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
-<body>
-  <script type="text/javascript">
-  </script>
-	<div class="wrapper">
-  		<div class="box a">A</div>
-  		<div class="box b">B</div>
-  		<div class="box c">C</div>
- 	 	<div class="box d">D</div>
- 	 	<div class="box e">E</div>
- 	 	<div class="box f">F</div>
-	</div>
+<body onload="getDirect()">
+  <script type="text/javascript" src="index.js"></script>
+  <div class="wrapper-director">
+      <div class="row a-3">
+         <div class="UserName">
+            <h1>
+               <img src="userPhoto.jpg">
+               Админ
+               <input type="button" value="∨" name="" id="buttonRay">
+               <div class="exit-1" id="exit-1">
+                  <a id="exit">Выйти</a>
+               </div>
+            </h1>
+         </div>
+      </div>
+      <div class="row b-3">
+         <div class="enter">
+            <a id="enter-1" class="enterDirector">Войти в собрание</a>
+         </div>
+      </div>
+      <div class="row c-3">
+         <div class="text-1">
+            <h1 id="text-1">
+               Статистика
+               <input type="button" value="∨" name="" id="rise" class="rise">
+               <div class="enter-2" id="enter-2">
+                  <a id="hrefDirectorEnter">Войти в собрание</a>
+               </div>
+            </h1>
+         </div>
+      </div>
+      <div class="row d-3">
+         <div class="filter-button" id="filter-button">
+            <img id="filter-img" src="Filter.png">
+            фильтры
+         </div>
+      </div>
+      <div class="row e-3">
+         <div class="statistics">
+             <div class="boxes">
+               <div class="box-1" id="box-1"></div>
+               <div class="box-2" id="box-2"></div>
+               <div class="box-3" id="box-3"></div>
+            </div>     
+            <div class="grid-colums" id="grid-colums">            
+               <div class="grid-headers">Сотрудники, учавствующие во встречях</div>
+               <div class="grid-headers">Время, мин.</div>
+               <div class="grid-headers">Стоимость ,руб.</div>
+            </div>
+
+                        <div class="filter" id="filter">
+               <div class="settings" id="settings">
+            <h1 id="parameters">Параметры</h1>
+            <div class="period">
+               <h2>Период</h2>
+               <select>
+                  <option value="1">1 месяц</option>
+                  <option value="2">2 месяц</option>
+                  <option value="3">3 месяц</option>
+                  <option value="4">4 месяц</option>
+                  <option value="5">5 месяц</option>
+                  <option value="6">6 месяц</option>
+               </select>
+            </div>
+
+            <div class="time">
+               <h2 id="t1">Время, мин.</h2>
+               <div class="minutes">
+                  <input type="text" id="min" name="" value="10">
+                  <input type="text" id="max" name="" value="4000">
+               </div>
+               <input type="range" min="10" max="5000" value="25" id="input-left" name="">
+               <input type="range" min="10" max="5000" value="4000" id="input-rigth" name="">
+            </div>
+            <div class="cost">
+               <h2 id="t2">Стоимость, руб.</h2>
+               <div class="rubles">
+                  <input type="text" id="min1"name="" value="10">
+                  <input type="text" id="max1"name="" value="4000">
+               </div>
+               <input type="range" min="10" max="5000" value="25" id="input-left1" name="">
+               <input type="range" min="10" max="5000" value="4000" id="input-rigth1" name="">
+            </div>
+            <input type="button" name="" class="apply" id="apply" value="Применить">
+            <input type="button" class="dropping" name="" value="Сброс">
+            </div>
+         </div> 
+         </div>
+      </div>
+  </div>
 </body>
 </html>
+<!-- Ⓧ -->
