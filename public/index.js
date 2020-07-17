@@ -223,6 +223,7 @@ function complet() {
                         userId: currentUserId[i],
                         startTime: startTime,
                         endTime: now,
+                        time: seconds,
                         costTime: counter(usersData(currentUserId[i])) 
                     });
             }

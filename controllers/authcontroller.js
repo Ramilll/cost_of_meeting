@@ -30,7 +30,7 @@ exports.DataProcessing = function (req, res) {
         models.user.increment('costMeetingTime', { by: user.costTime, where: { id: user.userId } }).catch(function (err){console.log(err)})
     }
     for (let user of data.users){
-        models.users_meeting.create({userId: user.userId, meetingId: data.id, startTime: user.startTime, endTime: user.endTime, cost: user.costTime, company: req.user.company}).catch(function (err){console.log(err)})
+        models.users_meeting.create({userId: user.userId, meetingId: data.id, time:user.time, startTime: user.startTime, endTime: user.endTime, cost: user.costTime, company: req.user.company}).catch(function (err){console.log(err)})
     }
     res.send('OK')
 }
