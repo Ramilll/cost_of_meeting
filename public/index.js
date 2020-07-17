@@ -83,7 +83,7 @@ function addCurrentUser(id,id1,classI) {
         }
     }
     const div = document.createElement('div');
-    div.id = cln.id;
+    div.id = "User"+cln.id;
     div.classList.add(classI);
 
     const img = document.createElement('img');
@@ -119,8 +119,7 @@ function addUser(array) { // add user in selection
 }
 function removeUser(id) {
     const cln = document.getElementById(id);
-    cln.classList.add('re');
-    document.getElementById(id).remove();
+    document.getElementById('User'+id).remove();
     document.querySelector('#users').appendChild(cln); //add
 }
 
