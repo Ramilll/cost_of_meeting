@@ -50,8 +50,8 @@ exports.sendFilteredData = function(req, res) {
         attributes: [
             'userId',
             'company',
-            [sequelize.fn('sum', sequelize.col('time')), 'total_time'],
-            [sequelize.fn('sum', sequelize.col('cost')), 'total_cost'],
+            [sequelize.fn('sum', sequelize.col('time')), 'meetingTime'],
+            [sequelize.fn('sum', sequelize.col('cost')), 'costMeetingTime'],
         ],
         group: ['userId'],
     }).then(filteredData=>{
