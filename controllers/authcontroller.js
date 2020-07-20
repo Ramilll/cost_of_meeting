@@ -44,7 +44,9 @@ exports.sendFilteredData = function(req, res) {
     models.users_meeting.findAll({raw:true,
         where: {
         startTime: {[Op.gt]: startTime},
-        endTime: {[Op.lt]: endTime}},
+        endTime: {[Op.lt]: endTime},
+        //company: req.user.company,
+        },
         attributes: [
             'userId',
             'company',
@@ -52,11 +54,10 @@ exports.sendFilteredData = function(req, res) {
             [sequelize.fn('sum', sequelize.col('cost')), 'total_cost'],
         ],
         group: ['userId'],
-    }).then(data=>{
-        console.log(data)
-        res.send(data);
+    }).then(filteredData=>{
+        console.log(filteredData)
+        res.send(filteredData);
     }).catch(err=>console.log(err));
-
 }
 
 exports.meeting = function(req, res) {
