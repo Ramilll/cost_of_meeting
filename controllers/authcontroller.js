@@ -1,5 +1,6 @@
 var models           = require('../app/models');
-
+var sequelize = require("sequelize");
+let Op = sequelize.Op
 
 var exports = module.exports = {}
 
@@ -20,8 +21,8 @@ exports.director = function(req, res) {
     res.render('director');
 }
 
-exports.DataProcessing = function (req, res) {
-    data = req.body
+exports.dataProcessing = function (req, res) {
+    let data = req.body
     console.log('Processing Data: ')
     console.log(data)
     models.meeting.create({id: data.id, link:'meeting/'+data.id,  name: data.name, startTime: data.startTime, endTime: data.endTime, cost: data.cost, company: req.user.company}).catch(function (err){console.log(err)})
@@ -33,6 +34,29 @@ exports.DataProcessing = function (req, res) {
         models.users_meeting.create({userId: user.userId, meetingId: data.id, time:user.time, startTime: user.startTime, endTime: user.endTime, cost: user.costTime, company: req.user.company}).catch(function (err){console.log(err)})
     }
     res.send('OK')
+}
+
+exports.sendFilteredData = function(req, res) {
+    console.log('Trying to send filtered data')
+    let data = req.body
+    let startTime = data.startTime
+    let endTime = data.endTime
+    models.users_meeting.findAll({raw:true,
+        where: {
+        startTime: {[Op.gt]: startTime},
+        endTime: {[Op.lt]: endTime}},
+        attributes: [
+            'userId',
+            'company',
+            [sequelize.fn('sum', sequelize.col('time')), 'total_time'],
+            [sequelize.fn('sum', sequelize.col('cost')), 'total_cost'],
+        ],
+        group: ['userId'],
+    }).then(data=>{
+        console.log(data)
+        res.send(data);
+    }).catch(err=>console.log(err));
+
 }
 
 exports.meeting = function(req, res) {

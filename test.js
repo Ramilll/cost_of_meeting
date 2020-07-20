@@ -1,28 +1,10 @@
-data = {
-    id: 118,
-        time: 6,
-    name: 'test Meeting 243',
-    startTime: '2020-07-16T07:06:26.701Z',
-    endTime: '2020-07-16T07:08:21.753Z',
-    cost: '15.63',
-    users: [
-    {
-        userId: '3',
-        startTime: '2020-07-16T07:06:26.701Z',
-        endTime: '2020-07-16T07:08:21.753Z',
-        costTime: 5.21
+let fetch = require('fetch')
+
+const response = fetch('./giveMeetingsData', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+        'Content-Type': 'application/json'
     },
-    {
-        userId: '1',
-        startTime: '2020-07-16T07:06:26.701Z',
-        endTime: '2020-07-16T07:08:21.753Z',
-        costTime: 5.21
-    },
-    {
-        userId: '5',
-        startTime: '2020-07-16T07:06:26.701Z',
-        endTime: '2020-07-16T07:08:21.753Z',
-        costTime: 5.21
-    }
-]
-}
+    body: JSON.stringify({startTime: 0, endTime: 1})
+})

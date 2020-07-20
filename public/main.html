@@ -7,13 +7,13 @@
 <body>
 	<script type="text/javascript">
 	function function_name(){
-		const response = fetch('./', {
+		const response = fetch('http://localhost:3000/getFilteredData', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json' 
                 },
-                body: JSON.stringify({startTime: 0, endTime: 1})
+                body: JSON.stringify({startTime: '2020-07-19', endTime: '2020-07-21'})
             })
 	}
 	</script>
