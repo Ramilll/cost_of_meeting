@@ -37,7 +37,7 @@ exports.dataProcessing = function (req, res) {
 }
 
 exports.sendFilteredData = function(req, res) {
-    models.users_meeting.belongsTo(models.user, {as:'user', foreignKey: 'userId', targetKey: 'id'});
+    models.users_meeting.belongsTo(models.user, {as: "user", foreignKey: 'userId', targetKey: 'id'});
     console.log('Trying to send filtered data')
     let data = req.body
     let startTime = data.startTime
@@ -55,13 +55,14 @@ exports.sendFilteredData = function(req, res) {
             [sequelize.fn('sum', sequelize.col('cost')), 'costMeetingTime'],
         ],
         group: ['userId'],
-        include: [{
+        include: {
             model: models.user,
-            as: 'user',
-            //required: true,
-            attributes: ['name']
-        }]
+            as: "user",
+            attributes: ["name"],
+        }
     }).then(filteredData=>{
+        filteredData.forEach(item => item.name = item['user.name'])
+        filteredData.forEach(item => delete item['user.name'])
         console.log(filteredData)
         res.send(filteredData);
     }).catch(err=>console.log(err));
