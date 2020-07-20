@@ -10,13 +10,11 @@ function fetchGet() {
     response.json().then(function(text){
       addUser(text);
       res = text;
-      console.log(text);
     })
     })
     const result1  = fetch('./getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
-            console.log(text1);
             resWage = text1;
         })
     })
@@ -25,10 +23,83 @@ function getDirect() {
     const result  = fetch('./getUsers');
     result.then(function(response) {
         response.json().then(function(text){
-            console.log(text);
             addUserDirect(text);
         })
     })
+}
+function getFilter() {
+    const month = document.querySelector('#month').value;
+    console.log(month);
+    const result  = fetch('./filter/'+month);
+    result.then(function(response) {
+        response.json().then(function(text){
+        })
+    })
+}
+function postMeeting() {
+    const users = document.querySelector('#currentUsers').childNodes;
+    const nameMeeting = document.getElementById('nameMeeting').value;
+    NameMeeting = nameMeeting;
+    let ids = [];
+    for (let i = 0; i < users.length; i++) {
+            if(users[i].innerHTML != null){
+                ids.push(users[i].id.replace('User',''));
+            }
+    }
+    const now = new Date();
+    let data = {
+        answer: 42
+    }
+    startTime = now;
+    currentUserId = ids;
+    n = currentUserId.length;
+    wait(0);
+    cost();
+    
+    timer();
+}
+function complet() {
+    if(start){
+    let getMeetingId = 0;
+    start = false;
+    const now = new Date();
+    console.log(NameMeeting);
+    const result  = fetch('./getMeetingId');
+    result.then(function(response) {
+    response.json().then(function(text){
+            getMeetingId = text[0];
+            getMeetingId += 1;
+            console.log(getMeetingId);
+            let sendMeetingData  = {
+                id: getMeetingId,
+                time: seconds,
+                name: NameMeeting,
+                startTime: startTime,
+                endTime: now,
+                cost: document.getElementById('cost').innerHTML,
+                users:[]
+            };
+            for(let i = 0; i < currentUserId.length; i++) {
+                sendMeetingData.users[i] = ({
+                        userId: currentUserId[i],
+                        startTime: startTime,
+                        endTime: now,
+                        time: seconds,
+                        costTime: counter(usersData(currentUserId[i])) 
+                    });
+            }
+
+            const response = fetch('./sendMeetingData/'+getMeetingId, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(sendMeetingData)
+            })
+        })
+    })
+    }
 }
 let time = '';
 let second = 0;
@@ -49,37 +120,40 @@ function test(){
 }
 
 function timer() {
-      if(start){
+    if(start){
        second++;
        seconds++;
-        if(second>=60){
+        if(second >= 60){
           min++;
           second = 0;
         }
-        if(second>=10){
+        if(second >= 10){
           s = '';
         }
-        else s ='0';
-        if(min>=10){
+        else s = '0';
+        if(min >= 10){
           m = '';
         }
-        else m ='0';
+        else m = '0';
 
         time = m+min+':'+s+second; //h+hour+':'
         document.querySelector('#timer').innerHTML = time;
         setTimeout(timer,1000);
-      }
+    }
 }
 
 function addCurrentUser(id,id1,classI) {
-    let cln;
     let user;
+    let cln;
     const value = document.querySelector('#'+id).value;
     const users = document.querySelector('#users').childNodes;
     for(let i = 0;i < users.length;i++){
         if(value == users[i].innerHTML){
             user = users[i];
-            cln = user.cloneNode(true);
+            cln = document.createElement('div');
+            cln.innerHTML = user.innerHTML;
+            cln.id = user.id;
+            cln.value = user.value;
         }
     }
     const div = document.createElement('div');
@@ -89,7 +163,7 @@ function addCurrentUser(id,id1,classI) {
     const img = document.createElement('img');
     img.src = './users/photo/'+cln.id;
 
-    const cross = document.createElement('div');
+    const cross = document.createElement('b');
     cross.innerHTML = 'Ⓧ';
 
     div.append(img)
@@ -97,7 +171,10 @@ function addCurrentUser(id,id1,classI) {
     div.append(cross);
 
     document.querySelector('#'+id1).appendChild(div); //add
-    user.remove();
+    
+    user.setAttribute("disabled", "disabled");
+    user.classList.add('selected');
+
     if(cln != null){
         cross.addEventListener('click', (evt) => {removeUser(cln.id)} )
     }
@@ -108,7 +185,6 @@ function addUser(array) { // add user in selection
   for(let i = 0;i<array.length;i++){
     const user = document.createElement("option");
     const name = array[i].name;
-    // user.setAttribute('onclick', 'removeUser(this.id)')
 
     user.value = array[i].name; // users name
     user.id = array[i].id; // users id 
@@ -118,9 +194,17 @@ function addUser(array) { // add user in selection
 
 }
 function removeUser(id) {
-    const cln = document.getElementById(id);
+    const cln = document.createElement('option');
+    const user = document.getElementById(id);
+
+    cln.innerHTML = user.innerHTML;
+    cln.id = user.id;
+    cln.value = user.value;
+
     document.getElementById('User'+id).remove();
-    document.querySelector('#users').appendChild(cln); //add
+    document.getElementById(id).classList.remove('selected');
+    document.getElementById(id).removeAttribute('disabled'); 
+    // document.querySelector('#users').appendChild(cln); //add
 }
 
 let value = 0; // money
@@ -173,98 +257,29 @@ function counter(elem) {
         }
     return (currentUserId.length*Wages*1/160*1/3600*seconds).toFixed(2);
 }
-function postMeeting() {
-    const users = document.querySelector('#currentUsers').childNodes;
-    const nameMeeting = document.getElementById('nameMeeting').value;
-    NameMeeting = nameMeeting;
-    let ids = [];
-    for (let i = 0; i < users.length; i++) {
-            if(users[i].innerHTML != null){
-                console.log(users[i].id);
-                ids.push(users[i].id.replace('User',''));
-            }
-    }
-    const now = new Date();
-    let data = {
-        answer: 42
-    }
-    console.log(ids);
-    startTime = now;
-    currentUserId = ids;
-    n = currentUserId.length;
-    wait(0);
-    cost();
-    
-    timer();
-}
-function complet() {
-    if(start){
-    let getMeetingId = 0;
-    start = false;
-    const now = new Date();
-    console.log(NameMeeting);
-    const result  = fetch('./getMeetingId');
-    result.then(function(response) {
-    response.json().then(function(text){
-            getMeetingId = text[0];
-            getMeetingId += 1;
-            console.log(getMeetingId);
-            let sendMeetingData  = {
-                id: getMeetingId,
-                time: seconds,
-                name: NameMeeting,
-                startTime: startTime,
-                endTime: now,
-                cost: document.getElementById('cost').innerHTML,
-                users:[]
-            };
-            for(let i = 0; i < currentUserId.length; i++) {
-                sendMeetingData.users[i] = ({
-                        userId: currentUserId[i],
-                        startTime: startTime,
-                        endTime: now,
-                        time: seconds,
-                        costTime: counter(usersData(currentUserId[i])) 
-                    });
-            }
-
-            const response = fetch('./sendMeetingData/'+getMeetingId, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify(sendMeetingData)
-            })
-        })
-    })
-    }
-}
-
 function addUserDirect(text) {
-    console.log(text);
     for(let i = 0; i < text.length; i++) {
-        const elem = document.createElement('div');
-        elem.classList.add('colums');
-        elem.innerHTML = text[i].name;
-        document.querySelector('#grid-colums').appendChild(elem);
+        const userName = document.createElement('div');
+        userName.classList.add('colums');
+        userName.innerHTML = text[i].name;
+        document.querySelector('#grid-colums').appendChild(userName);
 
-        const elem1 = document.createElement('div');
-        elem1.classList.add('colums');
-        elem1.innerHTML = (text[i].meetingTime/60).toFixed(2);
-        document.querySelector('#grid-colums').appendChild(elem1);
+        const timeInMeeting = document.createElement('div');
+        timeInMeeting.classList.add('colums');
+        timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
+        document.querySelector('#grid-colums').appendChild(timeInMeeting);
 
-        const elem2 = document.createElement('div');
-        elem2.classList.add('colums');;
-        elem2.innerHTML = text[i].costMeetingTime.toFixed(2);
-        document.querySelector('#grid-colums').appendChild(elem2);
+        const payout = document.createElement('div');
+        payout.classList.add('colums');;
+        payout.innerHTML = text[i].costMeetingTime.toFixed(2);
+        document.querySelector('#grid-colums').appendChild(payout);
     }
 }
 
 function maxMin(value,id) {
     document.querySelector('#'+id).value = value;
 }
-function filter() {
+function filterHidden() {
     const button = document.querySelector('#filter-button');
     const filterSettings = document.querySelector('#filter');
     if(button.style.display == 'block' || button.style.display == ''){
@@ -276,14 +291,12 @@ function filter() {
         filterSettings.style.display = 'none';
     }
 }
-let booltest20 = true;
-
 function toggleState(selectorButton, selectorPopup) {
     const button = document.querySelector('#' + selectorButton);
     const popup = document.querySelector('#' + selectorPopup);
     const popup1 = document.querySelector('.enter');
 
-    button.value = button.value === '∧' ? '∨' : '∧';
+    button.value = button.value === '︿' ? '﹀' : '︿';
     popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
     
 }
@@ -313,7 +326,7 @@ function AddEventListeners() {
     }
     const filterButton = document.querySelector('#filter-button');
     if(filterButton != null){
-        filterButton.addEventListener('click', (evt) => {filter()})
+        filterButton.addEventListener('click', (evt) => {filterHidden()})
     }
     const buttonRise = document.querySelector('#rise');
     if(buttonRise != null){
@@ -333,7 +346,7 @@ function AddEventListeners() {
     }
     const buttonCompleteAdmin = document.querySelector('#complete-admin');
     if(buttonCompleteAdmin != null){
-        buttonCompleteAdmin.addEventListener('click', (evt) => {complet(), buttonCompleteAdmin.setAttribute("disabled", "true");})
+        buttonCompleteAdmin.addEventListener('click', (evt) => {complet(); buttonCompleteAdmin.setAttribute("disabled", "true");})
     }
     const buttonExit = document.querySelector('#exit');
     if(buttonExit != null){
@@ -373,7 +386,7 @@ function AddEventListeners() {
     }
     const buttonApply = document.querySelector('#apply');
     if(buttonApply != null){
-        buttonApply.addEventListener('click', (evt) => {filter()} )
+        buttonApply.addEventListener('click', (evt) => {filterHidden();getFilter()} )
     }
     
 
