@@ -594,6 +594,59 @@ option{
 	font-size: 100%;
 	background: var(--royalBlue);
 }
+.multiselect {
+  	width: 100%;
+}
+.selectBox {
+  	position: relative;
+}
+
+.selectBox select {
+  	width: 100%;
+  	min-height: 55px;
+  	border: 2px solid;
+  	border-radius: 4px;
+  	border-color: var(--silver)
+  	background: white;
+}
+.selectBox select:focus, .selectBox select:hover{
+	outline: none;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+#checkboxes img{
+	height: 32px;
+	width: 32px;
+}
+#checkboxes input{
+	background: none;
+	border: none;
+}
+#checkboxes input, label{
+	
+}
+
+#checkboxes label {
+	width: 95%;
+	display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 980px){
 	input::placeholder{

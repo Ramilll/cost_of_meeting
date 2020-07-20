@@ -181,16 +181,28 @@ function addCurrentUser(id,id1,classI) {
 }
 
 let ar = [];
-function addUser(array) { // add user in selection
+function addUser(array) {
   for(let i = 0;i<array.length;i++){
-    const user = document.createElement("option");
-    const name = array[i].name;
+        const label = document.createElement("label");
+        const name = array[i].name;
 
-    user.value = array[i].name; // users name
-    user.id = array[i].id; // users id 
-    user.innerHTML = array[i].name;
-    document.querySelector("#users").appendChild(user); //add
-  }
+        label.id = array[i].id;
+        label.value = array[i].name;
+
+        const img = document.createElement('img');
+        img.src = './users/photo/'+label.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'check'+label.id;
+        checkbox.classList.add('check');
+        checkbox.addEventListener('change', (evt) => {checkboxChange(checkbox)} )
+
+        label.innerHTML = array[i].name;
+        label.prepend(img);
+        label.append(checkbox);
+        document.querySelector("#checkboxes").appendChild(label); //add
+    }
 
 }
 function removeUser(id) {
@@ -318,6 +330,25 @@ function wait(num){
     AddEventListeners();
 }
 
+let expanded = false;
+
+function showCheckboxes() {
+  let checkboxes = document.getElementById("checkboxes");
+  if(!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  }
+  else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+function checkboxChange(checkBox) {
+    const label = document.getElementById(checkBox.id.replace('check', ''))
+    if(checkBox.checked){
+        addCurrentUser(label.innerHTML.text,'currentUsers','currentUser');
+    }
+}
 
 function AddEventListeners() {
     const buttonRay = document.querySelector('.UserName');
@@ -388,8 +419,6 @@ function AddEventListeners() {
     if(buttonApply != null){
         buttonApply.addEventListener('click', (evt) => {filterHidden();getFilter()} )
     }
-    
-
 }
 setTimeout(AddEventListeners, 20);
 
