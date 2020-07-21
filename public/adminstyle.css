@@ -567,6 +567,8 @@ option{
 	width: 59%;
 	height: 100%;
 	bottom: -41%;
+	box-shadow: 13px 0px 18px 0px var(--monsoon);
+	padding-left: 15px;
 	/* z-index: 1; */
 }
 .filter h1{
@@ -581,7 +583,11 @@ option{
 	height: 45px;
 	width: 140px;
 }
+.filter input[type="button"]{
+	width: 160px;
+}
 .dropping{
+	display: none;
 	border-color: var(--royalBlue);
 	background: white;
 	font-size: 100%;
@@ -628,7 +634,13 @@ option{
 	.UserName h1{
 		font-size: 450%;
 	}
-	.row{/* background: rgb(15,66,99); */border-radius: 5px;padding-top: 0px;padding-bottom: 0px;padding-left: 60px;padding-right: 60px;}
+	.row{
+		border-radius: 5px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		padding-left: 60px;
+		padding-right: 60px;
+	}
 	.wrapper{
    		display: grid;
    		grid-gap: 10px;
@@ -746,6 +758,9 @@ option{
 	.e-3 {
 		grid-column: col / span 4;
 		grid-row: row 4;
+	}
+	.dropping{
+		display: inline-block;;
 	}
 	#enter-1{
 		display: none;
