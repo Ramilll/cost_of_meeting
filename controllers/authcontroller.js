@@ -37,7 +37,7 @@ exports.dataProcessing = function (req, res) {
 }
 
 exports.sendFilteredData = function(req, res) {
-    models.users_meeting.belongsTo(models.user, {as: "user", foreignKey: 'userId', targetKey: 'id'});
+    models.users_meeting.belongsTo(models.user, {foreignKey: 'userId', targetKey: 'id'});
     console.log('Trying to send filtered data')
     let data = req.body
     let startTime = data.startTime
