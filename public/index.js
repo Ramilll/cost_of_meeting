@@ -7,7 +7,9 @@ let month1;
 let timeStart = new Date();
 let delay;
 
-window.onload = function(){
+window.onload = function(){load()} 
+
+function load(){
     const userName = document.querySelector('#userName');
     const userImg = document.querySelector('#userImg');
     if(userName != null && userImg != null){
@@ -24,6 +26,9 @@ window.onload = function(){
     }
     if(document.querySelector('.wrapper-director') != null){
         getDirect();
+    }
+    if(document.querySelector('.wrapper-meetingAmdin') != null || document.querySelector('.wrapper-meetingUsern') != null){
+        timer();
     }
 }
 
@@ -99,7 +104,6 @@ function getFilter() {
                         text[i].meetingTime/60 < maxTime &&
                         text[i].costMeetingTime > minCost &&
                         text[i].costMeetingTime < maxCost){
-                        // text.splice(i,i-1);
                         d.push(text[i]);
                     }
                 }
@@ -137,8 +141,7 @@ function postMeeting() {
             }
         })
     })
-
-    timer();
+    load();
 }
 function complet() {
     if(start){
@@ -218,8 +221,8 @@ function timer() {
         else m = '0';
 
         if(delay != null && delay > 0){
-            second = (delay/1000).toFixed(0);
-            time = m+min+':'+s+(delay/1000).toFixed(0);
+            second += (delay/1000).toFixed(0)-seconds;
+            time = m+min+':'+s+second;
             seconds = (delay/1000).toFixed(0);
             delay = null;
         }
