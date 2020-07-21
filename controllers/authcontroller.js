@@ -46,7 +46,7 @@ exports.sendFilteredData = function(req, res) {
         where: {
         startTime: {[Op.gt]: startTime},
         endTime: {[Op.lt]: endTime},
-        //company: req.user.company,
+        company: req.user.company,
         },
         attributes: [
             'userId',

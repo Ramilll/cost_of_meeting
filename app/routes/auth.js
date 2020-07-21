@@ -4,7 +4,7 @@ var path = require('path')
 
 module.exports = function(app, passport) {
 
-    app.get('/users/photo/:id', function (req, res) {
+    app.get('/users/photo/:id', isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, '../../avatars', req.params.id + '.png'));
     })
 
@@ -12,21 +12,15 @@ module.exports = function(app, passport) {
         res.send([req.user.name, req.user.id])
     })
 
-    app.get('/getUsers', function(req,res) {
+    app.get('/getUsers',isAuthenticated, function(req,res) {
         models.user.findAll({raw:true, where: {company: req.user.company}}).then(users=>{
             res.send(users);
         }).catch(err=>console.log(err));
     })
 
-    app.get('/getWages',function(req,res) {
+    app.get('/getWages', isAuthenticated, function(req,res) {
         models.wage.findAll({raw:true, where: {company: req.user.company}}).then(wages=>{
             res.send(wages);
-        }).catch(err=>console.log(err))
-    })
-
-    app.get('/getUsers_meeting',function(req,res) {
-        models.users_meeting.findAll({raw:true, where: {company: req.user.company}}).then(users_meetings=>{
-            res.send(users_meetings);
         }).catch(err=>console.log(err))
     })
 
