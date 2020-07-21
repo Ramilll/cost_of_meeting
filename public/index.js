@@ -3,10 +3,23 @@ let res = [];
 let resWage = [];
 let wageAr = [];
 let currentUserId = [];
+let month1;
+let timeStart = new Date();
+let delay;
+
+window.onfocus = function(){//пользователь на вкладке сайте
+    let timeEnd = new Date();
+    if(timeStart != null){
+        delay = timeEnd.getTime()-timeStart.getTime();
+    }
+    console.log(delay); 
+} 
+// window.onblur = function(){timeStart = new Date() } //пользователь закрыл вкладку или переключил на другую
 
 function fetchGet() {
    const result  = fetch('./getUsers');
     result.then(function(response) {
+        console.log(response);
     response.json().then(function(text){
       addUser(text);
       res = text;
@@ -29,14 +42,37 @@ function getDirect() {
 }
 function getFilter() {
     const month = document.querySelector('#month').value;
-    console.log(month);
-    const result  = fetch('./filter/'+month);
+    const minTime = document.querySelector('#min').value;
+    const maxTime = document.querySelector('#max').value;
+    const minCost = document.querySelector('#min1').value;
+    const maxCost = document.querySelector('#max1').value;
+
+    const result  = fetch('./getFilteredData',{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({startTime:'2020-07-19', endTime: '2020-07-21'})
+        }
+    )
     result.then(function(response) {
-        response.json().then(function(text){
-        })
-    })
+            response.json().then(function(text){
+                let d = [];
+                for(let i = 0;i < text.length;i++){
+                    if(text[i].meetingTime/60 > minTime && 
+                        text[i].meetingTime/60 < maxTime &&
+                        text[i].costMeetingTime > minCost){
+                        // text.splice(i,i-1);
+                        d.push(text[i]);
+                    }
+                }
+                addUserDirect(d);
+            })
+        });
 }
 function postMeeting() {
+    timeStart = new Date();
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
     NameMeeting = nameMeeting;
@@ -127,7 +163,7 @@ function timer() {
           min++;
           second = 0;
         }
-        if(second >= 10){
+        if(second >= 10 || delay >= 10){
           s = '';
         }
         else s = '0';
@@ -136,8 +172,15 @@ function timer() {
         }
         else m = '0';
 
-        time = m+min+':'+s+second; //h+hour+':'
+        if(delay != null && delay > 0){
+            time = m+min+':'+s+(delay/1000).toFixed(0);
+            seconds = (delay/1000).toFixed(0);
+            second = (delay/1000).toFixed(0);
+            delay = null;
+        }
+        else time = m+min+':'+s+second;
         document.querySelector('#timer').innerHTML = time;
+        // document.querySelector('title').innerHTML = time.toFixed(0);
         setTimeout(timer,1000);
     }
 }
@@ -258,21 +301,29 @@ function counter(elem) {
     return (currentUserId.length*Wages*1/160*1/3600*seconds).toFixed(2);
 }
 function addUserDirect(text) {
+    const grid = document.querySelector('#grid-colums');
+    const colums = document.querySelectorAll('.colums');
+    
+    for(let s = 0; s < colums.length; s++) {
+        colums[s].remove();
+    }
+   
+    console.log(text);
     for(let i = 0; i < text.length; i++) {
         const userName = document.createElement('div');
         userName.classList.add('colums');
         userName.innerHTML = text[i].name;
-        document.querySelector('#grid-colums').appendChild(userName);
+        grid.appendChild(userName);
 
         const timeInMeeting = document.createElement('div');
         timeInMeeting.classList.add('colums');
         timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
-        document.querySelector('#grid-colums').appendChild(timeInMeeting);
+        grid.appendChild(timeInMeeting);
 
         const payout = document.createElement('div');
         payout.classList.add('colums');;
         payout.innerHTML = text[i].costMeetingTime.toFixed(2);
-        document.querySelector('#grid-colums').appendChild(payout);
+        grid.appendChild(payout);
     }
 }
 
@@ -290,6 +341,17 @@ function filterHidden() {
         button.style.display = 'block';
         filterSettings.style.display = 'none';
     }
+}
+function dropping(){
+    document.querySelector('#min').value = 1;
+    document.querySelector('#max').value = 500;
+    document.querySelector('#min1').value = 10;
+    document.querySelector('#max1').value = 4000;
+
+    document.querySelector('#input-left').value = 1;
+    document.querySelector('#input-rigth').value = 500;
+    document.querySelector('#input-left1').value = 10;
+    document.querySelector('#input-rigth1').value = 4000;
 }
 function toggleState(selectorButton, selectorPopup) {
     const button = document.querySelector('#' + selectorButton);
@@ -387,6 +449,10 @@ function AddEventListeners() {
     const buttonApply = document.querySelector('#apply');
     if(buttonApply != null){
         buttonApply.addEventListener('click', (evt) => {filterHidden();getFilter()} )
+    }
+    const buttonDropping = document.querySelector('.dropping');
+    if(buttonDropping != null){
+        buttonDropping.addEventListener('click', (evt) => {dropping()} )
     }
     
 
