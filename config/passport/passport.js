@@ -43,8 +43,8 @@ module.exports = function(passport, user) {
         function(req, email, password, done) { // callback with email and password from our form
             User.findOne({where: {'email': email}})
                 .then(user=>{
-                    if(!user) return done(null, false);
-                    if(user.password !== password) return done(null, false)
+                    if(!user) return done(null, false, {message: "User not found"});
+                    if(user.password !== password) return done(null, false, {message: "Incorrect password"})
                     return done(null, user.get())
                 }).catch(err=>console.log(err));
 

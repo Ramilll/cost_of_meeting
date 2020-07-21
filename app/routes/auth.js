@@ -63,7 +63,7 @@ module.exports = function(app, passport) {
     app.get('/login', authController.login);
 
     app.post('/login',
-        passport.authenticate('local-login'),
+        passport.authenticate('local-login', {failureRedirect: '/login', failureFlash: true}),
         function(req, res) {
             // If this function gets called, authentication was successful.
             // `req.user` contains the authenticated user.
