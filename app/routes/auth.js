@@ -8,11 +8,9 @@ module.exports = function(app, passport) {
         res.sendFile(path.join(__dirname, '../../avatars', req.params.id + '.png'));
     })
 
-    /*
-    app.get('/getName', function (req, res) {
-        console.log(req.user.name)
-        res.redirect('/omg')
-    })*/
+    app.get('/getUserData', isAuthenticated, function (req, res) {
+        res.send([req.user.name, req.user.id])
+    })
 
     app.get('/getUsers', function(req,res) {
         models.user.findAll({raw:true, where: {company: req.user.company}}).then(users=>{
