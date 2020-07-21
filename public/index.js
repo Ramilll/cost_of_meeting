@@ -7,6 +7,27 @@ let month1;
 let timeStart = new Date();
 let delay;
 
+window.onload = function(){
+    const userName = document.querySelector('#userName');
+    const userImg = document.querySelector('#userImg');
+    if(userName != null && userImg != null){
+        const result = fetch('./getUserData');
+            result.then(function(response) {
+                response.json().then(function(text){
+                    userName.innerHTML = text[0];
+                    userImg.src = './users/photo/'+text[1];
+            })
+        })
+    }
+    if(document.querySelector('.wrapper-createMeeting') != null){
+        fetchGet();
+    }
+    if(document.querySelector('.wrapper-director') != null){
+        getDirect();
+    }
+}
+
+
 window.onfocus = function(){//пользователь на вкладке сайте
     let timeEnd = new Date();
     if(timeStart != null){
@@ -24,7 +45,6 @@ function formatDate(date) {
 
     return yy + '-' + mm + '-' + dd;
 }
-
 function fetchGet() {
    const result  = fetch('./getUsers');
     result.then(function(response) {
@@ -188,7 +208,7 @@ function timer() {
           min++;
           second = 0;
         }
-        if(second >= 10 || delay >= 10){
+        if(second >= 10){
           s = '';
         }
         else s = '0';
@@ -198,9 +218,9 @@ function timer() {
         else m = '0';
 
         if(delay != null && delay > 0){
+            second = (delay/1000).toFixed(0);
             time = m+min+':'+s+(delay/1000).toFixed(0);
             seconds = (delay/1000).toFixed(0);
-            second = (delay/1000).toFixed(0);
             delay = null;
         }
         else time = m+min+':'+s+second;

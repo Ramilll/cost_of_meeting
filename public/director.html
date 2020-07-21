@@ -6,14 +6,14 @@
   <link rel="stylesheet" type="text/css" href="./adminstyle.css">
   <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
-<body onload="getDirect();">
+<body>
   <script type="text/javascript" src="index.js"></script>
   <div class="wrapper-director">
       <div class="row a-3">
          <div class="UserName">
             <h1>
-               <img src="userPhoto.jpg">
-               Директор
+               <img id="userImg" src="userPhoto.jpg">
+               <text id="userName">Директор</text>
                <input type="button" value="﹀" name="" id="buttonRay">
                <div class="exit-1" id="exit-1">
                   <a id="exit">Выйти</a>
@@ -41,7 +41,7 @@
       </div>
       <div class="row d-3">
          <div class="filter-button" id="filter-button">
-            <img id="filter-img" src="./Filter.png">
+            <img id="filter-img" src="./filter.png">
             фильтры
          </div>
       </div>

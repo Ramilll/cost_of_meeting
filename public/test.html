@@ -50,11 +50,29 @@ function showCheckboxes() {
     expanded = false;
   }
 }
-var now = new Date()
-console.log(now)
-months = 11
-now.setMonth(now.getMonth()-months)
-console.log(now)
+function getFilter() {
+    const months = document.querySelector('#month').value;
+    const minTime = document.querySelector('#min').value;
+    const maxTime = document.querySelector('#max').value;
+    const minCost = document.querySelector('#min1').value;
+    const maxCost = document.querySelector('#max1').value;
+
+    const now = new Date()
+    const now1 = new Date()
+    end_ = now.setDate(now.getDate()+1)
+    start_ = now.setMonth(now.getMonth()-months)
+
+    end_string = end_.getFullYear() 
+
+    const result  = fetch('./getFilteredData',{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({startTime: start_.getYear()+'-'+start_.getMonth()+'-'+start_.getDate(), endTime: end_.getYear()+'-'+end_.getMonth()+'-'+end_.getDate()})
+        }
+    )
   </script>
 </head>
 <body>
