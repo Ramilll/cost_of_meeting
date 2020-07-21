@@ -12,7 +12,6 @@ window.onfocus = function(){//пользователь на вкладке са�
     if(timeStart != null){
         delay = timeEnd.getTime()-timeStart.getTime();
     }
-    console.log(delay); 
 } 
 function formatDate(date) {
     var dd = date.getDate();
@@ -109,6 +108,16 @@ function postMeeting() {
     wait(0);
     cost();
     
+    const result  = fetch('./getMeetingId');
+    result.then(function(response) {
+    response.json().then(function(text){
+            const inputRef = document.querySelector('#ref');
+            if(inputRef != null){
+                inputRef.value = document.location.href+"/meeting/"+(text[0]+1);
+            }
+        })
+    })
+
     timer();
 }
 function complet() {
@@ -122,7 +131,6 @@ function complet() {
     response.json().then(function(text){
             getMeetingId = text[0];
             getMeetingId += 1;
-            console.log(getMeetingId);
             let sendMeetingData  = {
                 id: getMeetingId,
                 time: seconds,
@@ -468,9 +476,7 @@ function AddEventListeners() {
     const buttonDropping = document.querySelector('.dropping');
     if(buttonDropping != null){
         buttonDropping.addEventListener('click', (evt) => {dropping()} )
-    }
-    
-
+    }   
 }
 setTimeout(AddEventListeners, 20);
 
