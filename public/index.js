@@ -14,7 +14,17 @@ window.onfocus = function(){//пользователь на вкладке са�
     }
     console.log(delay); 
 } 
-// window.onblur = function(){timeStart = new Date() } //пользователь закрыл вкладку или переключил на другую
+function formatDate(date) {
+    var dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    var mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    var yy = date.getFullYear();
+
+    return yy + '-' + mm + '-' + dd;
+}
 
 function fetchGet() {
    const result  = fetch('./getUsers');
@@ -41,11 +51,17 @@ function getDirect() {
     })
 }
 function getFilter() {
-    const month = document.querySelector('#month').value;
+    const months = document.querySelector('#month').value;
     const minTime = document.querySelector('#min').value;
     const maxTime = document.querySelector('#max').value;
     const minCost = document.querySelector('#min1').value;
     const maxCost = document.querySelector('#max1').value;
+
+    const now = new Date()
+    const now1 = new Date()
+
+    let end_ = new Date(now.setDate(now.getDate()+1))
+    let start_ = new Date(now1.setMonth(now1.getMonth()-months))
 
     const result  = fetch('./getFilteredData',{
         method: 'POST',
@@ -53,7 +69,7 @@ function getFilter() {
         headers: {
             'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({startTime:'2020-07-19', endTime: '2020-07-21'})
+        body: JSON.stringify({endTime : formatDate(end_), startTime: formatDate(start_)})
         }
     )
     result.then(function(response) {
@@ -308,8 +324,6 @@ function addUserDirect(text) {
     for(let s = 0; s < colums.length; s++) {
         colums[s].remove();
     }
-   
-    console.log(text);
     for(let i = 0; i < text.length; i++) {
         const userName = document.createElement('div');
         userName.classList.add('colums');
