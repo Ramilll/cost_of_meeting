@@ -62,7 +62,8 @@ function getFilter() {
                 for(let i = 0;i < text.length;i++){
                     if(text[i].meetingTime/60 > minTime && 
                         text[i].meetingTime/60 < maxTime &&
-                        text[i].costMeetingTime > minCost){
+                        text[i].costMeetingTime > minCost &&
+                        text[i].costMeetingTime < maxCost){
                         // text.splice(i,i-1);
                         d.push(text[i]);
                     }
