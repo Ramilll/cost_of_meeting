@@ -205,8 +205,6 @@ function test(){
 
 function timer() {
     if(start){
-       second++;
-       seconds++;
         if(second >= 60){
           min++;
           second = 0;
@@ -221,14 +219,19 @@ function timer() {
         else m = '0';
 
         if(delay != null && delay > 0){
-            second += (delay/1000).toFixed(0)-seconds;
+            if(min > 0){
+                second += ((delay/1000).toFixed(0)-second)-min*60;
+            }
+            else second += (delay/1000).toFixed(0)-second;
+            seconds += (delay/1000).toFixed(0)-seconds;
             time = m+min+':'+s+second;
-            seconds = (delay/1000).toFixed(0);
             delay = null;
         }
         else time = m+min+':'+s+second;
         document.querySelector('#timer').innerHTML = time;
         // document.querySelector('title').innerHTML = time.toFixed(0);
+        second++;
+        seconds++;
         setTimeout(timer,1000);
     }
 }
@@ -324,7 +327,7 @@ function cost(){
     for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
     }
-    value = n*greed*1/160*1/3600*(seconds+1);
+    value = n*greed*1/160*1/3600*(seconds);
     document.getElementById('cost').innerHTML = value.toFixed(2);
     setTimeout(cost,1000);
   }
