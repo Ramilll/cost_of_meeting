@@ -29,9 +29,17 @@ function load(){
     if(document.querySelector('.wrapper-director') != null){
         getDirect();
     }
-    if(document.querySelector('.wrapper-meetingAmdin') != null || document.querySelector('.wrapper-meetingUsern') != null){
+    if(document.querySelector('.wrapper-meetingAmdin') != null){
         document.querySelector('#complete-admin').hidden = true;
         timer();
+    }
+    if(document.querySelector('.wrapper-meetingUser') != null){
+        const result  = fetch('./meeting');
+        result.then(function(response) {
+        response.json().then(function(text){
+            console.log(text);
+            })
+        })
     }
 }
 
@@ -182,7 +190,7 @@ function complet() {
             seconds--;
             let sendMeetingData  = {
                 id: getMeetingId,
-                time: seconds,
+                time: seconds+1,
                 name: NameMeeting,
                 startTime: startTime,
                 endTime: now,
@@ -194,7 +202,7 @@ function complet() {
                         userId: currentUserId[i],
                         startTime: startTime,
                         endTime: now,
-                        time: seconds,
+                        time: seconds+1,
                         costTime: counter(usersData(currentUserId[i])) 
                     });
             }
@@ -228,6 +236,8 @@ let start = false;
 
 function timer() {
     if(start){
+        second++;
+        seconds++;
         if(delay != null && delay > 0){
             if(min > 0){
                 second += ((delay/1000).toFixed(0)-second)-min*60;
@@ -252,8 +262,6 @@ function timer() {
         else m = '0';
         document.querySelector('#timer').innerHTML = time;
         // document.querySelector('title').innerHTML = time.toFixed(0);
-        second++;
-        seconds++;
     }
     setTimeout(timer,1000);
 }
@@ -372,7 +380,7 @@ function counter(elem) {
                 Wages = resWage[f].salary;
             }
         }
-    return (1.3*Wages/160/3600*seconds);
+    return (1.3*Wages/160/3600*(seconds+1));
 }
 function addUserDirect(text) {
     const grid = document.querySelector('#grid-colums');
@@ -465,7 +473,7 @@ function changeButtonValue(button) {
     start = true;
     seconds = 1;
     let costPerSecond = 0;
-    
+
     for(let i = 0;i < currentUserId.length;i++){
         costPerSecond += Number(counter(currentUserId[i]));
     }
