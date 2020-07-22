@@ -66,21 +66,22 @@ exports.sendFilteredData = function(req, res) {
 }
 
 exports.startMeeting = function(req, res){
-    function generatePassword(len){
-        var password = "";
-        var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < len; i++){
-            password += symbols.charAt(Math.floor(Math.random() * symbols.length));
-        }
-        return password;
-    }
+    console.log("Meeting started")
     let data = req.body
     meetingId = req.params.meetingId
-    models.current_meeting.create({meetingId: meetingId, password: generatePassword(16), startTime: data.startTime, company: req.user.company, costPerSecond: data.costPerSecond}).catch(function (err){console.log(err)})
+    models.current_meeting.create({meetingId: meetingId, password: data.password, startTime: data.startTime, company: req.user.company, costPerSecond: data.costPerSecond}).catch(function (err){console.log(err)})
+    res.send('OK')
 }
 
 exports.meeting = function(req, res) {
-    res.render('meeting');
+    if (!req.query.pwd) res.redirect('/logout')
+    let meetingId = req.params.meetingId
+    let pwd = req.query.pwd
+    models.current_meeting.findByPk(meetingId).then(meeting => {
+        if (!meeting) return res.redirect('/logout')
+        if (meeting.password !== pwd) return res.redirect('/logout')
+        res.render('meetingUser');
+    })
 }
 
 exports.createMeeting = function (req, res) {

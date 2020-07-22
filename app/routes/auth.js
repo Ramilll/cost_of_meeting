@@ -12,7 +12,7 @@ module.exports = function(app, passport) {
         res.send([req.user.name, req.user.id])
     })
 
-    app.get('/getUsers',isAdmin, function(req,res) {
+    app.get('/getUsers', isAdmin, function(req,res) {
         models.user.findAll({raw:true, where: {company: req.user.company}, attributes: ['id', 'name', 'wageId']}).then(users=>{
             res.send(users);
         }).catch(err=>console.log(err));
@@ -26,8 +26,8 @@ module.exports = function(app, passport) {
 
     app.get('/getMeetingId', function(req, res){
         models.meeting.findAll({raw:true}).then(meetings=>{
-            if (!meetings) {res.send([100])}
-            else{
+            if (!meetings[0]) {res.send([100])}
+            else {
                 var latestMeetingId = meetings[meetings.length - 1].id
                 res.send([latestMeetingId])
             }
@@ -39,7 +39,7 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
-    app.post('/startMeeting/:meetingId', isDirector, authController.startMeeting)
+    app.post('/startMeeting/:meetingId', isAdmin, authController.startMeeting)
 
     app.post('/getFilteredData', authController.sendFilteredData)
 
