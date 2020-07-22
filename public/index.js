@@ -67,12 +67,24 @@ function fetchGet() {
     })
 }
 function getDirect() {
-    const result  = fetch('./getUsers');
+    const now = new Date();
+    now.setFullYear(now.getFullYear()+10);
+
+    const result  = fetch('./getFilteredData',{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({endTime : formatDate(now), startTime: formatDate(new Date(now.getFullYear()))})
+        }
+    )
     result.then(function(response) {
-        response.json().then(function(text){
-            addUserDirect(text);
-        })
-    })
+            response.json().then(function(text){
+                console.log(text)
+               addUserDirect(text);
+            })
+        });
 }
 function getFilter() {
     const months = document.querySelector('#month').value;
@@ -136,8 +148,10 @@ function postMeeting() {
     result.then(function(response) {
     response.json().then(function(text){
             const inputRef = document.querySelector('#ref');
+            const refToMeeting = document.location.href;
+            console.log(refToMeeting.split('createMeeting', 1))
             if(inputRef != null){
-                inputRef.value = document.location.href+"/meeting/"+(text[0]+1);
+                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1);
             }
         })
     })
@@ -154,6 +168,7 @@ function complet() {
     response.json().then(function(text){
             getMeetingId = text[0];
             getMeetingId += 1;
+            seconds--;
             let sendMeetingData  = {
                 id: getMeetingId,
                 time: seconds,
@@ -205,9 +220,19 @@ function test(){
 
 function timer() {
     if(start){
+        if(delay != null && delay > 0){
+            if(min > 0){
+                second += ((delay/1000).toFixed(0)-second)-min*60;
+            }
+            else second = (delay/1000).toFixed(0)-min*60;
+            seconds = (delay/1000).toFixed(0);
+            time = m+min+':'+s+second;
+            delay = null;
+        }
+        else time = m+min+':'+s+second;
         if(second >= 60){
           min++;
-          second = 0;
+          second -= 60;
         }
         if(second >= 10){
           s = '';
@@ -217,17 +242,6 @@ function timer() {
           m = '';
         }
         else m = '0';
-
-        if(delay != null && delay > 0){
-            if(min > 0){
-                second += ((delay/1000).toFixed(0)-second)-min*60;
-            }
-            else second += (delay/1000).toFixed(0)-second;
-            seconds += (delay/1000).toFixed(0)-seconds;
-            time = m+min+':'+s+second;
-            delay = null;
-        }
-        else time = m+min+':'+s+second;
         document.querySelector('#timer').innerHTML = time;
         // document.querySelector('title').innerHTML = time.toFixed(0);
         second++;
@@ -327,8 +341,9 @@ function cost(){
     for (let d = 0; d < wages.length; d++) {
         greed += wages[d];
     }
-    value = n*greed*1/160*1/3600*(seconds);
-    document.getElementById('cost').innerHTML = value.toFixed(2);
+    console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
+    value = 1.3*greed/160/3600*(seconds);
+    document.getElementById('cost').innerHTML = value.toFixed(0);
     setTimeout(cost,1000);
   }
 }
@@ -349,7 +364,7 @@ function counter(elem) {
                 Wages = resWage[f].salary;
             }
         }
-    return (currentUserId.length*Wages*1/160*1/3600*seconds).toFixed(2);
+    return (1.3*Wages/160/3600*seconds).toFixed(2);
 }
 function addUserDirect(text) {
     const grid = document.querySelector('#grid-colums');
@@ -364,6 +379,11 @@ function addUserDirect(text) {
         userName.innerHTML = text[i].name;
         grid.appendChild(userName);
 
+        const numberOfMeetings = document.createElement('div');
+        numberOfMeetings.classList.add('colums');
+        numberOfMeetings.innerHTML = text[i].numberOfMeetings;
+        grid.appendChild(numberOfMeetings);
+
         const timeInMeeting = document.createElement('div');
         timeInMeeting.classList.add('colums');
         timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
@@ -371,7 +391,7 @@ function addUserDirect(text) {
 
         const payout = document.createElement('div');
         payout.classList.add('colums');;
-        payout.innerHTML = text[i].costMeetingTime.toFixed(2);
+        payout.innerHTML = text[i].costMeetingTime.toFixed(0);
         grid.appendChild(payout);
     }
 }
