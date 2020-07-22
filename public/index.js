@@ -5,7 +5,9 @@ let wageAr = [];
 let currentUserId = [];
 let month1;
 let timeStart = new Date();
+let meetingId;
 let delay;
+let password;
 
 window.onload = function(){load()} 
 
@@ -124,66 +126,45 @@ function getFilter() {
         });
 }
 function postMeeting() {
-    timeStart = new Date();
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
-    NameMeeting = nameMeeting;
-    let meetingId = 0;
-    let ids = [];
-    let costPerSecond = 0;
-    const password = generatePassword(16);
 
-    for (let i = 0; i < users.length; i++) {
-            if(users[i].innerHTML != null){
-                ids.push(users[i].id.replace('User',''));
-            }
-    }
-    const now = new Date();
-    let data = {
-        answer: 42
-    }
-    startTime = now;
-    currentUserId = ids;
-    n = currentUserId.length;
-    wait(0);
-    cost();
+    if(users != [] && users != null && nameMeeting != "" && nameMeeting != null){
+        timeStart = new Date();
+        NameMeeting = nameMeeting;
+        let ids = [];
+        password = generatePassword(16);
+
+        for (let i = 0; i < users.length; i++) {
+                if(users[i].innerHTML != null){
+                    ids.push(users[i].id.replace('User',''));
+                }
+        }
+        const now = new Date();
+        let data = {
+            answer: 42
+        }
+        startTime = now;
+        currentUserId = ids;
+        n = currentUserId.length;
+        wait(0);
+        cost();
     
-    const result  = fetch('./getMeetingId');
-    result.then(function(response) {
-    response.json().then(function(text){
-            meetingId = text[0];
-            const inputRef = document.querySelector('#ref');
-            const refToMeeting = document.location.href;
+        const result  = fetch('./getMeetingId');
+        result.then(function(response) {
+        response.json().then(function(text){
+                meetingId = text[0];
+                const inputRef = document.querySelector('#ref');
+                const refToMeeting = document.location.href;
 
-            if(inputRef != null){
-                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?pwd='+password;
-            }
-            seconds = 1;
-            for(let i = 0;i < currentUserId.length;i++){
-                costPerSecond += Number(counter(currentUserId[i]));
-            }
-            seconds = 0;
-            console.log(new Date()+','+costPerSecond+','+password);
-            const result1  = fetch('./startMeeting/'+meetingId,{
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond, password: password})
-                })
+                if(inputRef != null){
+                    inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?pwd='+password;
+                }
+            })
         })
-    })
 
-    load();
-}
-function generatePassword(len){
-    var password = "";
-    var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < len; i++){
-        password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+        load();
     }
-    return password;
 }
 function complet() {
     document.querySelector('#start-admin').hidden = true;
@@ -228,6 +209,14 @@ function complet() {
             })
         })
     })
+}
+function generatePassword(len){
+    var password = "";
+    var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < len; i++){
+        password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+    }
+    return password;
 }
 let time = '';
 let second = 0;
@@ -469,18 +458,26 @@ function wait(num){
 }
 function changeButtonValue(button) {
     const buttonComplete = document.querySelector('#complete-admin');
-    button.value = button.value === 'Cтоп' ? 'Старт' : 'Cтоп';
-
-    if(button.value == 'Cтоп'){
-        delay = 0;
-        start = true;
-        buttonComplete.hidden = false;
+    // button.value = button.value === 'Cтоп' ? 'Старт' : 'Cтоп';
+    buttonComplete.hidden = false;
+    button.hidden = true;
+    delay = 0;
+    start = true;
+    seconds = 1;
+    let costPerSecond = 0;
+    
+    for(let i = 0;i < currentUserId.length;i++){
+        costPerSecond += Number(counter(currentUserId[i]));
     }
-    else{
-        delay = 0;
-        start = false  
-        buttonComplete.hidden = true;
-    }
+    seconds = 0;
+    const result1  = fetch('./startMeeting/'+meetingId,{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+             'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond, password: password})
+    })
 }
 
 function AddEventListeners() {
