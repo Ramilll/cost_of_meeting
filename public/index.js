@@ -186,7 +186,9 @@ function generatePassword(len){
     return password;
 }
 function complet() {
-    if(start){
+    document.querySelector('#start-admin').hidden = true;
+    document.querySelector('#complete-admin').hidden = true;
+
     let getMeetingId = 0;
     start = false;
     const now = new Date();
@@ -226,7 +228,6 @@ function complet() {
             })
         })
     })
-    }
 }
 let time = '';
 let second = 0;
@@ -382,7 +383,7 @@ function counter(elem) {
                 Wages = resWage[f].salary;
             }
         }
-    return (1.3*Wages/160/3600*seconds).toFixed(2);
+    return (1.3*Wages/160/3600*seconds);
 }
 function addUserDirect(text) {
     const grid = document.querySelector('#grid-colums');
@@ -471,11 +472,12 @@ function changeButtonValue(button) {
     button.value = button.value === 'Cтоп' ? 'Старт' : 'Cтоп';
 
     if(button.value == 'Cтоп'){
+        delay = 0;
         start = true;
         buttonComplete.hidden = false;
     }
     else{
-        timeStart = new Date();
+        delay = 0;
         start = false  
         buttonComplete.hidden = true;
     }
@@ -494,7 +496,7 @@ function AddEventListeners() {
     if(buttonRise != null){
         buttonRise.addEventListener('click', (evt) => {toggleState('rise', 'enter-2')})
     }
-    const buttonСopy = document.querySelector('#сopy');
+    const buttonСopy = document.querySelector('#copy');
     if(buttonСopy != null){
         buttonСopy.addEventListener('click', (evt) => {copy()})
     }
