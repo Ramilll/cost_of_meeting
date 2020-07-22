@@ -156,7 +156,7 @@ function postMeeting() {
             const refToMeeting = document.location.href;
 
             if(inputRef != null){
-                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?'+password;
+                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?pwd='+password;
             }
             seconds = 1;
             for(let i = 0;i < currentUserId.length;i++){
