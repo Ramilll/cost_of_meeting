@@ -29,7 +29,7 @@ function load(){
     }
     if(document.querySelector('.wrapper-meetingAmdin') != null || document.querySelector('.wrapper-meetingUsern') != null){
         document.querySelector('#complete-admin').hidden = true;
-        timer(); 
+        timer();
     }
 }
 
@@ -131,6 +131,7 @@ function postMeeting() {
     let meetingId = 0;
     let ids = [];
     let costPerSecond = 0;
+    const password = generatePassword(16);
 
     for (let i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
@@ -155,25 +156,34 @@ function postMeeting() {
             const refToMeeting = document.location.href;
 
             if(inputRef != null){
-                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1);
+                inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?'+password;
             }
             seconds = 1;
             for(let i = 0;i < currentUserId.length;i++){
                 costPerSecond += Number(counter(currentUserId[i]));
             }
-            console.log(new Date()+','+costPerSecond);
+            seconds = 0;
+            console.log(new Date()+','+costPerSecond+','+password);
             const result1  = fetch('./startMeeting/'+meetingId,{
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json' 
                 },
-                body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond})
+                body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond, password: password})
                 })
         })
     })
 
     load();
+}
+function generatePassword(len){
+    var password = "";
+    var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < len; i++){
+        password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+    }
+    return password;
 }
 function complet() {
     if(start){
@@ -332,28 +342,28 @@ function cost(){
     let wages = [];
     let greed = 0;
     if(start){
-    for(let p = 0; p < n; p++) {
-        for(let user = 0; user < res.length; user++) {
-            if(res[user].id == currentUserId[p]){
-                elem.push(res[user].wageId);
+        for(let p = 0; p < n; p++) {
+            for(let user = 0; user < res.length; user++) {
+               if(res[user].id == currentUserId[p]){
+                  elem.push(res[user].wageId);
+                }
             }
         }
-    }
-    for (let i = 0; i < elem.length; i++) {
-        for(let f = 0; f < resWage.length; f++) {
-            if(elem[i] == resWage[f].id){
-                wages.push(resWage[f].salary);
+        for (let i = 0; i < elem.length; i++) {
+            for(let f = 0; f < resWage.length; f++) {
+                if(elem[i] == resWage[f].id){
+                    wages.push(resWage[f].salary);
+                }
             }
         }
+        for (let d = 0; d < wages.length; d++) {
+            greed += wages[d];
+        }
+        // console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
+        value = 1.3*greed/160/3600*(seconds);
+        document.getElementById('cost').innerHTML = value.toFixed(0);
     }
-    for (let d = 0; d < wages.length; d++) {
-        greed += wages[d];
-    }
-    console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
-    value = 1.3*greed/160/3600*(seconds);
-    document.getElementById('cost').innerHTML = value.toFixed(0);
     setTimeout(cost,1000);
-  }
 }
 function usersData(element) {
   for(let i = 0;i<res.length;i++){
@@ -465,6 +475,7 @@ function changeButtonValue(button) {
         buttonComplete.hidden = false;
     }
     else{
+        timeStart = new Date();
         start = false  
         buttonComplete.hidden = true;
     }
