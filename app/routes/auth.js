@@ -12,8 +12,8 @@ module.exports = function(app, passport) {
         res.send([req.user.name, req.user.id])
     })
 
-    app.get('/getUsers',isAuthenticated, function(req,res) {
-        models.user.findAll({raw:true, where: {company: req.user.company}}).then(users=>{
+    app.get('/getUsers',isAdmin, function(req,res) {
+        models.user.findAll({raw:true, where: {company: req.user.company}, attributes: ['id', 'name', 'wageId']}).then(users=>{
             res.send(users);
         }).catch(err=>console.log(err));
     })

@@ -49,6 +49,7 @@ exports.sendFilteredData = function(req, res) {
             'company',
             [sequelize.fn('sum', sequelize.col('time')), 'meetingTime'],
             [sequelize.fn('sum', sequelize.col('cost')), 'costMeetingTime'],
+            [sequelize.fn('count', sequelize.col('cost')), 'numberOfMeetings']
         ],
         group: ['userId'],
         include: {
