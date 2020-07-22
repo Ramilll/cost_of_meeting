@@ -19,7 +19,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         time: {
-            type: Sequelize.INTEGER
+            type: Sequelize.FLOAT
         },
 
 
