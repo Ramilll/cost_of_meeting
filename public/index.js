@@ -28,7 +28,8 @@ function load(){
         getDirect();
     }
     if(document.querySelector('.wrapper-meetingAmdin') != null || document.querySelector('.wrapper-meetingUsern') != null){
-        timer();
+        document.querySelector('#complete-admin').hidden = true;
+        timer(); 
     }
 }
 
@@ -40,20 +41,19 @@ window.onfocus = function(){//пользователь на вкладке са�
     }
 } 
 function formatDate(date) {
-    var dd = date.getDate();
+    let dd = date.getDate();
     if (dd < 10) dd = '0' + dd;
 
-    var mm = date.getMonth() + 1;
+    let mm = date.getMonth() + 1;
     if (mm < 10) mm = '0' + mm;
 
-    var yy = date.getFullYear();
+    let yy = date.getFullYear();
 
     return yy + '-' + mm + '-' + dd;
 }
 function fetchGet() {
    const result  = fetch('./getUsers');
     result.then(function(response) {
-        console.log(response);
     response.json().then(function(text){
       addUser(text);
       res = text;
@@ -128,7 +128,10 @@ function postMeeting() {
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
     NameMeeting = nameMeeting;
+    let meetingId = 0;
     let ids = [];
+    let costPerSecond = 0;
+
     for (let i = 0; i < users.length; i++) {
             if(users[i].innerHTML != null){
                 ids.push(users[i].id.replace('User',''));
@@ -147,14 +150,29 @@ function postMeeting() {
     const result  = fetch('./getMeetingId');
     result.then(function(response) {
     response.json().then(function(text){
+            meetingId = text[0];
             const inputRef = document.querySelector('#ref');
             const refToMeeting = document.location.href;
-            console.log(refToMeeting.split('createMeeting', 1))
+
             if(inputRef != null){
                 inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1);
             }
+            seconds = 1;
+            for(let i = 0;i < currentUserId.length;i++){
+                costPerSecond += Number(counter(currentUserId[i]));
+            }
+            console.log(new Date()+','+costPerSecond);
+            const result1  = fetch('./startMeeting/'+meetingId,{
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond})
+                })
         })
     })
+
     load();
 }
 function complet() {
@@ -206,17 +224,7 @@ let seconds = 0;
 let min = 0;
 let s = '';
 let m = '';
-let start = true;
-
-function test(){
-      start = !start;
-      timer();
-      cost();
-      if(start){
-        button.value = 'stop';
-      }
-      else button.value = 'start'
-}
+let start = false;
 
 function timer() {
     if(start){
@@ -246,8 +254,8 @@ function timer() {
         // document.querySelector('title').innerHTML = time.toFixed(0);
         second++;
         seconds++;
-        setTimeout(timer,1000);
     }
+    setTimeout(timer,1000);
 }
 
 function addCurrentUser(id,id1,classI) {
@@ -448,7 +456,19 @@ function wait(num){
     }
     AddEventListeners();
 }
+function changeButtonValue(button) {
+    const buttonComplete = document.querySelector('#complete-admin');
+    button.value = button.value === 'Cтоп' ? 'Старт' : 'Cтоп';
 
+    if(button.value == 'Cтоп'){
+        start = true;
+        buttonComplete.hidden = false;
+    }
+    else{
+        start = false  
+        buttonComplete.hidden = true;
+    }
+}
 
 function AddEventListeners() {
     const buttonRay = document.querySelector('.UserName');
@@ -477,7 +497,11 @@ function AddEventListeners() {
     }
     const buttonCompleteAdmin = document.querySelector('#complete-admin');
     if(buttonCompleteAdmin != null){
-        buttonCompleteAdmin.addEventListener('click', (evt) => {complet(); buttonCompleteAdmin.setAttribute("disabled", "true");})
+        buttonCompleteAdmin.addEventListener('click', (evt) => {complet()})
+    }
+    const buttonStartAdmin = document.querySelector('#start-admin');
+    if(buttonStartAdmin != null){
+        buttonStartAdmin.addEventListener('click', (evt) => {changeButtonValue(buttonStartAdmin)})
     }
     const buttonExit = document.querySelector('#exit');
     if(buttonExit != null){
