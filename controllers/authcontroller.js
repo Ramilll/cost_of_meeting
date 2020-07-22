@@ -65,6 +65,20 @@ exports.sendFilteredData = function(req, res) {
     }).catch(err=>console.log(err));
 }
 
+exports.startMeeting = function(req, res){
+    function generatePassword(len){
+        var password = "";
+        var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < len; i++){
+            password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+        }
+        return password;
+    }
+    let data = req.body
+    meetingId = req.params.meetingId
+    models.current_meeting.create({meetingId: meetingId, password: generatePassword(16), startTime: data.startTime, company: req.user.company, costPerSecond: data.costPerSecond}).catch(function (err){console.log(err)})
+}
+
 exports.meeting = function(req, res) {
     res.render('meeting');
 }

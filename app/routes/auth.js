@@ -26,8 +26,11 @@ module.exports = function(app, passport) {
 
     app.get('/getMeetingId', function(req, res){
         models.meeting.findAll({raw:true}).then(meetings=>{
-            var latestMeetingId = meetings[meetings.length - 1].id
-            res.send([latestMeetingId])
+            if (!meetings) {res.send([100])}
+            else{
+                var latestMeetingId = meetings[meetings.length - 1].id
+                res.send([latestMeetingId])
+            }
         })
     })
 
@@ -35,6 +38,8 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/login');
     });
+
+    app.post('/startMeeting/:meetingId', isDirector, authController.startMeeting)
 
     app.post('/getFilteredData', authController.sendFilteredData)
 
