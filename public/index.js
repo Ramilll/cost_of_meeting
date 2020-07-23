@@ -9,6 +9,7 @@ let meetingId;
 let delay;
 let password;
 let derectorUsers;
+let _password = '';
 
 window.onload = function(){load()} 
 
@@ -39,21 +40,69 @@ function load(){
         timer();
     }
     if(document.querySelector('.wrapper-meetingUser') != null){
-        const result  = fetch('./getMeetingData/'+109);
-        result.then(function(response) {
-        response.json().then(function(text){
-                console.log(text);
-                costPerSecond = text.costPerSecond;
-                let _startTime = new Date(text.startTime)
-                seconds = ((new Date() - _startTime)/1000); 
-                second = ((new Date() - _startTime)/1000); 
-                start = true;
-                timer(true);
-            })
-        })
+        onLoadMeetingUser()
     }
 }
 
+function onLoadMeetingUser() {
+    // http://localhost:3000/meeting?id=106&pwd=SYdYBcUA5TdATQOQ
+    console.log(document.location.href);
+    let ref = document.location.href;
+    let idBool;
+    let id = '';
+    for(let i = 0; i < ref.length; i++) {
+        if(ref[i] == '?'){
+            i += 4;
+            idBool = true;
+        }
+        if(ref[i] == '&') idBool = false;
+        if(idBool){
+            id += ref[i];
+        }
+    }
+    console.log(id);
+    for(let s = 0;s < ref.length;s++){
+        if(ref[s] == '&'){
+            s += 5;
+            for(let d = s; d < ref.length;d++){
+                _password += ref[d];
+            }
+        }
+    }
+    console.log(_password);
+
+    const res  = fetch('./getMeetingData/'+id,{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({password: _password})
+    })
+    res.then(function(response) {
+        console.log(response);
+        response.json().then(function(text){
+            console.log(text);
+            costPerSecond = text.costPerSecond;
+            let _startTime = new Date(text.startTime)
+            seconds = ((new Date() - _startTime)/1000); 
+            second = ((new Date() - _startTime)/1000); 
+            start = true;
+            timer(true);
+        })})
+    // const result = fetch('./getMeetingData/'+id)
+    // result.then(function(response) {
+    //     response.json().then(function(text){
+    //         console.log(text);
+    //         costPerSecond = text.costPerSecond;
+    //         let _startTime = new Date(text.startTime)
+    //         seconds = ((new Date() - _startTime)/1000); 
+    //         second = ((new Date() - _startTime)/1000); 
+    //         start = true;
+    //         timer(true);
+    //     })
+    // })
+}
 function sorting(numberHeadrs, buttonHeaders) {
     let arr;
     if(numberHeadrs == 0){
@@ -158,6 +207,20 @@ window.onfocus = function(){//пользователь на вкладке са�
             delay = timeEnd.getTime()-timeStart.getTime();
         }
     }
+    // else{
+    //     const result  = fetch('./getMeetingData/'+109);
+    //     result.then(function(response) {
+    //         response.json().then(function(text){
+    //             console.log(text);
+    //             costPerSecond = text.costPerSecond;
+    //             let _startTime = new Date(text.startTime)
+    //             seconds = ((new Date() - _startTime)/1000); 
+    //             second = ((new Date() - _startTime)/1000); 
+    //             start = true;
+    //             timer(true);
+    //         })
+    //     })
+    // }
 } 
 function formatDate(date) {
     let dd = date.getDate();
@@ -329,7 +392,7 @@ function complet() {
     })
 }
 function generatePassword(len){
-    var password = "";
+    let password = "";
     var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < len; i++){
         password += symbols.charAt(Math.floor(Math.random() * symbols.length));
