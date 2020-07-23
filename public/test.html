@@ -50,6 +50,20 @@ function showCheckboxes() {
     expanded = false;
   }
 }
+    let ref = "http://localhost:3000/meeting?id=106&pwd=SYdYBcUA5TdATQOQ";
+    let idBool = false;
+    let id = '';
+    let password = 'SYdYBcUA5TdATQOQ';
+
+    for(let s = 0;s < ref.length;s++){
+        if(s == '&'){
+            s += 4;
+            for(let d = s; s < ref.length;d++){
+                password += ref.length[d];
+            }
+        }
+    }
+    console.log(password);
   </script>
 </head>
 <body>
