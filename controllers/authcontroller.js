@@ -38,6 +38,7 @@ exports.dataProcessing = function (req, res) {
     for (let user of data.users){
         models.users_meeting.create({userId: user.userId, meetingId: data.id, time:user.time, startTime: user.startTime, endTime: user.endTime, cost: user.costTime, company: req.user.company}).catch(function (err){console.log(err)})
     }
+    models.current_meeting.destroy({where: {meetingId: data.id}})
     res.send('OK')
 }
 
