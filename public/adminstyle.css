@@ -672,11 +672,11 @@ option{
     	grid-template-rows: [row] 25% [row] 20% [row] 20% [row] 45%;
 	}
 	.wrapper-createMeeting{
-    	display: grid;	
-   		grid-gap: 10px;
-   	 	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%  ;
-    	grid-template-rows: [row] 15% [row] 16% [row] 16% [row] 16% [row] auto [row] 14%;
-	}
+    	display: grid;
+    	grid-gap: 10px;
+    	grid-template-columns: [col] 24% [col] 24% [col] 24% [col] 24%;
+    	grid-template-rows: [row] 185px [row] 165px [row] 200px [row] 200px [row] auto [row] 0px;
+ 	}
 	.wrapper-meetingAmdin{
 		display: grid;
    		grid-gap: 10px;
@@ -777,6 +777,9 @@ option{
 		grid-column: col / span 4;
 		grid-row: row 4;
 	}
+	.currentUser b{
+		font-size: 300%;
+	}
 	.dropping{
 		display: inline-block;;
 	}
@@ -831,7 +834,7 @@ option{
 	}
 	.createButton input{
 		font-size: 350%;
-		min-width: 280px;
+		min-width: 330px;
 		min-height: 150px;
 		margin-bottom: 0;
 	}

@@ -50,20 +50,17 @@ function showCheckboxes() {
     expanded = false;
   }
 }
-    let ref = "http://localhost:3000/meeting?id=106&pwd=SYdYBcUA5TdATQOQ";
-    let idBool = false;
-    let id = '';
-    let password = 'SYdYBcUA5TdATQOQ';
-
-    for(let s = 0;s < ref.length;s++){
-        if(s == '&'){
-            s += 4;
-            for(let d = s; s < ref.length;d++){
-                password += ref.length[d];
-            }
-        }
+function test() {
+    let d = 990;
+    console.log(1);
+    for (var i = 0; i < 10000; i++) {
+        d * i;
+        if(i >= 9999) console.log(2);
     }
-    console.log(password);
+    console.log(3);
+}
+test()
+
   </script>
 </head>
 <body>

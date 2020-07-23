@@ -45,8 +45,6 @@ function load(){
 }
 
 function onLoadMeetingUser() {
-    // http://localhost:3000/meeting?id=106&pwd=SYdYBcUA5TdATQOQ
-    console.log(document.location.href);
     let ref = document.location.href;
     let idBool;
     let id = '';
@@ -60,7 +58,6 @@ function onLoadMeetingUser() {
             id += ref[i];
         }
     }
-    console.log(id);
     for(let s = 0;s < ref.length;s++){
         if(ref[s] == '&'){
             s += 5;
@@ -69,8 +66,6 @@ function onLoadMeetingUser() {
             }
         }
     }
-    console.log(_password);
-
     const res  = fetch('./getMeetingData/'+id,{
         method: 'POST',
         mode: 'cors',
@@ -80,16 +75,16 @@ function onLoadMeetingUser() {
         body: JSON.stringify({password: _password})
     })
     res.then(function(response) {
-        console.log(response);
         timer(true);
         response.json().then(function(text){
-            console.log(text);
             costPerSecond = text.costPerSecond;
             let _startTime = new Date(text.startTime)
             seconds = ((new Date() - _startTime)/1000); 
-            second = ((new Date() - _startTime)/1000); 
+            second = ((new Date() - _startTime)/1000);
+            console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
             start = true;
-        })})
+        })
+    })
     // const result = fetch('./getMeetingData/'+id)
     // result.then(function(response) {
     //     response.json().then(function(text){
@@ -208,20 +203,6 @@ window.onfocus = function(){//пользователь на вкладке са�
         }
     }
     else document.location.href = document.location.href;
-    // else{
-    //     const result  = fetch('./getMeetingData/'+109);
-    //     result.then(function(response) {
-    //         response.json().then(function(text){
-    //             console.log(text);
-    //             costPerSecond = text.costPerSecond;
-    //             let _startTime = new Date(text.startTime)
-    //             seconds = ((new Date() - _startTime)/1000); 
-    //             second = ((new Date() - _startTime)/1000); 
-    //             start = true;
-    //             timer(true);
-    //         })
-    //     })
-    // }
 } 
 function formatDate(date) {
     let dd = date.getDate();
@@ -245,6 +226,7 @@ function fetchGet() {
     const result1  = fetch('./getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
+            console.log(text1);
             resWage = text1;
         })
     })
@@ -355,8 +337,8 @@ function complet() {
     let getMeetingId = 0;
     start = false;
     const now = new Date();
-    console.log(NameMeeting);
     const result  = fetch('./getMeetingId');
+
     result.then(function(response) {
     response.json().then(function(text){
             getMeetingId = text[0];
@@ -408,8 +390,16 @@ let s = '';
 let m = '';
 let start = false;
 
-function timer(meetingUser = false) {
+async function timer(meetingUser = false) {
     if(start){
+        if(second >= 10){
+          s = '';
+        }
+        else s = '0';
+        if(min >= 10){
+          m = '';
+        }
+        else m = '0';
         second++;
         seconds++;
         if(delay != null && delay > 0){
@@ -422,32 +412,22 @@ function timer(meetingUser = false) {
             delay = null;
         }
         else time = m+min+':'+s+second.toFixed(0);
-        for(let i = 0; i < seconds/60+1;i++){
+        for(let i = 0; i < seconds/60;i++){
             if(second >= 60){
                 min++;
                 second -= 60;
             }
         }
-        if(second >= 10){
-          s = '';
+
+        document.querySelector('#timer').innerHTML = time;
+        // document.querySelector('title').innerHTML = time.toFixed(0);
+        if(meetingUser){
+            value = costPerSecond*seconds;
+            document.getElementById('cost').innerHTML = value.toFixed(0);
         }
-        else s = '0';
-        if(min >= 10){
-          m = '';
-        }
-        else m = '0';
-        recordingTime(meetingUser);
     }
     setTimeout(timer, 1000, meetingUser);
 }
-function recordingTime(meetingUser = false) {
-    document.querySelector('#timer').innerHTML = time;
-        // document.querySelector('title').innerHTML = time.toFixed(0);
-    if(meetingUser){
-        value = costPerSecond*seconds;
-        document.getElementById('cost').innerHTML = value.toFixed(0);
-    }
- }
 
 function addCurrentUser(id,id1,classI) {
     let user;
@@ -543,14 +523,14 @@ function cost(){
         //     greed += wages[d];
         // }
         if(!change){
-            for (let d = 0; d < n; d++) {
-                pay += counter(currentUserId[d]);
+            for (let d = 0; d < currentUserId.length; d++) {
+                pay += counter(usersData(currentUserId[d])) 
             }
             change = true;
         }
         // console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
         value += pay;//1.3*greed/160/3600*(seconds)
-        document.getElementById('cost').innerHTML = value;
+        document.getElementById('cost').innerHTML = value.toFixed(0);
     }
     setTimeout(cost,1000);
 }
@@ -564,14 +544,14 @@ function copy() {
 }
 let NameMeeting = '';
 let startTime = new Date();
-function counter(elem) {
+function counter(elem, sec) {
     let Wages = 0;
         for(let f = 0; f < resWage.length; f++) {
             if(elem == resWage[f].id){
                 Wages = resWage[f].salary;
             }
         }
-    return (1.3*Wages/160/3600*(seconds+1));
+    return (1.3*Wages/160/3600*(seconds+1)) 
 }
 function counterWithOutSeconds(elem) {
     let Wages = 0;
@@ -701,17 +681,20 @@ function changeButtonValue(button) {
     let costPerSecond = 0;
 
     for(let i = 0;i < currentUserId.length;i++){
-        costPerSecond += Number(counterWithOutSeconds(currentUserId[i]));
+        costPerSecond += counterWithOutSeconds(usersData(currentUserId[i]));
     }
     seconds = 0;
+    const now = new Date();
+    console.log(now);
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',
         headers: {
              'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({startTime: new Date(), costPerSecond: costPerSecond, password: password})
+        body: JSON.stringify({startTime: now, costPerSecond: costPerSecond, password: password})
     })
+    console.log(Date.parse(JSON.stringify(now)));
 }
 
 function AddEventListeners() {
@@ -793,8 +776,6 @@ function AddEventListeners() {
     }
 }
 setTimeout(AddEventListeners, 20);
-
-
 // document.location.href = "http://google.com";
 // var => const
 // grid
