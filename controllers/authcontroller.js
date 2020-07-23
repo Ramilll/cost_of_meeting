@@ -102,7 +102,7 @@ exports.meeting = function(req, res) {
     }).catch(function (err){console.log(err)})
 }
 
-exports.giveMeetingData = function(req, res){z
+exports.giveMeetingData = function(req, res){
     let pwd = req.body.password
     let meetingId = req.params.meetingId
     models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond']}).then(meeting =>{
