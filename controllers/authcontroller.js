@@ -1,6 +1,15 @@
 var models           = require('../app/models');
 var sequelize = require("sequelize");
+path = require('path')
 let Op = sequelize.Op
+
+function isEmpty(obj) {
+    for (let key in obj) {
+        // если тело цикла начнет выполняться - значит в объекте есть свойства
+        return false;
+    }
+    return true;
+}
 
 var exports = module.exports = {}
 
@@ -74,14 +83,31 @@ exports.startMeeting = function(req, res){
 }
 
 exports.meeting = function(req, res) {
-    if (!req.query.pwd) res.redirect('/logout')
+    console.log(req.url)
+    if (!req.query.pwd || !req.params.meetingId) {
+        res.send("Incorrect url")
+    }
     let meetingId = req.params.meetingId
     let pwd = req.query.pwd
-    models.current_meeting.findByPk(meetingId).then(meeting => {
-        if (!meeting) return res.redirect('/logout')
-        if (meeting.password !== pwd) return res.redirect('/logout')
-        res.render('meetingUser');
-    })
+    models.current_meeting.findByPk(meetingId, {raw:true}).then(meeting => {
+        console.log(meeting)
+        if (!meeting) {
+            res.send('This meeting does not exist')
+        }
+        else if (meeting.password !== pwd) {
+            res.send('Incorrect password')
+        }
+        res.render('meetingUser')
+    }).catch(function (err){console.log(err)})
+}
+
+exports.giveMeetingData = function(req, res){
+    let meetingId = req.params.meetingId
+    models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond']}).then(meeting =>{
+        console.log(meeting)
+        if (!meeting) res.send("This meeting does not exist")
+        else res.send(meeting)
+    }).catch(function (err){console.log(err)})
 }
 
 exports.createMeeting = function (req, res) {

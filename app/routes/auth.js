@@ -39,6 +39,13 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
+    app.get('/meeting', function(req, res){
+        console.log(req.url)
+        res.render('meetingUser')
+    })
+
+    app.get('/getMeetingData/:meetingId', authController.giveMeetingData)
+
     app.post('/startMeeting/:meetingId', isAdmin, authController.startMeeting)
 
     app.post('/getFilteredData', authController.sendFilteredData)
@@ -78,10 +85,6 @@ module.exports = function(app, passport) {
             }
 
         });
-
-    app.get('/*', function (req, res) {
-        res.redirect('/login')
-    })
 
     function isAuthenticated(req, res, next) {
         if (req.isAuthenticated())
