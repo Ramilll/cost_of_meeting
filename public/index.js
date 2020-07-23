@@ -81,6 +81,7 @@ function onLoadMeetingUser() {
     })
     res.then(function(response) {
         console.log(response);
+        timer(true);
         response.json().then(function(text){
             console.log(text);
             costPerSecond = text.costPerSecond;
@@ -88,7 +89,6 @@ function onLoadMeetingUser() {
             seconds = ((new Date() - _startTime)/1000); 
             second = ((new Date() - _startTime)/1000); 
             start = true;
-            timer(true);
         })})
     // const result = fetch('./getMeetingData/'+id)
     // result.then(function(response) {
@@ -207,6 +207,7 @@ window.onfocus = function(){//пользователь на вкладке са�
             delay = timeEnd.getTime()-timeStart.getTime();
         }
     }
+    else document.location.href = document.location.href;
     // else{
     //     const result  = fetch('./getMeetingData/'+109);
     //     result.then(function(response) {
@@ -435,15 +436,18 @@ function timer(meetingUser = false) {
           m = '';
         }
         else m = '0';
-        document.querySelector('#timer').innerHTML = time;
-        // document.querySelector('title').innerHTML = time.toFixed(0);
-        if(meetingUser){
-            value = costPerSecond*seconds;
-            document.getElementById('cost').innerHTML = value.toFixed(0);
-        }
+        recordingTime(meetingUser);
     }
     setTimeout(timer, 1000, meetingUser);
 }
+function recordingTime(meetingUser = false) {
+    document.querySelector('#timer').innerHTML = time;
+        // document.querySelector('title').innerHTML = time.toFixed(0);
+    if(meetingUser){
+        value = costPerSecond*seconds;
+        document.getElementById('cost').innerHTML = value.toFixed(0);
+    }
+ }
 
 function addCurrentUser(id,id1,classI) {
     let user;
@@ -513,6 +517,8 @@ function removeUser(id) {
 let value = 0; // money
 let len = 0;
 let n = 0;
+let change = false;
+let pay  = 0;
 // money counter
 function cost(){
     let elem = []
@@ -533,12 +539,18 @@ function cost(){
                 }
             }
         }
-        for (let d = 0; d < wages.length; d++) {
-            greed += wages[d];
+        // for (let d = 0; d < wages.length; d++) {
+        //     greed += wages[d];
+        // }
+        if(!change){
+            for (let d = 0; d < n; d++) {
+                pay += counter(currentUserId[d]);
+            }
+            change = true;
         }
         // console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
-        value = 1.3*greed/160/3600*(seconds);
-        document.getElementById('cost').innerHTML = value.toFixed(0);
+        value += pay;//1.3*greed/160/3600*(seconds)
+        document.getElementById('cost').innerHTML = value;
     }
     setTimeout(cost,1000);
 }
@@ -560,6 +572,15 @@ function counter(elem) {
             }
         }
     return (1.3*Wages/160/3600*(seconds+1));
+}
+function counterWithOutSeconds(elem) {
+    let Wages = 0;
+        for(let f = 0; f < resWage.length; f++) {
+            if(elem == resWage[f].id){
+                Wages = resWage[f].salary;
+            }
+        }
+    return (1.3*Wages/160/3600);
 }
 function addUserDirect(text, order = 1) {
     const grid = document.querySelector('#grid-colums');
@@ -675,11 +696,12 @@ function changeButtonValue(button) {
     button.hidden = true;
     delay = 0;
     start = true;
+    meetingId++;
     seconds = 1;
     let costPerSecond = 0;
 
     for(let i = 0;i < currentUserId.length;i++){
-        costPerSecond += Number(counter(currentUserId[i]));
+        costPerSecond += Number(counterWithOutSeconds(currentUserId[i]));
     }
     seconds = 0;
     const result1  = fetch('./startMeeting/'+meetingId,{
