@@ -501,6 +501,7 @@ option{
 	grid-gap: 1%;
 }
 .grid-headers{
+	cursor: pointer;
 	text-align: center;
 	padding-top: 11px;
 }
@@ -612,6 +613,10 @@ option{
 	color: white;
 	font-size: 100%;
 	background: var(--royalBlue);
+}
+#hh1, #hh2, #hh3, #hh4{
+	font-size: 150%;
+	font-weight: 1000;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 980px){

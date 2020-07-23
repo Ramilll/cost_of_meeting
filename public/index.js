@@ -8,6 +8,7 @@ let timeStart = new Date();
 let meetingId;
 let delay;
 let password;
+let derectorUsers;
 
 window.onload = function(){load()} 
 
@@ -28,26 +29,134 @@ function load(){
     }
     if(document.querySelector('.wrapper-director') != null){
         getDirect();
+        const buttonHeaders = document.querySelectorAll('.grid-headers');
+        for (let i = 0; i < buttonHeaders.length; i++) {
+            buttonHeaders[i].addEventListener('click', (evt) => {sorting(i, buttonHeaders[i])})
+        }
     }
     if(document.querySelector('.wrapper-meetingAmdin') != null){
         document.querySelector('#complete-admin').hidden = true;
         timer();
     }
     if(document.querySelector('.wrapper-meetingUser') != null){
-        const result  = fetch('./meeting');
+        const result  = fetch('./getMeetingData/'+109);
         result.then(function(response) {
         response.json().then(function(text){
-            console.log(text);
+                console.log(text);
+                costPerSecond = text.costPerSecond;
+                let _startTime = new Date(text.startTime)
+                seconds = ((new Date() - _startTime)/1000); 
+                second = ((new Date() - _startTime)/1000); 
+                start = true;
+                timer(true);
             })
         })
     }
 }
 
+function sorting(numberHeadrs, buttonHeaders) {
+    let arr;
+    if(numberHeadrs == 0){
+        arr = derectorUsers;
+        for (let i = 0, endI = arr.length - 1; i < endI; i++) {
+            for (let j = 0, endJ = endI - i; j < endJ; j++) {
+                if (arr[j].name > arr[j + 1].name) {
+                    let swap = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = swap;
+                }
+            }
+        }
+        if(buttonHeaders.id == 'h1')
+        {
+            document.querySelector('#hh1').innerHTML = "﹀";
+            addUserDirect(arr, 0);
+            buttonHeaders.id = 'H1';
+        }
+        else{
+            document.querySelector('#hh1').innerHTML = "︿";
+            addUserDirect(arr, 1);
+            buttonHeaders.id = 'h1';
+        }
+    }
+    if(numberHeadrs == 1){
+        arr = derectorUsers;
+        for (let i = 0, endI = arr.length - 1; i < endI; i++) {
+            for (let j = 0, endJ = endI - i; j < endJ; j++) {
+                if (arr[j].numberOfMeetings > arr[j + 1].numberOfMeetings) {
+                    let swap = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = swap;
+                }
+            }
+        }
+        if(buttonHeaders.id == 'h2')
+        {
+            document.querySelector('#hh2').innerHTML = '︿';
+            addUserDirect(arr, 0);
+            buttonHeaders.id = 'H2';
+        }
+        else{
+            document.querySelector('#hh2').innerHTML = "﹀";
+            addUserDirect(arr, 1);
+            buttonHeaders.id = 'h2';
+        }
+    }
+    
+    if(numberHeadrs == 2){
+        arr = derectorUsers;
+        for (let i = 0, endI = arr.length - 1; i < endI; i++) {
+            for (let j = 0, endJ = endI - i; j < endJ; j++) {
+                if (arr[j].meetingTime > arr[j + 1].meetingTime) {
+                    let swap = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = swap;
+                }
+            }
+        }
+        if(buttonHeaders.id == 'h3')
+        {
+            document.querySelector('#hh3').innerHTML = "︿";
+            addUserDirect(arr, 0);
+            buttonHeaders.id = 'H3';
+        }
+        else{
+            document.querySelector('#hh3').innerHTML = "﹀";
+            addUserDirect(arr, 1);
+            buttonHeaders.id = 'h3';
+        }
+    }
+    if(numberHeadrs == 3){
+        arr = derectorUsers;
+        for (let i = 0, endI = arr.length - 1; i < endI; i++) {
+            for (let j = 0, endJ = endI - i; j < endJ; j++) {
+                if (arr[j].costMeetingTime > arr[j + 1].costMeetingTime) {
+                    let swap = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = swap;
+                }
+            }
+        }
+        if(buttonHeaders.id == 'h4')
+        {
+            document.querySelector('#hh4').innerHTML = "︿";
+            addUserDirect(arr, 0);
+            buttonHeaders.id = 'H4';
+        }
+        else{
+            document.querySelector('#hh4').innerHTML = "﹀";
+            addUserDirect(arr, 1);
+            buttonHeaders.id = 'h4';
+        }
+    }
+}
 
 window.onfocus = function(){//пользователь на вкладке сайте
-    let timeEnd = new Date();
-    if(timeStart != null){
-        delay = timeEnd.getTime()-timeStart.getTime();
+    if(document.querySelector('.wrapper-meetingUser') == null){
+        let timeEnd = new Date();
+        if(timeStart != null){
+            delay = timeEnd.getTime()-timeStart.getTime();
+        }
     }
 } 
 function formatDate(date) {
@@ -91,8 +200,8 @@ function getDirect() {
     )
     result.then(function(response) {
             response.json().then(function(text){
-                console.log(text)
-               addUserDirect(text);
+                derectorUsers = text;
+                addUserDirect(text);
             })
         });
 }
@@ -129,6 +238,7 @@ function getFilter() {
                         d.push(text[i]);
                     }
                 }
+                derectorUsers = d;
                 addUserDirect(d);
             })
         });
@@ -166,7 +276,7 @@ function postMeeting() {
                 const refToMeeting = document.location.href;
 
                 if(inputRef != null){
-                    inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting/"+(text[0]+1)+'?pwd='+password;
+                    inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting?id="+(text[0]+1)+'&pwd='+password;
                 }
             })
         })
@@ -234,7 +344,7 @@ let s = '';
 let m = '';
 let start = false;
 
-function timer() {
+function timer(meetingUser = false) {
     if(start){
         second++;
         seconds++;
@@ -247,10 +357,12 @@ function timer() {
             time = m+min+':'+s+second;
             delay = null;
         }
-        else time = m+min+':'+s+second;
-        if(second >= 60){
-          min++;
-          second -= 60;
+        else time = m+min+':'+s+second.toFixed(0);
+        for(let i = 0; i < seconds/60+1;i++){
+            if(second >= 60){
+                min++;
+                second -= 60;
+            }
         }
         if(second >= 10){
           s = '';
@@ -262,8 +374,12 @@ function timer() {
         else m = '0';
         document.querySelector('#timer').innerHTML = time;
         // document.querySelector('title').innerHTML = time.toFixed(0);
+        if(meetingUser){
+            value = costPerSecond*seconds;
+            document.getElementById('cost').innerHTML = value.toFixed(0);
+        }
     }
-    setTimeout(timer,1000);
+    setTimeout(timer, 1000, meetingUser);
 }
 
 function addCurrentUser(id,id1,classI) {
@@ -382,33 +498,58 @@ function counter(elem) {
         }
     return (1.3*Wages/160/3600*(seconds+1));
 }
-function addUserDirect(text) {
+function addUserDirect(text, order = 1) {
     const grid = document.querySelector('#grid-colums');
     const colums = document.querySelectorAll('.colums');
     
     for(let s = 0; s < colums.length; s++) {
         colums[s].remove();
     }
-    for(let i = 0; i < text.length; i++) {
-        const userName = document.createElement('div');
-        userName.classList.add('colums');
-        userName.innerHTML = text[i].name;
-        grid.appendChild(userName);
+    if(order == 0){
+        for(let i = text.length-1; i > -1; i--) {
+            const userName = document.createElement('div');
+            userName.classList.add('colums');
+            userName.innerHTML = text[i].name;
+            grid.appendChild(userName);
 
-        const numberOfMeetings = document.createElement('div');
-        numberOfMeetings.classList.add('colums');
-        numberOfMeetings.innerHTML = text[i].numberOfMeetings;
-        grid.appendChild(numberOfMeetings);
+            const numberOfMeetings = document.createElement('div');
+            numberOfMeetings.classList.add('colums');
+            numberOfMeetings.innerHTML = text[i].numberOfMeetings;
+            grid.appendChild(numberOfMeetings);
 
-        const timeInMeeting = document.createElement('div');
-        timeInMeeting.classList.add('colums');
-        timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
-        grid.appendChild(timeInMeeting);
+            const timeInMeeting = document.createElement('div');
+            timeInMeeting.classList.add('colums');
+            timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
+            grid.appendChild(timeInMeeting);
 
-        const payout = document.createElement('div');
-        payout.classList.add('colums');;
-        payout.innerHTML = text[i].costMeetingTime.toFixed(0);
-        grid.appendChild(payout);
+            const payout = document.createElement('div');
+            payout.classList.add('colums');;
+            payout.innerHTML = text[i].costMeetingTime.toFixed(0);
+            grid.appendChild(payout);
+        }
+    }
+    if(order == 1){
+        for(let i = 0; i < text.length; i++) {
+            const userName = document.createElement('div');
+            userName.classList.add('colums');
+            userName.innerHTML = text[i].name;
+            grid.appendChild(userName);
+
+            const numberOfMeetings = document.createElement('div');
+            numberOfMeetings.classList.add('colums');
+            numberOfMeetings.innerHTML = text[i].numberOfMeetings;
+            grid.appendChild(numberOfMeetings);
+
+            const timeInMeeting = document.createElement('div');
+            timeInMeeting.classList.add('colums');
+            timeInMeeting.innerHTML = (text[i].meetingTime/60).toFixed(2);
+            grid.appendChild(timeInMeeting);
+
+            const payout = document.createElement('div');
+            payout.classList.add('colums');;
+            payout.innerHTML = text[i].costMeetingTime.toFixed(0);
+            grid.appendChild(payout);
+        }
     }
 }
 
@@ -564,7 +705,7 @@ function AddEventListeners() {
     const buttonDropping = document.querySelector('.dropping');
     if(buttonDropping != null){
         buttonDropping.addEventListener('click', (evt) => {dropping()} )
-    }   
+    }
 }
 setTimeout(AddEventListeners, 20);
 
