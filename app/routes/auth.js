@@ -39,12 +39,11 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
-    app.get('/meeting', function(req, res){
-        console.log(req.url)
+    app.get('/test', function (req, res) {
         res.render('meetingUser')
     })
 
-    app.get('/getMeetingData/:meetingId', authController.giveMeetingData)
+    app.post('/getMeetingData/:meetingId', authController.giveMeetingData)
 
     app.post('/startMeeting/:meetingId', isAdmin, authController.startMeeting)
 
@@ -52,7 +51,7 @@ module.exports = function(app, passport) {
 
     app.post('/sendMeetingData/:meetingId', authController.dataProcessing)
 
-    app.get('/meeting/:meetingId', authController.meeting)
+    app.get('/meeting', authController.meeting)
 
     app.get('/createMeeting', isAdmin, authController.createMeeting)
 
