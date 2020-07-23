@@ -89,7 +89,6 @@ exports.meeting = function(req, res) {
     let meetingId = req.query.id
     let pwd = req.query.pwd
     models.current_meeting.findByPk(meetingId, {raw:true}).then(meeting => {
-        console.log(meeting)
         if (!meeting) {
             res.send('This meeting does not exist')
         }
@@ -100,17 +99,22 @@ exports.meeting = function(req, res) {
             res.render('meetingUser')
         }
     }).catch(function (err){console.log(err)})
+
 }
 
 exports.giveMeetingData = function(req, res){
     let pwd = req.body.password
     let meetingId = req.params.meetingId
-    models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond']}).then(meeting =>{
-        if (!meeting) res.send("This meeting does not exist")
+    models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond', 'password']}).then(meeting =>{
+        if (!meeting) {
+            res.send('This meeting does not exist')
+        }
         else if (meeting.password !== pwd) {
             res.send('Incorrect password')
         }
-        else res.send(meeting)
+        else{
+            res.send(meeting)
+        }
     }).catch(function (err){console.log(err)})
 }
 
