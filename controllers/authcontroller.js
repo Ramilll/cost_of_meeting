@@ -113,7 +113,7 @@ exports.giveMeetingData = function(req, res){
             res.send('Incorrect password')
         }
         else{
-            res.send(meeting, new Date())
+            res.send([meeting, new Date()])
         }
     }).catch(function (err){console.log(err)})
 }
