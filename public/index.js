@@ -45,6 +45,8 @@ function load(){
 }
 
 function onLoadMeetingUser() {
+	document.querySelector('.UserName').hidden = true;
+
     let ref = document.location.href;
     let idBool;
     let id = '';
@@ -85,18 +87,7 @@ function onLoadMeetingUser() {
             start = true;
         })
     })
-    // const result = fetch('./getMeetingData/'+id)
-    // result.then(function(response) {
-    //     response.json().then(function(text){
-    //         console.log(text);
-    //         costPerSecond = text.costPerSecond;
-    //         let _startTime = new Date(text.startTime)
-    //         seconds = ((new Date() - _startTime)/1000); 
-    //         second = ((new Date() - _startTime)/1000); 
-    //         start = true;
-    //         timer(true);
-    //     })
-    // })
+    //document.querySelector('#meeting').innerHTML = 'Собрание завершено';
 }
 function sorting(numberHeadrs, buttonHeaders) {
     let arr;
@@ -226,7 +217,6 @@ function fetchGet() {
     const result1  = fetch('./getWages');
     result1.then(function(response1) {
         response1.json().then(function(text1){
-            console.log(text1);
             resWage = text1;
         })
     })
@@ -293,11 +283,14 @@ function postMeeting() {
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
 
+
     if(users != [] && users != null && nameMeeting != "" && nameMeeting != null){
         timeStart = new Date();
         NameMeeting = nameMeeting;
         let ids = [];
         password = generatePassword(16);
+        let meetingId1 = 0;
+        let meetingId2 = 0;
 
         for (let i = 0; i < users.length; i++) {
                 if(users[i].innerHTML != null){
@@ -316,13 +309,22 @@ function postMeeting() {
     
         const result  = fetch('./getMeetingId');
         result.then(function(response) {
-        response.json().then(function(text){
-                meetingId = text[0];
+        	response.json().then(function(text){
+                meetingId = Number(text[0])+1;
                 const inputRef = document.querySelector('#ref');
                 const refToMeeting = document.location.href;
 
+				// const result  = fetch('./getCurrentMeetingId');
+				// result.then(function(response) {
+    //     			response.json().then(function(text){
+    //     				meetingId2 = Number(text[0])+1;
+    //     			})
+    //     		})
+    //     		if(meetingId1  >= meetingId2) meetingId = meetingId1;
+    //     		else meetingId = meetingId2;
+        		console.log(meetingId);
                 if(inputRef != null){
-                    inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting?id="+(text[0]+1)+'&pwd='+password;
+                    inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting?id="+(meetingId)+'&pwd='+password;
                 }
             })
         })
@@ -333,6 +335,7 @@ function postMeeting() {
 function complet() {
     document.querySelector('#start-admin').hidden = true;
     document.querySelector('#complete-admin').hidden = true;
+    document.querySelector('#meeting').innerHTML = 'Собрание завершено';
 
     let getMeetingId = 0;
     start = false;
@@ -390,16 +393,8 @@ let s = '';
 let m = '';
 let start = false;
 
-async function timer(meetingUser = false) {
+function timer(meetingUser = false) {
     if(start){
-        if(second >= 10){
-          s = '';
-        }
-        else s = '0';
-        if(min >= 10){
-          m = '';
-        }
-        else m = '0';
         second++;
         seconds++;
         if(delay != null && delay > 0){
@@ -426,6 +421,14 @@ async function timer(meetingUser = false) {
             document.getElementById('cost').innerHTML = value.toFixed(0);
         }
     }
+    if(second >= 10){
+        s = '';
+   	}
+    else s = '0';
+    if(min >= 10){
+        m = '';
+    }
+    else m = '0';
     setTimeout(timer, 1000, meetingUser);
 }
 
@@ -505,32 +508,15 @@ function cost(){
     let wages = [];
     let greed = 0;
     if(start){
-        for(let p = 0; p < n; p++) {
-            for(let user = 0; user < res.length; user++) {
-               if(res[user].id == currentUserId[p]){
-                  elem.push(res[user].wageId);
-                }
-            }
-        }
-        for (let i = 0; i < elem.length; i++) {
-            for(let f = 0; f < resWage.length; f++) {
-                if(elem[i] == resWage[f].id){
-                    wages.push(resWage[f].salary);
-                }
-            }
-        }
-        // for (let d = 0; d < wages.length; d++) {
-        //     greed += wages[d];
-        // }
         if(!change){
             for (let d = 0; d < currentUserId.length; d++) {
-                pay += counter(usersData(currentUserId[d])) 
+                pay += counter(usersData(currentUserId[d]), 1) 
             }
             change = true;
+            // value = pay;
         }
-        // console.log("n:"+n+", greed:"+greed+",seconds:"+seconds)
         value += pay;//1.3*greed/160/3600*(seconds)
-        document.getElementById('cost').innerHTML = value.toFixed(0);
+        document.getElementById('cost').innerHTML = value.toFixed(2);
     }
     setTimeout(cost,1000);
 }
@@ -551,7 +537,11 @@ function counter(elem, sec) {
                 Wages = resWage[f].salary;
             }
         }
-    return (1.3*Wages/160/3600*(seconds+1)) 
+    if(sec != null){
+    	if(seconds < 1) return (1.3*Wages/160/3600)
+    	else return (1.3*Wages/160/3600*seconds)
+    }
+    else return (1.3*Wages/160/3600*(seconds+1))
 }
 function counterWithOutSeconds(elem) {
     let Wages = 0;
@@ -676,7 +666,6 @@ function changeButtonValue(button) {
     button.hidden = true;
     delay = 0;
     start = true;
-    meetingId++;
     seconds = 1;
     let costPerSecond = 0;
 
@@ -684,17 +673,15 @@ function changeButtonValue(button) {
         costPerSecond += counterWithOutSeconds(usersData(currentUserId[i]));
     }
     seconds = 0;
-    const now = new Date();
-    console.log(now);
+    startTime = new Date();
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',
         headers: {
              'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({startTime: now, costPerSecond: costPerSecond, password: password})
+        body: JSON.stringify({startTime: startTime, costPerSecond: costPerSecond, password: password})
     })
-    console.log(Date.parse(JSON.stringify(now)));
 }
 
 function AddEventListeners() {
