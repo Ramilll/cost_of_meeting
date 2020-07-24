@@ -25,6 +25,11 @@ module.exports = function(sequelize, Sequelize) {
 
         company: {
             type: Sequelize.STRING,
+        },
+
+        alive: {
+            type: Sequelize.INTEGER,
+            default: 0
         }
 
     });

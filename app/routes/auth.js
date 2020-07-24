@@ -28,16 +28,7 @@ module.exports = function(app, passport) {
 
     })
 
-    app.get('/getMeetingId', function(req, res){
-        models.meeting.findAll({raw:true}).then(meetings=>{
-            if (meetings) {
-                res.send([meetings[meetings.length - 1].id])
-            }
-            else res.send([100])
-        })
-    })
-
-    app.get('/getCurrentMeetingId', function (req, res) {
+    app.get('/getMeetingId', function (req, res) {
         models.current_meeting.findAll({raw:true}).then(meetings=>{
             if (meetings) {
                 res.send([meetings[meetings.length - 1].meetingId])
@@ -50,8 +41,6 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/login');
     });
-
-    app.get('/isMeetingAlive/:meetingId', authController.isMeetingAlive)
 
     app.post('/getMeetingData/:meetingId', authController.giveMeetingData)
 

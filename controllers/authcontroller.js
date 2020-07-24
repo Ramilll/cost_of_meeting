@@ -38,7 +38,7 @@ exports.dataProcessing = function (req, res) {
     for (let user of data.users){
         models.users_meeting.create({userId: user.userId, meetingId: data.id, time:user.time, startTime: user.startTime, endTime: user.endTime, cost: user.costTime, company: req.user.company}).catch(function (err){console.log(err)})
     }
-    models.current_meeting.destroy({where: {meetingId: data.id}})
+    models.current_meeting.update({alive: 0}, {where: {meetingId: data.id}})
     res.send('OK')
 }
 
@@ -79,7 +79,7 @@ exports.startMeeting = function(req, res){
     console.log("Meeting started")
     let data = req.body
     meetingId = req.params.meetingId
-    models.current_meeting.create({meetingId: meetingId, password: data.password, startTime: data.startTime, company: req.user.company, costPerSecond: data.costPerSecond}).catch(function (err){console.log(err)})
+    models.current_meeting.create({meetingId: meetingId, password: data.password, startTime: data.startTime, company: req.user.company, costPerSecond: data.costPerSecond, alive: 1}).catch(function (err){console.log(err)})
     res.send('OK')
 }
 
@@ -105,7 +105,7 @@ exports.meeting = function(req, res) {
 exports.giveMeetingData = function(req, res){
     let pwd = req.body.password
     let meetingId = req.params.meetingId
-    models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond', 'password']}).then(meeting =>{
+    models.current_meeting.findByPk(meetingId, {raw: true, attributes: ['meetingId', 'startTime', 'costPerSecond', 'password', 'alive']}).then(meeting =>{
         if (!meeting) {
             res.send('This meeting does not exist')
         }
@@ -116,15 +116,6 @@ exports.giveMeetingData = function(req, res){
             res.send(meeting)
         }
     }).catch(function (err){console.log(err)})
-}
-
-exports.isMeetingAlive = function(req, res) {
-    models.current_meeting.findByPk(req.params.meetingId, {raw:true}).then(meeting => {
-    if (meeting) {
-        res.send([true])
-    }
-    else res.send([false])
-    })
 }
 
 exports.createMeeting = function (req, res) {
