@@ -83,8 +83,9 @@ function onLoadMeetingUser() {
             seconds = ((new Date() - _startTime)/1000); 
             second = ((new Date() - _startTime)/1000);
             console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
-            start = true;
             timer(true);
+            if(text.alive == 0) start = false;
+            else start = true;
         })
     })
     //document.querySelector('#meeting').innerHTML = 'Собрание завершено';
@@ -193,7 +194,7 @@ window.onfocus = function(){//пользователь на вкладке са�
             delay = timeEnd.getTime()-timeStart.getTime();
         }
     }
-    else document.location.href = document.location.href;
+    // else document.location.href = document.location.href;
 } 
 function formatDate(date) {
     let dd = date.getDate();
@@ -345,7 +346,6 @@ function complet() {
     result.then(function(response) {
     response.json().then(function(text){
             getMeetingId = text[0];
-            getMeetingId += 1;
             seconds--;
             let sendMeetingData  = {
                 id: getMeetingId,
@@ -385,7 +385,7 @@ function generatePassword(len){
     }
     return password;
 }
-let time = '';
+let time = '00:00';
 let second = 0;
 let seconds = 0;
 let min = 0;
@@ -393,8 +393,10 @@ let s = '';
 let m = '';
 let start = false;
 
-function timer(meetingUser = false) {
+async function timer(meetingUser = false) {
     if(start){
+    	second++;
+    	seconds++;
     	if(second >= 10){
         	s = '';
    		}
@@ -403,8 +405,6 @@ function timer(meetingUser = false) {
         	m = '';
     	}
     	else m = '0';
-        second++;
-        seconds++;
         if(delay != null && delay > 0){
             if(min > 0){
                 second += ((delay/1000).toFixed(0)-second)-min*60;
@@ -422,12 +422,13 @@ function timer(meetingUser = false) {
             }
         }
 
-        document.querySelector('#timer').innerHTML = time;
         if(meetingUser){
-            value = costPerSecond*seconds;
+            value = costPerSecond*(seconds);
             document.getElementById('cost').innerHTML = value.toFixed(2);
         }
     }
+    fnTimer = await function(){return time;}
+    document.querySelector('#timer').innerHTML = fnTimer();
     setTimeout(timer, 1000, meetingUser);
 }
 
