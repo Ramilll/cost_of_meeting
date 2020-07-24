@@ -84,7 +84,10 @@ function onLoadMeetingUser() {
             second = ((new Date() - _startTime)/1000);
             console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
             timer(true);
-            if(text.alive == 0) start = false;
+            if(text.alive == 0){
+            	start = false;
+            	document.querySelector('#meeting').innerHTML = 'Собрание завершено';
+            }
             else start = true;
         })
     })
@@ -397,6 +400,10 @@ async function timer(meetingUser = false) {
     if(start){
     	second++;
     	seconds++;
+    	if(second >= 60){
+                min++;
+                second -= 60;
+        }
     	if(second >= 10){
         	s = '';
    		}
@@ -427,11 +434,12 @@ async function timer(meetingUser = false) {
             document.getElementById('cost').innerHTML = value.toFixed(2);
         }
     }
-    fnTimer = await function(){return time;}
-    document.querySelector('#timer').innerHTML = fnTimer();
+    await fnTime();
     setTimeout(timer, 1000, meetingUser);
 }
-
+function fnTime(){
+	document.querySelector('#timer').innerHTML = time;
+}
 function addCurrentUser(id,id1,classI) {
     let user;
     let cln;
@@ -504,13 +512,10 @@ let change = false;
 let pay  = 0;
 // money counter
 function cost(){
-    let elem = []
-    let wages = [];
-    let greed = 0;
     if(start){
         if(!change){
-            for (let d = 0; d < currentUserId.length; d++) {
-                pay += counter(usersData(currentUserId[d]), 1) 
+            for (let i = 0; i < currentUserId.length; i++) {
+                pay += counter(usersData(currentUserId[i]), 1) 
             }
             change = true;
             // value = pay;
@@ -538,8 +543,7 @@ function counter(elem, sec) {
             }
         }
     if(sec != null){
-    	if(seconds < 1) return (1.3*Wages/160/3600)
-    	else return (1.3*Wages/160/3600*seconds)
+    	return (1.3*Wages/160/3600)
     }
     else return (1.3*Wages/160/3600*(seconds+1))
 }
