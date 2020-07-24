@@ -80,6 +80,10 @@ module.exports = function(app, passport) {
 
         });
 
+    app.get('*', function(req, res){
+        res.redirect('/login')
+    })
+
     function isAuthenticated(req, res, next) {
         if (req.isAuthenticated())
             return next();
