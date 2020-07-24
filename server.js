@@ -52,7 +52,7 @@ var authRoute = require('./app/routes/auth.js')(app,passport);
 //load passport strategies
 require('./config/passport/passport.js')(passport, models.user);
 
-app.listen(process.env.PORT || 3000, function(err) {
+app.listen(process.env.PORT || 3002, function(err) {
 
     if (!err)
 

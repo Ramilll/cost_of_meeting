@@ -25,20 +25,21 @@ module.exports = function(app, passport) {
     })
 
     app.get('/getMeetingId', function(req, res){
-        let id = 100
-        console.log('id1=', id)
         models.meeting.findAll({raw:true}).then(meetings=>{
             if (meetings) {
-                let latestMeetingId = meetings[meetings.length - 1].id
-                if (latestMeetingId > id) id = latestMeetingId
+                res.send([meetings[meetings.length - 1].id])
             }
-        }).then(result=> {
-        models.current_meeting.findAll({raw: true}).then(meetings => {
+            else res.send([100])
+        })
+    })
+
+    app.get('/getCurrentMeetingId', function (req, res) {
+        models.current_meeting.findAll({raw:true}).then(meetings=>{
             if (meetings) {
-                let latestCurrentMeetingId = meetings[meetings.length - 1].meetingId
-                if (latestCurrentMeetingId > id) id = latestCurrentMeetingId
+                res.send([meetings[meetings.length - 1].meetingId])
             }
-        })}).then(result=>{res.send([id])})
+            else res.send([100])
+        })
     })
 
     app.get('/logout', function(req, res){
