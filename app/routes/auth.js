@@ -24,6 +24,10 @@ module.exports = function(app, passport) {
         }).catch(err=>console.log(err))
     })
 
+    app.get('getMeetingId_', function(req, res){
+
+    })
+
     app.get('/getMeetingId', function(req, res){
         models.meeting.findAll({raw:true}).then(meetings=>{
             if (meetings) {
@@ -47,9 +51,7 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
-    app.get('/test', function (req, res) {
-        res.render('meetingUser')
-    })
+    app.get('/isMeetingAlive/:meetingId', authController.isMeetingAlive)
 
     app.post('/getMeetingData/:meetingId', authController.giveMeetingData)
 

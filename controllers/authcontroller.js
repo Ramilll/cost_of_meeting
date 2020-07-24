@@ -100,7 +100,6 @@ exports.meeting = function(req, res) {
             res.render('meetingUser')
         }
     }).catch(function (err){console.log(err)})
-
 }
 
 exports.giveMeetingData = function(req, res){
@@ -117,6 +116,15 @@ exports.giveMeetingData = function(req, res){
             res.send(meeting)
         }
     }).catch(function (err){console.log(err)})
+}
+
+exports.isMeetingAlive = function(req, res) {
+    models.current_meeting.findByPk(req.params.meetingId, {raw:true}).then(meeting => {
+    if (meeting) {
+        res.send([true])
+    }
+    else res.send([false])
+    })
 }
 
 exports.createMeeting = function (req, res) {
