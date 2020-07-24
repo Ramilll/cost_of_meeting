@@ -24,10 +24,6 @@ module.exports = function(app, passport) {
         }).catch(err=>console.log(err))
     })
 
-    app.get('getMeetingId_', function(req, res){
-
-    })
-
     app.get('/getMeetingId', function (req, res) {
         models.current_meeting.findAll({raw:true}).then(meetings=>{
             if (meetings) {
