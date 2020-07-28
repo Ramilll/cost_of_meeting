@@ -37,7 +37,8 @@
   background-color: #1e90ff;
 }
   </style>
-  <script type="text/javascript">
+  <script language="javascript" src="./test.js"></script>
+  <script>
       var expanded = false;
 
 function showCheckboxes() {
@@ -50,14 +51,6 @@ function showCheckboxes() {
     expanded = false;
   }
 }
-let start = true;
-function test() {
-  if(start){
-    console.log('test');
-  }
-}
-test()
-start = false
   </script>
 </head>
 <body>
@@ -78,6 +71,7 @@ start = false
         <input type="checkbox" id="three" />Third checkbox</label>
         </div>
   </div>
+  <div id="clock0"></div>
 </form>
 </body>
 </html>

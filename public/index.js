@@ -549,9 +549,12 @@ async function cost(){
         	console.log(pay);
         	console.log(pay*(seconds+1));
         	console.log(seconds);
+        	value = pay*(seconds+1);
         }
-        value = pay*(seconds+1);//1.3*greed/160/3600*(seconds)
-        await fnCost()
+        else{
+        	value = pay*(seconds+1);//1.3*greed/160/3600*(seconds)
+        	await fnCost()
+        }
     }
     setTimeout(cost,1000);
 }
