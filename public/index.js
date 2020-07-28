@@ -731,8 +731,6 @@ function changeButtonValue(button) {
     		date2 = new Date(delta);
     		timeStart = new Date(date1 - date2);
     		console.log(timeStart);
-        })
-    })
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',
@@ -740,6 +738,8 @@ function changeButtonValue(button) {
              'Content-Type': 'application/json' 
         },
         body: JSON.stringify({startTime: timeStart, costPerSecond: costPerSecond, password: password})
+    })
+       	})
     })
 }
 
