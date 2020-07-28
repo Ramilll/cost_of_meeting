@@ -11,6 +11,7 @@ let derectorUsers;
 let _password = '';
 let currentMeetingId = 0;
 let delta;
+let dateNow;
 
 window.onload = function(){load()} 
 
@@ -73,7 +74,7 @@ function onLoadMeetingUser() {
     const res1 = fetch('./ntpsync');
     res1.then(function(response) {
         response.json().then(function(text){
-        	delta = text[0];
+        	dateNow = new Date(text);
     const res = fetch('./getMeetingData/'+id,{
         method: 'POST',
         mode: 'cors',
@@ -85,14 +86,13 @@ function onLoadMeetingUser() {
     res.then(function(response) {
         response.json().then(function(text){
         		costPerSecond = text[0].costPerSecond;
-        		const date1 = new Date(delta);
             	let _startTime = new Date(new Date(text[0].startTime));
 
-           	 	seconds = (new Date() - delta - (_startTime))/1000;
-            	second = (new Date() - delta - (_startTime))/1000; 
+           	 	seconds = (dateNow - _startTime)/1000;
+            	second = (dateNow - _startTime)/1000; 
 
             	console.log(_startTime);
-            	console.log((new Date() - delta - (_startTime))/1000);
+            	console.log((dateNow - _startTime)/1000);
             	if(text[0].alive == 0){
             		start = false;
             		document.querySelector('#meeting').innerHTML = 'Собрание завершено';
@@ -231,10 +231,14 @@ function sorting(numberHeadrs, buttonHeaders) {
 
 window.onfocus = function(){//пользователь на вкладке сайте
     if(document.querySelector('.wrapper-meetingUser') == null){
-        let timeEnd = new Date();
+    	const res = fetch('./ntpsync');
+    	res.then(function(response) {
+        response.json().then(function(text){
         if(timeStart != null){
-            delay = (timeEnd.getTime()-timeStart.getTime()) - delta;
+            delay = (new Date(text)-timeStart);
         }
+          })
+    	})
     }
     else document.location.href = document.location.href;
 } 
@@ -715,7 +719,6 @@ function changeButtonValue(button) {
     buttonComplete.hidden = false;
     button.hidden = true;
     delay = 0;
-    start = true;
     seconds = 1;
     let costPerSecond = 0;
 
@@ -726,10 +729,9 @@ function changeButtonValue(button) {
     const res = fetch('./ntpsync');
     res.then(function(response) {
         response.json().then(function(text){
-        	delta = text[0];
-        	date1 = new Date();
-    		date2 = new Date(delta);
-    		timeStart = new Date(date1 - date2);
+        	dateNow = new Date(text);
+        	console.log(text)
+    		timeStart = new Date(text);
     		console.log(timeStart);
 
     const result1  = fetch('./startMeeting/'+meetingId,{
@@ -742,6 +744,7 @@ function changeButtonValue(button) {
     })
        	})
     })
+    start = true;
 }
 
 function AddEventListeners() {
