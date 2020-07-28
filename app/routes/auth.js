@@ -1,8 +1,17 @@
 var authController = require('../../controllers/authcontroller.js');
 var models           = require('../../app/models');
 var path = require('path')
+var ntpsync = require('ntpsync');
 
 module.exports = function(app, passport) {
+
+    app.get('/ntpsync', function (req, res) {
+        ntpsync.ntpLocalClockDeltaPromise().then((iNTPData) => {
+            res.send([iNTPData.minimalNTPLatencyDelta]);
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
 
     app.get('/users/photo/:id', isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, '../../avatars', req.params.id + '.png'));
