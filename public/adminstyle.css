@@ -97,7 +97,7 @@ h2{
 }
 .enterButton input{
 	font-size: 120%;
-	min-width: 15%; 
+	min-width: 18%;
 	min-height: 42%;
 	border: none;
 	border-radius: 4px;
@@ -290,7 +290,7 @@ option{
 	display: flex;
 }
 .UserName text, .UserName input{
-	padding-top: 13px;
+	padding-top: 23px;
 }
 .refToMeeting{
 	min-width: 100%;
@@ -600,13 +600,13 @@ option{
 .filter input, .filter select{
 	height: 45px;
 	width: 140px;
-	background: white;
+/*	background: white;*/
 }
 .filter input[type="button"]{
 	width: 160px;
 }
 .dropping{
-	display: none;
+	/* display: none; */
 	border-color: var(--royalBlue);
 	background: white;
 	font-size: 100%;
@@ -628,8 +628,22 @@ option{
 	background: none;
 	color: var(--royalBlue);
 }
+.cross{
+	display: none;
+	position: absolute;
+	color: var(--monsoon);
+	left: 85%;
+	top: 45px;
+	font-size: 320%;
+}
+.cross:hover{
+	color: black;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 980px){
+	.cross{
+		display: block;
+	}
 	.text-completed{
 		font-size: 550%;
 	}
@@ -864,7 +878,7 @@ option{
 		margin-top: 100px;
 		min-width: 23%;
 		min-height: 90px;
-		font-size: 100%;
+		font-size: 160%;
 	}
 	.link input[type="url"]{
 		margin-top: 100px;

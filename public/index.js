@@ -1,4 +1,3 @@
-// const url = 'https://cost-of-meeting.herokuapp.com/'; //url place holder /user/all
 let res = [];
 let resWage = [];
 let wageAr = [];
@@ -10,13 +9,14 @@ let delay;
 let password;
 let derectorUsers;
 let _password = '';
+let currentMeetingId = 0;
 
 window.onload = function(){load()} 
 
 function load(){
     const userName = document.querySelector('#userName');
     const userImg = document.querySelector('#userImg');
-    if(userName != null && userImg != null){
+    if(userName != null && userImg != null && document.querySelector('.wrapper-meetingUser') == null){
         const result = fetch('./getUserData');
             result.then(function(response) {
                 response.json().then(function(text){
@@ -60,6 +60,7 @@ function onLoadMeetingUser() {
             id += ref[i];
         }
     }
+    currentMeetingId = id;
     for(let s = 0;s < ref.length;s++){
         if(ref[s] == '&'){
             s += 5;
@@ -68,7 +69,7 @@ function onLoadMeetingUser() {
             }
         }
     }
-    const res  = fetch('./getMeetingData/'+id,{
+    const res = fetch('./getMeetingData/'+id,{
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -78,20 +79,46 @@ function onLoadMeetingUser() {
     })
     res.then(function(response) {
         response.json().then(function(text){
-            costPerSecond = text.costPerSecond;
-            let _startTime = new Date(text.startTime)
-            seconds = ((new Date() - _startTime)/1000); 
-            second = ((new Date() - _startTime)/1000);
-            console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
-            timer(true);
-            if(text.alive == 0){
+        		costPerSecond = text[0].costPerSecond;
+            	let _startTime = new Date(text[0].startTime)
+           	 	seconds = ((new Date() - _startTime)/1000); 
+            	second = ((new Date() - _startTime)/1000);
+            	console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
+            	if(text[0].alive == 0){
+            		start = false;
+            		document.querySelector('#meeting').innerHTML = 'Собрание завершено';
+            	}
+            	else{
+            		start = true;
+            		timer(true);
+            	}
+        	})
+        })
+    setTimeout(reGet, 10000)
+    //document.querySelector('#meeting').innerHTML = 'Собрание завершено';
+}
+function reGet() {
+    const res = fetch('./getMeetingData/'+currentMeetingId,{
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({password: _password})
+    })
+    res.then(function(response) {
+        response.json().then(function(text){
+            if(text[0].alive == 0){
             	start = false;
             	document.querySelector('#meeting').innerHTML = 'Собрание завершено';
             }
-            else start = true;
+            else{
+            	setTimeout(reGet, 10000);
+            	start = true;
+            }
         })
     })
-    //document.querySelector('#meeting').innerHTML = 'Собрание завершено';
+    
 }
 function sorting(numberHeadrs, buttonHeaders) {
     let arr;
@@ -197,7 +224,7 @@ window.onfocus = function(){//пользователь на вкладке са�
             delay = timeEnd.getTime()-timeStart.getTime();
         }
     }
-    // else document.location.href = document.location.href;
+    else document.location.href = document.location.href;
 } 
 function formatDate(date) {
     let dd = date.getDate();
@@ -287,8 +314,7 @@ function postMeeting() {
     const users = document.querySelector('#currentUsers').childNodes;
     const nameMeeting = document.getElementById('nameMeeting').value;
 
-
-    if(users != [] && users != null && nameMeeting != "" && nameMeeting != null){
+    if(users.length != 2 && users != null && nameMeeting != "" && nameMeeting != null){
         timeStart = new Date();
         NameMeeting = nameMeeting;
         let ids = [];
@@ -317,16 +343,6 @@ function postMeeting() {
                 meetingId = Number(text[0])+1;
                 const inputRef = document.querySelector('#ref');
                 const refToMeeting = document.location.href;
-
-				// const result  = fetch('./getCurrentMeetingId');
-				// result.then(function(response) {
-    //     			response.json().then(function(text){
-    //     				meetingId2 = Number(text[0])+1;
-    //     			})
-    //     		})
-    //     		if(meetingId1  >= meetingId2) meetingId = meetingId1;
-    //     		else meetingId = meetingId2;
-        		console.log(meetingId);
                 if(inputRef != null){
                     inputRef.value = refToMeeting.split('createMeeting', 1)+"meeting?id="+(meetingId)+'&pwd='+password;
                 }
@@ -382,8 +398,8 @@ function complet() {
 }
 function generatePassword(len){
     let password = "";
-    var symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < len; i++){
+    const symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < len; i++){
         password += symbols.charAt(Math.floor(Math.random() * symbols.length));
     }
     return password;
@@ -392,8 +408,8 @@ let time = '00:00';
 let second = 0;
 let seconds = 0;
 let min = 0;
-let s = '';
-let m = '';
+let s = '0';
+let m = '0';
 let start = false;
 
 async function timer(meetingUser = false) {
@@ -401,8 +417,8 @@ async function timer(meetingUser = false) {
     	second++;
     	seconds++;
     	if(second >= 60){
-                min++;
-                second -= 60;
+            min++;
+            second -= 60;
         }
     	if(second >= 10){
         	s = '';
@@ -418,26 +434,34 @@ async function timer(meetingUser = false) {
             }
             else second = (delay/1000).toFixed(0)-min*60;
             seconds = (delay/1000).toFixed(0);
-            time = m+min+':'+s+second;
+            // time = m+min+':'+s+second;
             delay = null;
         }
-        else time = m+min+':'+s+second.toFixed(0);
+        // else time = m+min+':'+s+second.toFixed(0);
         for(let i = 0; i < seconds/60;i++){
             if(second >= 60){
                 min++;
                 second -= 60;
             }
         }
-
         if(meetingUser){
             value = costPerSecond*(seconds);
             document.getElementById('cost').innerHTML = value.toFixed(2);
         }
+        await fnTime();
     }
-    await fnTime();
     setTimeout(timer, 1000, meetingUser);
 }
-function fnTime(){
+async function fnTime(){
+	if(second >= 10){
+        	s = '';
+   		}
+    	else s = '0';
+    	if(min >= 10){
+        	m = '';
+    	}
+    	else m = '0';
+	time = m+min+':'+s+second.toFixed(0);
 	document.querySelector('#timer').innerHTML = time;
 }
 function addCurrentUser(id,id1,classI) {
@@ -511,7 +535,7 @@ let n = 0;
 let change = false;
 let pay  = 0;
 // money counter
-function cost(){
+async function cost(){
     if(start){
         if(!change){
             for (let i = 0; i < currentUserId.length; i++) {
@@ -520,10 +544,19 @@ function cost(){
             change = true;
             // value = pay;
         }
+        if(value+20 < Number(pay*(seconds+1))){
+        	console.log('что-то не то');
+        	console.log(pay);
+        	console.log(pay*(seconds+1));
+        	console.log(seconds);
+        }
         value = pay*(seconds+1);//1.3*greed/160/3600*(seconds)
-        document.getElementById('cost').innerHTML = value.toFixed(2);
+        await fnCost()
     }
     setTimeout(cost,1000);
+}
+async function fnCost() {
+	document.getElementById('cost').innerHTML = Number(value).toFixed(2);
 }
 function usersData(element) {
   for(let i = 0;i<res.length;i++){
@@ -635,7 +668,7 @@ function dropping(){
     document.querySelector('#input-left').value = 1;
     document.querySelector('#input-rigth').value = 500;
     document.querySelector('#input-left1').value = 10;
-    document.querySelector('#input-rigth1').value = 4000;
+    document.querySelector('#input-rigth1').value = 40000;
 }
 function toggleState(selectorButton, selectorPopup) {
     const button = document.querySelector('#' + selectorButton);
@@ -677,14 +710,14 @@ function changeButtonValue(button) {
         costPerSecond += counterWithOutSeconds(usersData(currentUserId[i]));
     }
     seconds = 0;
-    startTime = new Date();
+    timeStart = new Date();
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',
         headers: {
              'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({startTime: startTime, costPerSecond: costPerSecond, password: password})
+        body: JSON.stringify({startTime: timeStart, costPerSecond: costPerSecond, password: password})
     })
 }
 
@@ -725,14 +758,27 @@ function AddEventListeners() {
     if(buttonExit != null){
         buttonExit.addEventListener('click', (evt) => {document.location.href = './logout'} )
     }
-    const buttonEnter1 = document.querySelector('#enter-1');
-    if(buttonEnter1 != null){
-        buttonEnter1.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    if(document.querySelector('.wrapper-createMeeting') != null){
+        const buttonEnter1 = document.querySelector('#enter-1');
+    	if(buttonEnter1 != null){
+        	buttonEnter1.addEventListener('click', (evt) => {document.location.href = './admin'} )
+    	}
+    	const buttonEnter2 = document.querySelector('#enter-2');
+    	if(buttonEnter2 != null){
+        	buttonEnter2.addEventListener('click', (evt) => {document.location.href = './admin'} )
+    	}
     }
-    const buttonEnter2 = document.querySelector('#enter-2');
-    if(buttonEnter2 != null){
-        buttonEnter2.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    else{
+        const buttonEnter1 = document.querySelector('#enter-1');
+    	if(buttonEnter1 != null){
+        	buttonEnter1.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    	}
+    	const buttonEnter2 = document.querySelector('#enter-2');
+    	if(buttonEnter2 != null){
+        	buttonEnter2.addEventListener('click', (evt) => {document.location.href = './createMeeting'} )
+    	}
     }
+
     const buttonDirectorEnter1 = document.querySelector('.enterDirector');
     if(buttonDirectorEnter1 != null){
         buttonDirectorEnter1.addEventListener('click', (evt) => {document.location.href = './directorEnter'} )
@@ -740,6 +786,11 @@ function AddEventListeners() {
     const buttonDirectorEnter = document.querySelector('#hrefDirectorEnter');
     if(buttonDirectorEnter != null){
         buttonDirectorEnter.addEventListener('click', (evt) => {document.location.href = './directorEnter'} )
+    }
+    const buttonEnterMeeting = document.querySelector('#enterMeeting');
+    if(buttonEnterMeeting != null){
+    	const inputRefToEnter = document.querySelector('#refToEnter');
+        buttonEnterMeeting.addEventListener('click', (evt) => {document.location.href = inputRefToEnter.value} )
     }
     const buttonInputleft = document.querySelector('#input-left');
     if(buttonInputleft != null){
@@ -764,6 +815,10 @@ function AddEventListeners() {
     const buttonDropping = document.querySelector('.dropping');
     if(buttonDropping != null){
         buttonDropping.addEventListener('click', (evt) => {dropping()} )
+    }
+    const buttonCross = document.querySelector('.cross');
+    if(buttonCross != null){
+        buttonCross.addEventListener('click', (evt) => {filterHidden()} )
     }
 }
 setTimeout(AddEventListeners, 20);
