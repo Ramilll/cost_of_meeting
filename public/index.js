@@ -85,10 +85,14 @@ function onLoadMeetingUser() {
     res.then(function(response) {
         response.json().then(function(text){
         		costPerSecond = text[0].costPerSecond;
-            	let _startTime = new Date(text[0].startTime)
-           	 	seconds = (new Date() - delta - (_startTime - delta))/1000;
-            	second = (new Date() - delta - (_startTime - delta))/1000; 
+        		const date1 = new Date(delta);
+            	let _startTime = new Date(new Date(text[0].startTime) - date1);
 
+           	 	seconds = (new Date() - delta - (_startTime))/1000;
+            	second = (new Date() - delta - (_startTime))/1000; 
+
+            	console.log(_startTime);
+            	console.log((new Date() - delta - (_startTime))/1000);
             	if(text[0].alive == 0){
             		start = false;
             		document.querySelector('#meeting').innerHTML = 'Собрание завершено';
@@ -726,6 +730,7 @@ function changeButtonValue(button) {
         	date1 = new Date();
     		date2 = new Date(delta);
     		timeStart = new Date(date1 - date2);
+    		console.log(timeStart);
         })
     })
     const result1  = fetch('./startMeeting/'+meetingId,{
