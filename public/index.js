@@ -10,6 +10,7 @@ let password;
 let derectorUsers;
 let _password = '';
 let currentMeetingId = 0;
+let delta;
 
 window.onload = function(){load()} 
 
@@ -69,6 +70,10 @@ function onLoadMeetingUser() {
             }
         }
     }
+    const res1 = fetch('./ntpsync');
+    res1.then(function(response) {
+        response.json().then(function(text){
+        	delta = text[0];
     const res = fetch('./getMeetingData/'+id,{
         method: 'POST',
         mode: 'cors',
@@ -81,9 +86,9 @@ function onLoadMeetingUser() {
         response.json().then(function(text){
         		costPerSecond = text[0].costPerSecond;
             	let _startTime = new Date(text[0].startTime)
-           	 	seconds = ((new Date() - _startTime)/1000); 
-            	second = ((new Date() - _startTime)/1000);
-            	console.log(((new Date() - _startTime)/1000)+', now:'+new Date()+"start:"+_startTime);
+           	 	seconds = (new Date() - delta - (_startTime - delta))/1000;
+            	second = (new Date() - delta - (_startTime - delta))/1000; 
+
             	if(text[0].alive == 0){
             		start = false;
             		document.querySelector('#meeting').innerHTML = 'Собрание завершено';
@@ -94,6 +99,9 @@ function onLoadMeetingUser() {
             	}
         	})
         })
+    	})
+    })
+
     setTimeout(reGet, 10000)
     //document.querySelector('#meeting').innerHTML = 'Собрание завершено';
 }
@@ -221,7 +229,7 @@ window.onfocus = function(){//пользователь на вкладке са�
     if(document.querySelector('.wrapper-meetingUser') == null){
         let timeEnd = new Date();
         if(timeStart != null){
-            delay = timeEnd.getTime()-timeStart.getTime();
+            delay = (timeEnd.getTime()-timeStart.getTime()) - delta;
         }
     }
     else document.location.href = document.location.href;
@@ -359,7 +367,9 @@ function complet() {
 
     let getMeetingId = 0;
     start = false;
-    const now = new Date();
+    const date1 =  new Date();
+    const date2 = new Date(delta);
+    const now = new Date(date1 - date2);
     const result  = fetch('./getMeetingId');
 
     result.then(function(response) {
@@ -370,7 +380,7 @@ function complet() {
                 id: getMeetingId,
                 time: seconds+1,
                 name: NameMeeting,
-                startTime: startTime,
+                startTime: timeStart,
                 endTime: now,
                 cost: document.getElementById('cost').innerHTML,
                 users:[]
@@ -378,7 +388,7 @@ function complet() {
             for(let i = 0; i < currentUserId.length; i++) {
                 sendMeetingData.users[i] = ({
                         userId: currentUserId[i],
-                        startTime: startTime,
+                        startTime: timeStart,
                         endTime: now,
                         time: seconds+1,
                         costTime: counter(usersData(currentUserId[i])) 
@@ -545,10 +555,6 @@ async function cost(){
             // value = pay;
         }
         if(value+20 < Number(pay*(seconds+1))){
-        	console.log('что-то не то');
-        	console.log(pay);
-        	console.log(pay*(seconds+1));
-        	console.log(seconds);
         	value = pay*(seconds+1);
         }
         else{
@@ -713,7 +719,15 @@ function changeButtonValue(button) {
         costPerSecond += counterWithOutSeconds(usersData(currentUserId[i]));
     }
     seconds = 0;
-    timeStart = new Date();
+    const res = fetch('./ntpsync');
+    res.then(function(response) {
+        response.json().then(function(text){
+        	delta = text[0];
+        	date1 = new Date();
+    		date2 = new Date(delta);
+    		timeStart = new Date(date1 - date2);
+        })
+    })
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',

@@ -16,10 +16,7 @@
     "mongodb": "^3.5.9",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
-<<<<<<< HEAD
-=======
     "ntp-client": "^0.5.3",
->>>>>>> 1284b331f2d30455dbb1673af5397fdab67fff07
     "ntpsync": "^0.2.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
