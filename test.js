@@ -1,9 +1,11 @@
-const ntpsync = require('ntpsync');
+var ntpClient = require('ntp-client');
 
-ntpsync.ntpLocalClockDeltaPromise().then((iNTPData) => {
-    console.log(`(Local Time - NTP Time) Delta = ${iNTPData.minimalNTPLatencyDelta} ms`);
-    console.log(`Minimal Ping Latency was ${iNTPData.minimalNTPLatency} ms`);
-    console.log(`Total ${iNTPData.totalSampleCount} successful NTP Pings`);
-}).catch((err) => {
-    console.log(err);
+ntpClient.getNetworkTime("pool.ntp.org", 123, function(err, date) {
+    if(err) {
+        console.error(err);
+        return;
+    }
+
+    console.log("Current time : ");
+    console.log(date); // Mon Jul 08 2013 21:31:31 GMT+0200 (Paris, Madrid (heure d’été))
 });

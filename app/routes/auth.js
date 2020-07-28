@@ -1,16 +1,18 @@
 var authController = require('../../controllers/authcontroller.js');
 var models           = require('../../app/models');
 var path = require('path')
-var ntpsync = require('ntpsync');
+var ntpClient = require('ntp-client');
 
 module.exports = function(app, passport) {
 
     app.get('/ntpsync', function (req, res) {
-        ntpsync.ntpLocalClockDeltaPromise().then((iNTPData) => {
-            res.send([iNTPData.minimalNTPLatencyDelta]);
-        }).catch((err) => {
-            console.log(err);
-        });
+        ntpClient.getNetworkTime("pool.ntp.org", 123, function(err, date) {
+            if(err) {
+                console.error(err);
+                return;
+            }
+            res.send(date); // Mon Jul 08 2013 21:31:31 GMT+0200 (Paris, Madrid (heure d’été))
+        })
     })
 
     app.get('/users/photo/:id', isAuthenticated, function (req, res) {
