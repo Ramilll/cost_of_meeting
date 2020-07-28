@@ -86,7 +86,7 @@ function onLoadMeetingUser() {
         response.json().then(function(text){
         		costPerSecond = text[0].costPerSecond;
         		const date1 = new Date(delta);
-            	let _startTime = new Date(new Date(text[0].startTime) - date1);
+            	let _startTime = new Date(new Date(text[0].startTime));
 
            	 	seconds = (new Date() - delta - (_startTime))/1000;
             	second = (new Date() - delta - (_startTime))/1000; 
@@ -731,6 +731,7 @@ function changeButtonValue(button) {
     		date2 = new Date(delta);
     		timeStart = new Date(date1 - date2);
     		console.log(timeStart);
+
     const result1  = fetch('./startMeeting/'+meetingId,{
         method: 'POST',
         mode: 'cors',
